@@ -8,7 +8,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "dotenv-save": "^1.2.0",
+    "dotenv-safe": "^4.0.4",
     "pokedex-promise-v2": "^3.0.3",
     "telegraf": "^3.10.1"
   }
