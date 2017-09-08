@@ -1,6 +1,6 @@
 {
   "name": "pokegraf",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Pokemon Database Bot for Telegram",
   "main": "index.js",
   "repository": "git@github.com:elementh/pokegraf.git",
