@@ -24,18 +24,6 @@ pokegraf.command('start', ({ from, reply }) => {
 pokegraf.command('about', ({ from, reply }) => {
   return reply('ABOUT')
 })
-pokegraf.command('pikachu', ({ from, reply }) => {
-  console.log('NEW REQUEST' + Date.now())
-  P.getPokemonByName(25) // with Promise
-    .then(function (response) {
-      // console.log(response)
-      reply(response.name)
-    })
-    .catch(function (error) {
-      console.log('There was an ERROR: ' + rand)
-      reply('There was an ERROR, SORRY TRAINER')
-    })
-})
 
 pokegraf.command('random', (ctx) => {
   let rand = randomIntFromInterval(1, 802)
