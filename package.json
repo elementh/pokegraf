@@ -7,9 +7,15 @@
   "author": "Lucas Maximiliano Marino <lucasmmarino@icloud.com>",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "develop": "nodemon ./index.js"
+  },
   "dependencies": {
     "dotenv-safe": "^4.0.4",
     "pokedex-promise-v2": "^3.0.3",
     "telegraf": "^3.10.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.0"
   }
 }
