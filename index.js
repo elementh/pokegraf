@@ -19,6 +19,7 @@ pokegraf.command('start', ({ from, reply }) => {
   return reply(
   `Hello there Pokémon Trainer! Welcome to *pokegraf*.\n\nHere is some basic usage:\n
     /random
+    /fusion
     /about`)
 })
 pokegraf.command('about', ({ from, reply }) => {
@@ -47,7 +48,7 @@ pokegraf.command('fusion', (ctx) => {
     secondPokemon = randomIntFromInterval(1, 151)
   }
 
-  ctx.replyWithPhoto(`http://images.alexonsager.net/pokemon/fused/${firstPokemon}/${firstPokemon}.${secondPokemon}.png`, {caption: 'POKEMON'})
+  ctx.replyWithPhoto(`http://images.alexonsager.net/pokemon/fused/${firstPokemon}/${firstPokemon}.${secondPokemon}.png`)
 })
 // pokegraf.command('start', ({ from, reply }) => {
 //   console.log('start', from)
