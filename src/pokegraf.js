@@ -3,8 +3,8 @@
 const { start, about, random, fusion } = require('./commands')
 const routing = require('./routing')
 
-// const Pokedex = require('pokedex-promise-v2')
-// const P = new Pokedex()
+const Pokedex = require('pokedex-promise-v2')
+const P = new Pokedex()
 
 const Telegraf = require('telegraf')
 const { Extra, Markup } = require('telegraf')
@@ -37,6 +37,15 @@ pokegraf.on('message', (ctx) => routing(ctx, markup))
 
 module.exports = pokegraf
 
-// P.getPokemonsList().then(function (response) {
-//   console.log('ALL DATA CACHED')
-// })
+pokegraf.catchThemAll = function () {
+  console.log('Fetching pokémon data...')
+  for (var i = 0; i < 20; i++) {
+    P.getPokemonByName(i + 1) // with Promise
+      .then(function (response) {
+        console.log(`Catched pokémon with pokedex entry: ${i + 1}`)
+      })
+      .catch(function (error) {
+        console.error(`There was an error while catching this pokémon: ${i + 1}`)
+      })
+  }
+}
