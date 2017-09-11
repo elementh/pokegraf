@@ -1,5 +1,7 @@
 'use strict'
 
+const { randomIntFromInterval } = require('../helpers')
+
 module.exports = function fusion (ctx, markup) {
   let firstPokemon = randomIntFromInterval(1, 151)
   let secondPokemon = randomIntFromInterval(1, 151)

@@ -1,6 +1,8 @@
 'use strict'
 
-module.exports = function random (ctx, markup) {
+const { randomIntFromInterval } = require('../helpers')
+
+module.exports = function random (ctx, markup, P) {
   let rand = randomIntFromInterval(1, 802)
   console.log(`New random request with number: ${rand}, from user: ${ctx.from.username}`)
   P.getPokemonByName(rand) // with Promise
@@ -12,9 +14,5 @@ module.exports = function random (ctx, markup) {
       console.log('There was an ERROR: ', error)
       return ctx.reply('There was an ERROR, sorry Trainer')
     })
-}
-
-function randomIntFromInterval (min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min)
 }
 

@@ -27,7 +27,7 @@ pokegraf.command('start', (ctx) => start(ctx, markup))
 pokegraf.command('about', (ctx) => about(ctx, markup))
 
 // Random
-pokegraf.command('random', (ctx) => random(ctx, markup))
+pokegraf.command('random', (ctx) => random(ctx, markup, P))
 
 // Fusion
 pokegraf.command('fusion', (ctx) => fusion(ctx, markup))
