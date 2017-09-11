@@ -1,6 +1,6 @@
 {
   "name": "pokegraf",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Pokemon Database Bot for Telegram",
   "main": "index.js",
   "repository": "git@github.com:elementh/pokegraf.git",
@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "dotenv-safe": "^4.0.4",
+    "nodejs-mysql": "^0.1.3",
     "pokedex-promise-v2": "^3.0.3",
     "pokemon": "^1.2.0",
     "telegraf": "^3.10.1"
