@@ -13,3 +13,8 @@ module.exports = function random (ctx) {
       return ctx.reply('There was an ERROR, sorry Trainer')
     })
 }
+
+function randomIntFromInterval (min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
