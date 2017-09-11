@@ -1,9 +1,10 @@
 'use strict'
 
 const { start, about, random, fusion } = require('./commands')
+const routing = require('./routing')
 
-const Pokedex = require('pokedex-promise-v2')
-const P = new Pokedex()
+// const Pokedex = require('pokedex-promise-v2')
+// const P = new Pokedex()
 
 const Telegraf = require('telegraf')
 const { Extra, Markup } = require('telegraf')
@@ -27,14 +28,15 @@ pokegraf.command('start', (ctx) => start(ctx, markup))
 pokegraf.command('about', (ctx) => about(ctx, markup))
 
 // Random
-pokegraf.command('random', (ctx) => random(ctx, markup, P))
+pokegraf.command('random', (ctx) => random(ctx, markup))
 
 // Fusion
 pokegraf.command('fusion', (ctx) => fusion(ctx, markup))
+
+pokegraf.on('message', (ctx) => routing(ctx, markup))
 
 module.exports = pokegraf
 
 // P.getPokemonsList().then(function (response) {
 //   console.log('ALL DATA CACHED')
 // })
-
