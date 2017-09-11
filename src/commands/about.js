@@ -1,7 +1,11 @@
 'use strict'
 
 module.exports = function about (ctx, markup) {
-  return ctx.reply(aboutText)
+  return ctx.reply(aboutText, markup)
 }
 
-const aboutText = `Little bot made by Lucas. Pokémon and all of that is not mine. Fusion PKMns are not mine either.`
+const aboutText = `[Pokegraf](https://github.com/elementh/pokegraf) is a bot made with ❤️ by [Lucas Maximiliano Marino](http://lucasmarino.me/).  
+
+It uses the [PokeAPI](https://github.com/PokeAPI/pokeapi) and [Telegraf](https://github.com/telegraf/telegraf/).  
+
+Pokémon and their names are property of Nintendo, Creatures and Game Freak.`
