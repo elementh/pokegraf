@@ -1,6 +1,6 @@
 # pokegraf
 
-Pokegraf is a bot made with ❤️ by [Lucas Maximiliano Marino](http://lucasmarino.me/).  
+Pokegraf is a telegram bot made with ❤️ by [Lucas Maximiliano Marino](http://lucasmarino.me/).  
 
 It uses the [PokeAPI](https://github.com/PokeAPI/pokeapi) and [Telegraf](https://github.com/telegraf/telegraf/).  
 
