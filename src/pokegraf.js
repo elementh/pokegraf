@@ -39,13 +39,15 @@ module.exports = pokegraf
 
 pokegraf.catchThemAll = function () {
   console.log('Fetching pokémon data...')
-  for (var i = 0; i < 20; i++) {
+  // TODO: DOWNLOAD with get all and then go one by one with promises. somehow
+  for (var i = 1; i < 20; i++) {
+    let j = i
     P.getPokemonByName(i + 1) // with Promise
       .then(function (response) {
-        console.log(`Catched pokémon with pokedex entry: ${i + 1}`)
+        console.log(`Catched pokémon with pokedex entry: ${j}`)
       })
-      .catch(function (error) {
-        console.error(`There was an error while catching this pokémon: ${i + 1}`)
+      .catch(function (err) {
+        console.error(`There was an error while catching this pokémon: ${j}`)
       })
   }
 }

@@ -15,15 +15,46 @@ module.exports = db
 db.checkTables = function () {
   db.exec('SHOW TABLES')
   .then(rows => {
-    if (rows.Tables_in_pokegraf === 'stats') {
-      console.log('found stats')
+    if (rows[0].Tables_in_pokegraf === 'stats_commands' &&
+        rows[1].Tables_in_pokegraf === 'stats_fusion' &&
+        rows[2].Tables_in_pokegraf === 'stats_pokemon' &&
+        rows[3].Tables_in_pokegraf === 'stats_users') {
+      console.log('Found existing database.')
+    } else {
+      console.log('Database not found. Creating one...')
+      db.generateTables()
     }
-    console.log(rows)
-    // if (rows) {
-    //   console.log('Found existing database.')
-    // } else {
-    //   generateTables()
-    // }
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
+
+db.generateTables = function () {
+  db.exec('CREATE OR REPLACE TABLE `stats_commands` (`name` varchar(45) NOT NULL, `times_used` int(11) DEFAULT NULL, PRIMARY KEY (`name`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;')
+  .then(rows => {
+    console.log('...stats_commands created...')
+  })
+  .catch(err => {
+    console.log(err)
+  })
+  db.exec('CREATE OR REPLACE TABLE `stats_fusion` (`id_first` int(11) NOT NULL, `id_second` int(11) NOT NULL, `count` varchar(45) DEFAULT NULL, PRIMARY KEY (`id_first`,`id_second`)) ENGINE=InnoDB DEFAULT CHARSET=utf8')
+  .then(rows => {
+    console.log('...stats_fusion created...')
+  })
+  .catch(err => {
+    console.log(err)
+  })
+  db.exec('CREATE OR REPLACE TABLE `stats_pokemon` (`id` int(11) NOT NULL, `count` int(11) DEFAULT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;')
+  .then(rows => {
+    console.log('...stats_pokemon created...')
+  })
+  .catch(err => {
+    console.log(err)
+  })
+  db.exec('CREATE OR REPLACE TABLE `stats_users` (`id` int(11) NOT NULL, `users` varchar(45) DEFAULT NULL, `groups` varchar(45) DEFAULT NULL,PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;')
+  .then(rows => {
+    console.log('...stats_users created...')
   })
   .catch(err => {
     console.log(err)
