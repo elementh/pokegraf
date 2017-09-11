@@ -11,4 +11,5 @@ Basic usage:
   /random
   /fusion
   /about
+  /help
 `
