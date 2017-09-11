@@ -1,6 +1,6 @@
 'use strict'
 
-module.exports = function random (ctx) {
+module.exports = function random (ctx, markup) {
   let rand = randomIntFromInterval(1, 802)
   console.log(`New random request with number: ${rand}, from user: ${ctx.from.username}`)
   P.getPokemonByName(rand) // with Promise

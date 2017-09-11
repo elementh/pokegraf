@@ -1,6 +1,6 @@
 'use strict'
 
-module.exports = function about (ctx) {
+module.exports = function about (ctx, markup) {
   return ctx.reply(aboutText)
 }
 

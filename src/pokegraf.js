@@ -7,22 +7,34 @@ const P = new Pokedex()
 
 const Telegraf = require('telegraf')
 const { Extra, Markup } = require('telegraf')
+
 const pokegraf = new Telegraf(process.env.BOT_TOKEN)
+const markup = Extra.markdown()
+
+pokegraf.telegram.getMe().then((botInfo) => {
+  pokegraf.options.username = botInfo.username
+})
+
+pokegraf.catch(err => {
+  console.log('Oops')
+})
+
+// COMMANDS
+// Start
+pokegraf.command('start', (ctx) => start(ctx, markup))
+
+// About
+pokegraf.command('about', (ctx) => about(ctx, markup))
+
+// Random
+pokegraf.command('random', (ctx) => random(ctx, markup))
+
+// Fusion
+pokegraf.command('fusion', (ctx) => fusion(ctx, markup))
+
+module.exports = pokegraf
 
 // P.getPokemonsList().then(function (response) {
 //   console.log('ALL DATA CACHED')
 // })
 
-// Start
-pokegraf.command('start', (ctx) => start(ctx))
-
-// About
-pokegraf.command('about', (ctx) => about(ctx))
-
-// Random
-pokegraf.command('random', (ctx) => random(ctx))
-
-// Fusion
-pokegraf.command('fusion', (ctx) => fusion(ctx))
-
-module.exports = pokegraf

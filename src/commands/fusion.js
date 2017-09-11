@@ -1,6 +1,6 @@
 'use strict'
 
-module.exports = function fusion (ctx) {
+module.exports = function fusion (ctx, markup) {
   let firstPokemon = randomIntFromInterval(1, 151)
   let secondPokemon = randomIntFromInterval(1, 151)
 
