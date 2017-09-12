@@ -17,7 +17,7 @@ pokegraf.telegram.getMe().then((botInfo) => {
 })
 
 pokegraf.catch(err => {
-  console.log('Oops')
+  console.log('Oops', err)
 })
 
 // COMMANDS
@@ -33,7 +33,11 @@ pokegraf.command('random', (ctx) => random(ctx, markup))
 // Fusion
 pokegraf.command('fusion', (ctx) => fusion(ctx, markup))
 
-pokegraf.on('message', (ctx) => routing(ctx, markup))
+pokegraf.on('message', (ctx) => routing(ctx, markup, P))
+
+pokegraf.action('stats', (ctx) => {
+  ctx.reply('ASDAS')
+})
 
 module.exports = pokegraf
 
@@ -50,4 +54,21 @@ pokegraf.catchThemAll = function () {
         console.error(`There was an error while catching this pokémon: ${j}`)
       })
   }
+}
+
+pokegraf.pikachu = function () {
+  P.getPokemonByName('pikachu')
+  .then(function (response) {
+    console.log(`Catched pokémon with pokedex entry: ${25}`)
+  })
+  .catch(function (err) {
+    console.error(`There was an error while catching this pokémon: ${25}`)
+  })
+  P.getPokemonSpeciesByName('pikachu')
+  .then(function (response) {
+    console.log(`Catched species with pokedex entry: ${25}`)
+  })
+  .catch(function (err) {
+    console.error(`There was an error while catching this species: ${25}`)
+  })
 }

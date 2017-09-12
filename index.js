@@ -6,7 +6,8 @@ const pokegraf = require('./src/pokegraf')
 
 db.checkTables()
 
-pokegraf.catchThemAll()
+// pokegraf.catchThemAll()
 
 pokegraf.startPolling()
 
+pokegraf.pikachu()
