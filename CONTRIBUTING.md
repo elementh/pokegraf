@@ -1,6 +1,6 @@
 # Contribute
 
-All contributions are welcome: bug fixes, data contributions, recommendations.
+All contributions are welcome: bug fixes, better code, recommendations.
 
 Please see the [issues on GitHub](https://github.com/elementh/pokegraf/issues) before you submit a pull request or raise an issue, someone else might have beat you to it.
 
