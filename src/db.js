@@ -15,7 +15,8 @@ module.exports = db
 db.checkTables = function () {
   db.exec('SHOW TABLES')
   .then(rows => {
-    if (rows[0].Tables_in_pokegraf === 'stats_commands' &&
+    if (rows[3] &&
+        rows[0].Tables_in_pokegraf === 'stats_commands' &&
         rows[1].Tables_in_pokegraf === 'stats_fusion' &&
         rows[2].Tables_in_pokegraf === 'stats_pokemon' &&
         rows[3].Tables_in_pokegraf === 'stats_users') {
@@ -52,9 +53,65 @@ db.generateTables = function () {
   .catch(err => {
     console.log(err)
   })
-  db.exec('CREATE OR REPLACE TABLE `stats_users` (`id` int(11) NOT NULL, `users` varchar(45) DEFAULT NULL, `groups` varchar(45) DEFAULT NULL,PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;')
+  db.exec('CREATE TABLE `stats_users` (`id` varchar(10) NOT NULL, `number` int(11) DEFAULT \'0\', PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;')
+  .then(() => {
+    return db.exec('INSERT INTO `pokegraf`.`stats_users` (`id`,`number`) VALUES(\'groups\',0);')
+  })
+  .then(() => {
+    return db.exec('INSERT INTO `pokegraf`.`stats_users` (`id`,`number`) VALUES(\'users\',0);')
+  })
   .then(rows => {
     console.log('...stats_users created...')
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
+
+db.addUser = function () {
+  db.exec()
+  .then(rows => {
+
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
+
+db.addGroup = function () {
+  db.exec()
+  .then(rows => {
+
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
+
+db.addPokemon = function (id) {
+  db.exec()
+  .then(rows => {
+
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
+
+db.addFusion = function (fId, sId) {
+  db.exec()
+  .then(rows => {
+
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
+
+db.addCommand = function (command) {
+  db.exec()
+  .then(rows => {
+
   })
   .catch(err => {
     console.log(err)
