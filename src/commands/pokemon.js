@@ -1,6 +1,6 @@
 'use strict'
 
-const { capitalize, pokemon, pokemonList } = require('../helpers')
+const { capitalize, pokemonList } = require('../helpers')
 const { Extra, Markup } = require('telegraf')
 
 module.exports = function pokemon (ctx, markup, P) {
@@ -22,16 +22,17 @@ function pokemonById (ctx, markup, P) {
 
   P.getPokemonByName(pokemonRequested)
   .then(response => {
-    ctx.telegram.sendPhoto(ctx.update.message.chat.id, response.sprites.front_default, {caption: `${pokemon.getName(pokemonRequested)}`})
+    return ctx.telegram.sendPhoto(ctx.update.message.chat.id, `https://veekun.com/dex/media/pokemon/global-link/${response.id}.png`, {caption: `${capitalize(response.species.name)}`})
+  }).then(() => {
     return P.getPokemonSpeciesByName(pokemonRequested)
   }).then(response => {
     let description = response.flavor_text_entries[1].flavor_text
     const replyOptions = Markup.inlineKeyboard([
-      // Markup.callbackButton('Stats', (ctx) => { ctx.reply('ass') })
-      // Markup.callbackButton('Delele', 'delete')
+      Markup.urlButton('Stats', 'http://telegraf.js.org')
+       // Markup.callbackButton('Delele', 'delete')
     ]).extra()
 
-    ctx.reply(`${description.replace(/(\r\n|\n|\r)/gm, ' ')}`)
+    return ctx.telegram.sendMessage(ctx.update.message.chat.id, `${description.replace(/(\r\n|\n|\r)/gm, ' ')}`, replyOptions)
   })
   // .then(() => {
   //   ctx.reply()
