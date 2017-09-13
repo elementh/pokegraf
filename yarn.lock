@@ -1540,7 +1540,19 @@ tar@^2.2.1:
     fstream "^1.0.2"
     inherits "2"
 
-telegraf@^3.10.1:
+telegraf-command-parts@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/telegraf-command-parts/-/telegraf-command-parts-1.0.3.tgz#d0e078d10ce3f68469b529e5ea3a76e42d5788b3"
+  dependencies:
+    telegraf "^3.1.0"
+
+telegraf-flow@^8.2.2:
+  version "8.2.2"
+  resolved "https://registry.yarnpkg.com/telegraf-flow/-/telegraf-flow-8.2.2.tgz#e5bca7e20e85792b2a42c1c48da480f3c406594e"
+  dependencies:
+    debug "^3.0.0"
+
+telegraf@^3.1.0, telegraf@^3.10.1:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/telegraf/-/telegraf-3.10.1.tgz#58ba2e70beaf1ccb98cab75fcbab53591e9b2b86"
   dependencies:

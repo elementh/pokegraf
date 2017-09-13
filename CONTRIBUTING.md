@@ -24,11 +24,6 @@ git checkout -b my_new_branch
 
 - We'll accept your changes after review.
 
-Simple!
-
 ## Questions
 
 If you have any questions, create an [issue](issue) (protip: do a quick search first to see if someone else didn't ask the same question before!).
-You can also reach us at hello@pokeapi.opencollective.com.
-
-## Credits

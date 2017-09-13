@@ -1,26 +1,35 @@
 'use strict'
 
-const { start, about, random, fusion } = require('./commands')
+const { start, about, random, fusion, help, pokemon } = require('./commands')
 const routing = require('./routing')
 
 const Pokedex = require('pokedex-promise-v2')
 const P = new Pokedex()
 
 const Telegraf = require('telegraf')
+// const TelegrafFlow = require('telegraf-flow')
+const commandParts = require('telegraf-command-parts')
 const { Extra, Markup } = require('telegraf')
+const { Scene } = require('telegraf-flow')
 
 const pokegraf = new Telegraf(process.env.BOT_TOKEN)
+// const flow = new TelegrafFlow()
 const markup = Extra.markdown()
 
 pokegraf.telegram.getMe().then((botInfo) => {
   pokegraf.options.username = botInfo.username
 })
 
+pokegraf.use(commandParts())
+// pokegraf.use(Telegraf.memorySession())
+// pokegraf.use(flow.middleware())
+
 pokegraf.catch(err => {
   console.log('Oops', err)
 })
 
 // COMMANDS
+
 // Start
 pokegraf.command('start', (ctx) => start(ctx, markup))
 
@@ -33,7 +42,11 @@ pokegraf.command('random', (ctx) => random(ctx, markup))
 // Fusion
 pokegraf.command('fusion', (ctx) => fusion(ctx, markup))
 
-pokegraf.on('message', (ctx) => routing(ctx, markup, P))
+pokegraf.command('pokemon', (ctx) => pokemon(ctx, markup, P))
+
+pokegraf.command('pkm', (ctx) => pokemon(ctx, markup, P))
+
+// pokegraf.on('message', (ctx) => routing(ctx, markup, P))
 
 pokegraf.action('stats', (ctx) => {
   ctx.reply('ASDAS')
@@ -56,6 +69,7 @@ pokegraf.catchThemAll = function () {
   }
 }
 
+// for testing
 pokegraf.pikachu = function () {
   P.getPokemonByName('pikachu')
   .then(function (response) {
