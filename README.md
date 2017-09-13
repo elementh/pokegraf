@@ -4,6 +4,16 @@ Pokegraf is a telegram bot made with ❤️ by [Lucas Maximiliano Marino](http:/
 
 It uses the [PokeAPI](https://github.com/PokeAPI/pokeapi) and [Telegraf](https://github.com/telegraf/telegraf/).  
 
+# Roadmap
+
+- Inline behaviour
+- Rework on routing
+- Stats
+
+
+
+# Disclaimer
+
 Pokémon and their names are property of Nintendo, Creatures and Game Freak.
 
 # License
