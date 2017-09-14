@@ -1,7 +1,6 @@
 'use strict'
 
 const { start, about, random, fusion, help, pokemon } = require('./commands')
-const routing = require('./routing')
 
 const Telegraf = require('telegraf')
 // const TelegrafFlow = require('telegraf-flow')
