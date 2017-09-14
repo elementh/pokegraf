@@ -6,20 +6,30 @@ const { Extra, Markup } = require('telegraf')
 module.exports = function pokemon (ctx, markup, P) {
   console.log('new pokemon request from: ', ctx.from.username) // this will dissapear in final version, it's for testing
   let pokemonRequested = ctx.state.command.splitArgs[0]
-  console.log(pokemonRequested)
 
   if (pokemonRequested > 0 && pokemonRequested < 722) {
-    pokemonById(ctx, markup, P)
+    replyPokemonById(ctx, markup, P)
   }
 
-  if (pokemonList.indexOf(capitalize(pokemonRequested)) != -1) {
-    pokemonByName(ctx, markup, P)
+  if (pokemonList.includes(capitalize(pokemonRequested))) {
+    replyPokemonByName(ctx, markup, P)
   }
 }
 
-function pokemonById (ctx, markup, P) {
+function replyPokemonById (ctx, markup, P) {
   let pokemonRequested = ctx.state.command.splitArgs[0]
 
+  return pokemonById(pokemonRequested, ctx, markup, P)
+}
+
+function replyPokemonByName (ctx, markup, P) {
+  let pokemonRequested = ctx.state.command.splitArgs[0]
+  pokemonRequested = pokemonList.indexOf(capitalize(pokemonRequested)) + 1
+
+  return pokemonById(pokemonRequested, ctx, markup, P)
+}
+
+function pokemonById (pokemonRequested, ctx, markup, P) {
   P.getPokemonByName(pokemonRequested)
   .then(response => {
     return ctx.telegram.sendPhoto(ctx.update.message.chat.id, `https://veekun.com/dex/media/pokemon/global-link/${response.id}.png`, {caption: `${capitalize(response.species.name)}`})
@@ -28,22 +38,12 @@ function pokemonById (ctx, markup, P) {
   }).then(response => {
     let description = response.flavor_text_entries[1].flavor_text
     const replyOptions = Markup.inlineKeyboard([
-      Markup.urlButton('Stats', 'http://telegraf.js.org')
+      Markup.urlButton('Stats', 'http://telegraf.js.org') // TODO
        // Markup.callbackButton('Delele', 'delete')
     ]).extra()
-
-    return ctx.telegram.sendMessage(ctx.update.message.chat.id, `${description.replace(/(\r\n|\n|\r)/gm, ' ')}`, replyOptions)
+    ctx.telegram.sendMessage(ctx.update.message.chat.id, `${description.replace(/(\r\n|\n|\r)/gm, ' ')}`, replyOptions)
   })
-  // .then(() => {
-  //   ctx.reply()
-  // })
   .catch(function (err) {
     console.error(err)
   })
-}
-
-function pokemonByName (ctx, markup, P) {
-  let pokemonRequested = ctx.state.command.splitArgs[0]
-
-  ctx.replyWithPhoto(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonList.indexOf(capitalize(pokemonRequested)) + 1}.png`, {caption: capitalize(pokemonRequested)})
 }
