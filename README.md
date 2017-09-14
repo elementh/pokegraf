@@ -8,18 +8,21 @@ It uses the [PokeAPI](https://github.com/PokeAPI/pokeapi) and [Telegraf](https:/
 
 - Inline behaviour
 - Rework on routing
-- Stats
+- Stats, abilities, etc.
 
+# Contributing
 
+Please have a look at [CONTRIBUTING](blob/develop/CONTRIBUTING.md).
+
+<!-- TODO: Change this to blob/master before final push -->
 
 # Disclaimer
 
-Pokémon and their names are property of Nintendo, Creatures and Game Freak.
+Pokémon ©1995 [pokémon](http://www.pokemon.com/), [nintendo](http://www.nintendo.com/), [game freak](http://www.gamefreak.co.jp/), [creatures](http://www.creatures.co.jp/html/en/).
 
 # License
 
-pokegraf
-Copyright (C) 2017  Lucas Maximiliano Marino
+pokegraf Copyright (C) 2017  Lucas Maximiliano Marino
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
