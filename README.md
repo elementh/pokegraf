@@ -12,9 +12,7 @@ It uses the [PokeAPI](https://github.com/PokeAPI/pokeapi) and [Telegraf](https:/
 
 # Contributing
 
-Please have a look at [CONTRIBUTING](blob/develop/CONTRIBUTING.md).
-
-<!-- TODO: Change this to blob/master before final push -->
+Please have a look at [CONTRIBUTING](CONTRIBUTING.md).
 
 # Disclaimer
 
