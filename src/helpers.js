@@ -1,8 +1,13 @@
+'use strict'
+
+const Pokedex = require('pokedex-promise-v2')
+
 module.exports = {
   randomIntFromInterval: randomIntFromInterval,
   capitalize: capitalize,
   pokemon: require('pokemon'),
-  pokemonList: require('pokemon').all()
+  pokemonList: require('pokemon').all(),
+  P: new Pokedex()
 
 }
 

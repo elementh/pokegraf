@@ -10,4 +10,3 @@ db.checkTables()
 
 pokegraf.startPolling()
 
-pokegraf.pikachu()

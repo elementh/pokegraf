@@ -3,9 +3,6 @@
 const { start, about, random, fusion, help, pokemon } = require('./commands')
 const routing = require('./routing')
 
-const Pokedex = require('pokedex-promise-v2')
-const P = new Pokedex()
-
 const Telegraf = require('telegraf')
 // const TelegrafFlow = require('telegraf-flow')
 const commandParts = require('telegraf-command-parts')
@@ -28,6 +25,13 @@ pokegraf.catch(err => {
   console.log('Oops', err)
 })
 
+pokegraf.action((text) => {
+  return text.startsWith('pokemon')
+}, (ctx) => {
+  let actions = ctx.update.callback_query.data.split(/\s+/)
+  let pokemonRequested = actions[1]
+  pokemon(ctx, markup, pokemonRequested)
+})
 // COMMANDS
 
 // Start
@@ -42,15 +46,11 @@ pokegraf.command('random', (ctx) => random(ctx, markup))
 // Fusion
 pokegraf.command('fusion', (ctx) => fusion(ctx, markup))
 
-pokegraf.command('pokemon', (ctx) => pokemon(ctx, markup, P))
+pokegraf.command('pokemon', (ctx) => pokemon(ctx, markup))
 
-pokegraf.command('pkm', (ctx) => pokemon(ctx, markup, P))
+pokegraf.command('pkm', (ctx) => pokemon(ctx, markup))
 
 // pokegraf.on('message', (ctx) => routing(ctx, markup, P))
-
-pokegraf.action('stats', (ctx) => {
-  ctx.reply('ASDAS')
-})
 
 module.exports = pokegraf
 
