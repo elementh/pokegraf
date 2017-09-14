@@ -40,7 +40,6 @@ function pokemonById (pokemonRequested, ctx, markup) {
     chatId = response.id
     return P.getPokemonByName(pokemonRequested)
   })
-  // let chatId = ctx.update.message.chat.id ? ctx.update.message.chat.id : ctx.update.call
   .then(response => {
     return ctx.telegram.sendPhoto(chatId, `https://veekun.com/dex/media/pokemon/global-link/${response.id}.png`, {caption: `${capitalize(response.species.name)}`})
   }).then(() => {
