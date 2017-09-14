@@ -7,8 +7,9 @@ It uses the [PokeAPI](https://github.com/PokeAPI/pokeapi) and [Telegraf](https:/
 # Roadmap
 
 - Inline behaviour
-- Rework on routing
-- Stats, abilities, etc.
+- Refactoring
+- Abilities, etc.
+- Usage stats
 
 # Contributing
 
