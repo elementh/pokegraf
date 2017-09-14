@@ -31,6 +31,14 @@ pokegraf.action((text) => {
   let pokemonRequested = actions[1]
   pokemon(ctx, markup, pokemonRequested)
 })
+
+pokegraf.action((text) => {
+  return text.startsWith('stats')
+}, (ctx) => {
+  let actions = ctx.update.callback_query.data.split(/\s+/)
+  let pokemonRequested = actions[1]
+  pokemon(ctx, markup, pokemonRequested, 'stats')
+})
 // COMMANDS
 
 // Start
