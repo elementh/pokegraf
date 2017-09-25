@@ -35,7 +35,7 @@ db.generateTables = function () {
   db.exec('CREATE OR REPLACE TABLE `stats_commands` \
         (`command` varchar(45) NOT NULL, \
         `times_used` int(11) DEFAULT NULL, \
-        PRIMARY KEY (`name`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;')
+        PRIMARY KEY (`command`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;')
   .then(rows => {
     console.log('...stats_commands created...')
   })
@@ -46,7 +46,7 @@ db.generateTables = function () {
         (`id_pkmn_1` int(11) NOT NULL, \
         `id_pkmn_2` int(11) NOT NULL, \
         `times_used` varchar(45) DEFAULT NULL, \
-        PRIMARY KEY (`id_first`,`id_second`)) \
+        PRIMARY KEY (`id_pkmn_1`,`id_pkmn_2`)) \
         ENGINE=InnoDB DEFAULT CHARSET=utf8')
   .then(rows => {
     console.log('...stats_fusion created...')
@@ -57,7 +57,7 @@ db.generateTables = function () {
   db.exec('CREATE OR REPLACE TABLE `stats_pokemon` \
         (`id_pkmn` int(11) NOT NULL, \
         `times_used` int(11) DEFAULT NULL, \
-        PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;')
+        PRIMARY KEY (`id_pkmn`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;')
   .then(rows => {
     console.log('...stats_pokemon created...')
   })
@@ -67,12 +67,12 @@ db.generateTables = function () {
   db.exec('CREATE TABLE `stats_users` \
         (`type` varchar(10) NOT NULL, \
         `number` int(11) DEFAULT \'0\', \
-        PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;')
+        PRIMARY KEY (`type`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;')
   .then(() => {
-    return db.exec('INSERT INTO `pokegraf`.`stats_users` (`id`,`number`) VALUES(\'groups\',0);')
+    return db.exec('INSERT INTO `pokegraf`.`stats_users` (`type`,`number`) VALUES(\'groups\',0);')
   })
   .then(() => {
-    return db.exec('INSERT INTO `pokegraf`.`stats_users` (`id`,`number`) VALUES(\'users\',0);')
+    return db.exec('INSERT INTO `pokegraf`.`stats_users` (`type`,`number`) VALUES(\'users\',0);')
   })
   .then(rows => {
     console.log('...stats_users created...')
