@@ -88,7 +88,7 @@ db.generateTables = function () {
 }
 
 db.addUser = function () {
-  db.exec()
+  db.exec('UPDATE `'+TABLE_STATS_USERS+'` SET number = number + 1 WHERE type = "users" ')
   .then(rows => {
 
   })
@@ -98,7 +98,7 @@ db.addUser = function () {
 }
 
 db.addGroup = function () {
-  db.exec()
+  db.exec('UPDATE `'+TABLE_STATS_USERS+'` SET number = number + 1 WHERE type = "group" ')
   .then(rows => {
 
   })
@@ -108,7 +108,8 @@ db.addGroup = function () {
 }
 
 db.addPokemon = function (id) {
-  db.exec()
+  db.exec('INSERT INTO `'+TABLE_STATS_POKEMON+'` (id_pkmn, times_used) VALUES("'+id+'", 1) '+
+    'ON DUPLICATE KEY UPDATE times_used = times_used + 1 ')
   .then(rows => {
 
   })
@@ -118,7 +119,8 @@ db.addPokemon = function (id) {
 }
 
 db.addFusion = function (fId, sId) {
-  db.exec()
+  db.exec('INSERT INTO `'+TABLE_STATS_FUSION+'` (id_pkmn_1, id_pkmn_2, times_used) VALUES("'+fId+'", "'+sId+'", 1) '+
+    'ON DUPLICATE KEY UPDATE times_used = times_used + 1 ')
   .then(rows => {
 
   })
