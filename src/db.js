@@ -128,9 +128,10 @@ db.addFusion = function (fId, sId) {
 }
 
 db.addCommand = function (command) {
+  // Insert a new command to database
   db.exec('INSERT IGNORE INTO `'+TABLE_STATS_COMMANDS+'` (command, times_used) VALUES ("'+command+'", 0) ')
   .then(rows => {
-
+    console.log("comando insertado ", command)
   })
   .catch(err => {
     console.log(err)
@@ -146,11 +147,9 @@ db.addCommand = function (command) {
 db.checkCommand = function (command) {
   db.exec('SELECT command FROM `'+TABLE_STATS_COMMANDS+'` WHERE command = "'+command+'" ')
   .then(rows => {
-      console.log("Command found: ")
-      console.log(rows)
-      
-      if (rows.fieldCount == 0) {
-          db.insertCommand(command)
+      // If command not exist, we create to 0
+      if (rows.length == 0) {
+          db.addCommand(command)
       }
   })
   .catch(err => {
@@ -163,6 +162,7 @@ db.checkCommand = function (command) {
  * @param {string} command
  */
 db.increaseCommand = function (command) {
+    // Check if the command exist
     db.checkCommand(command)
     
   db.exec('UPDATE `'+TABLE_STATS_COMMANDS+'` SET times_used = times_used + 1 WHERE command = "'+command+'" ')
