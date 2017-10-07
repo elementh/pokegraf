@@ -4,10 +4,9 @@ require('dotenv-safe').load({
   allowEmptyValues: true
 })
 
+const database = require('./src/database')
 const pokegraf = require('./src/pokegraf')
 
-const db = require('./src/db')
-
-db.checkTables()
-
-pokegraf.startPolling()
+database().then(() => {
+  pokegraf.startPolling()
+})

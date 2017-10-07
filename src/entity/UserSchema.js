@@ -8,7 +8,7 @@ module.exports = {
       type: 'int'
     },
     isBot: {
-      type: 'boolean'
+      type: 'tinyint'
     },
     firstName: {
       type: 'varchar'
