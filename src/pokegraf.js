@@ -9,22 +9,22 @@ const {
   pokemon
 } = require('./commands')
 
-const Telegraf = require('telegraf')
-// const TelegrafFlow = require('telegraf-flow')
-const commandParts = require('telegraf-command-parts')
 const {
   Extra
 } = require('telegraf')
-// const { Scene } = require('telegraf-flow')
+
+const Telegraf = require('telegraf')
+const commandParts = require('telegraf-command-parts')
+const stats = require('./stats').middleware
 
 const pokegraf = new Telegraf(process.env.BOT_TOKEN)
-// const flow = new TelegrafFlow()
 const markup = Extra.markdown()
 
 pokegraf.telegram.getMe().then((botInfo) => {
   pokegraf.options.username = botInfo.username
 })
 
+pokegraf.use(stats())
 pokegraf.use(commandParts())
 // pokegraf.use(Telegraf.memorySession())
 // pokegraf.use(flow.middleware())
@@ -74,7 +74,6 @@ pokegraf.command('pkm', (ctx) => pokemon(ctx, markup))
 pokegraf.command('test', (ctx) => {
   ctx.getChat().then((chat) => {
     console.info(chat)
-    console.log(db)
   })
 })
 module.exports = pokegraf
