@@ -4,6 +4,7 @@ module.exports = {
   target: CommandUsage,
   columns: {
     command: {
+      primary: true,
       type: 'varchar'
     },
     timesUsed: {
