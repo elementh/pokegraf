@@ -1,7 +1,7 @@
-const PokemonUsageSchema = require('../model/PokemonUsageSchema').PokemonUsageSchema
+const PokemonUsage = require('../model/PokemonUsage').PokemonUsage
 
 module.exports = {
-  target: PokemonUsageSchema,
+  target: PokemonUsage,
   columns: {
     pokemon: {
       primary: true,
