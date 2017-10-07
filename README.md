@@ -1,15 +1,17 @@
 # pokegraf
 
-Pokegraf is a telegram bot made with ❤️ by [Lucas Maximiliano Marino](http://lucasmarino.me/).  
+[pokegraf](https://github.com/elementh/pokegraf) is a bot made with ❤️ by [Lucas Maximiliano Marino](http://lucasmarino.me/) with the help of [contributors](https://github.com/elementh/pokegraf/blob/master/CONTRIBUTORS.md)!.  
 
-It uses the [PokeAPI](https://github.com/PokeAPI/pokeapi) and [Telegraf](https://github.com/telegraf/telegraf/).  
+It uses the [PokeAPI](https://github.com/PokeAPI/pokeapi), [Pokemon Fusion](http://pokemon.alexonsager.net/) and [Telegraf](https://github.com/telegraf/telegraf/).
+
+[![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
 
 # Roadmap
 
-- Inline behaviour
-- Refactoring
-- Abilities, etc.
-- Usage stats
+-   Inline behaviour
+-   Refactoring
+-   Abilities, etc.
+-   Usage stats
 
 # Contributing
 

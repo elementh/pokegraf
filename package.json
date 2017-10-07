@@ -8,7 +8,8 @@
   "license": "GPL-3.0",
   "private": true,
   "scripts": {
-    "develop": "nodemon ./index.js"
+    "test": "standard | snazzy",
+    "develop": "yarn test && nodemon ./index.js"
   },
   "dependencies": {
     "dotenv-safe": "^4.0.4",
@@ -20,6 +21,8 @@
     "telegraf-flow": "^8.2.2"
   },
   "devDependencies": {
-    "nodemon": "^1.12.0"
+    "nodemon": "^1.12.0",
+    "snazzy": "^7.0.0",
+    "standard": "^10.0.3"
   }
 }
