@@ -8,6 +8,8 @@ module.exports = function start (ctx, markup) {
 const greetingText = `Hello there Pokémon Trainer! Welcome to *pokegraf*.
 
 Basic usage:
+  /pkm 25
+  /pkm pikachu
   /random
   /fusion
   /about

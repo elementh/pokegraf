@@ -40,6 +40,7 @@ db.checkTables = function () {
  * generateTables - Description
  */
 db.generateTables = function () {
+  // eslint-disable-next-line no-multi-str
   db.exec('CREATE OR REPLACE TABLE `' + TABLE_STATS_COMMANDS + '` \
         (`command` varchar(45) NOT NULL, \
         `times_used` int(11) DEFAULT NULL, \
@@ -50,6 +51,7 @@ db.generateTables = function () {
     .catch(err => {
       console.log(err)
     })
+  // eslint-disable-next-line no-multi-str
   db.exec('CREATE OR REPLACE TABLE `' + TABLE_STATS_FUSION + '` \
         (`id_pkmn_1` int(11) NOT NULL, \
         `id_pkmn_2` int(11) NOT NULL, \
@@ -62,6 +64,7 @@ db.generateTables = function () {
     .catch(err => {
       console.log(err)
     })
+  // eslint-disable-next-line no-multi-str
   db.exec('CREATE OR REPLACE TABLE `' + TABLE_STATS_POKEMON + '` \
         (`id_pkmn` int(11) NOT NULL, \
         `times_used` int(11) DEFAULT NULL, \
@@ -72,6 +75,7 @@ db.generateTables = function () {
     .catch(err => {
       console.log(err)
     })
+  // eslint-disable-next-line no-multi-str
   db.exec('CREATE TABLE `' + TABLE_STATS_USERS + '` \
         (`type` varchar(10) NOT NULL, \
         `number` int(11) DEFAULT \'0\', \
@@ -151,7 +155,7 @@ db.checkCommand = function (command) {
   db.exec('SELECT command FROM `' + TABLE_STATS_COMMANDS + '` WHERE command = "' + command + '" ')
     .then(rows => {
       // If command not exist, we create to 0
-      if (rows.length == 0) {
+      if (rows.length === 0) {
         db.addCommand(command)
       }
     })
