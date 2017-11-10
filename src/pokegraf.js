@@ -1,17 +1,8 @@
 'use strict'
 
-const {
-  start,
-  about,
-  random,
-  fusion,
-  help,
-  pokemon
-} = require('./commands')
+const { start, about, random, fusion, help, pokemon } = require('./commands')
 
-const {
-  Extra
-} = require('telegraf')
+const { Extra } = require('telegraf')
 
 const Telegraf = require('telegraf')
 const commandParts = require('telegraf-command-parts')
@@ -24,10 +15,8 @@ pokegraf.telegram.getMe().then((botInfo) => {
   pokegraf.options.username = botInfo.username
 })
 
-pokegraf.use(stats())
 pokegraf.use(commandParts())
-// pokegraf.use(Telegraf.memorySession())
-// pokegraf.use(flow.middleware())
+pokegraf.use(stats())
 
 pokegraf.catch(err => {
   console.log('Oops', err)
@@ -69,11 +58,10 @@ pokegraf.command('pokemon', (ctx) => pokemon(ctx, markup))
 
 pokegraf.command('pkm', (ctx) => pokemon(ctx, markup))
 
-// pokegraf.on('message', (ctx) => routing(ctx, markup, P))
-
 pokegraf.command('test', (ctx) => {
   ctx.getChat().then((chat) => {
-    console.info(chat)
+    // console.info(chat)
   })
+  // console.log(ctx.from)
 })
 module.exports = pokegraf

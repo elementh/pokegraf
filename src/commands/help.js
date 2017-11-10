@@ -6,8 +6,10 @@ module.exports = function help (ctx, markup) {
 }
 
 const helpText = `Basic usage:
-  /random
-  /fusion
-  /about
-  /help
+/pkm 25
+/pkm pikachu
+/random
+/fusion
+/about
+/help
 `

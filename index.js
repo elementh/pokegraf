@@ -9,4 +9,6 @@ const pokegraf = require('./src/pokegraf')
 
 database().then(() => {
   pokegraf.startPolling()
+}).catch(function (error) {
+  console.log('Error: ', error)
 })

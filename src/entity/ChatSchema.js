@@ -7,10 +7,10 @@ module.exports = {
       primary: true,
       type: 'int'
     },
-    type: {
+    title: {
       type: 'varchar'
     },
-    title: {
+    type: {
       type: 'varchar'
     },
     firstName: {

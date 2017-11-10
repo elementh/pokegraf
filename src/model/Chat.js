@@ -1,8 +1,8 @@
 class Chat {
-  constructor (id, type, title, firstName, lastName, username, photoSmall, photoBig) {
+  constructor (id, title, type, firstName, lastName, username, photoSmall, photoBig) {
     this.id = id
-    this.type = type
     this.title = title
+    this.type = type
     this.firstName = firstName
     this.lastName = lastName
     this.username = username

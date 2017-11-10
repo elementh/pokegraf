@@ -16,7 +16,6 @@ async function connect () {
     entitySchemas: [
       require('./entity/ChatSchema'),
       require('./entity/UserSchema'),
-      require('./entity/CommandUsageSchema'),
       require('./entity/FusionUsageSchema'),
       require('./entity/PokemonUsageSchema')
     ]
