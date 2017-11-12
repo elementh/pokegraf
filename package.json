@@ -1,0 +1,30 @@
+{
+  "name": "pokegraf",
+  "version": "0.2.0",
+  "description": "Pokemon Database Bot for Telegram",
+  "main": "index.js",
+  "repository": "git@github.com:elementh/pokegraf.git",
+  "author": "Lucas Maximiliano Marino <lucasmmarino@icloud.com>",
+  "license": "GPL-3.0",
+  "private": true,
+  "scripts": {
+    "test": "standard | snazzy",
+    "develop": "yarn test && nodemon ./index.js"
+  },
+  "dependencies": {
+    "dotenv-safe": "^4.0.4",
+    "nodejs-mysql": "^0.1.3",
+    "pokedex-promise-v2": "^3.0.3",
+    "pokemon": "^1.2.0",
+    "reflect-metadata": "^0.1.10",
+    "telegraf": "^3.12.1",
+    "telegraf-command-parts": "^1.0.3",
+    "telegraf-flow": "^8.2.2",
+    "typeorm": "^0.1.0-alpha.50"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.0",
+    "snazzy": "^7.0.0",
+    "standard": "^10.0.3"
+  }
+}
