@@ -13,7 +13,6 @@ function middleware () {
     if (ctx.state.command) {
       await addUser(ctx.message.from)
       await addChat(ctx)
-      await addCommand(ctx.state.command)
     }
     next()
   }
@@ -41,24 +40,4 @@ async function addChat (ctx) {
       }
     })
   })
-}
-
-async function addCommand (command) {
-  switch (command.command) {
-    case 'fusion':
-      await addFusion(command)
-      break
-    case 'pokemon':
-    case 'pkm':
-      await addPokemon(command)
-      break
-    default:
-      break
-  }
-}
-
-async function addFusion (command) {
-
-}
-async function addPokemon (command) {
 }

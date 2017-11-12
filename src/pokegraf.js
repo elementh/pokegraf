@@ -59,9 +59,9 @@ pokegraf.command('pokemon', (ctx) => pokemon(ctx, markup))
 pokegraf.command('pkm', (ctx) => pokemon(ctx, markup))
 
 pokegraf.command('test', (ctx) => {
-  ctx.getChat().then((chat) => {
-    // console.info(chat)
-  })
-  // console.log(ctx.from)
+  // ctx.getChat().then((chat) => {
+  //   // console.info(chat)
+  // })
+  // // console.log(ctx.from)
 })
 module.exports = pokegraf

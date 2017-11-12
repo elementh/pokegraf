@@ -1,16 +1,12 @@
 'use strict'
 
-const {
-  capitalize,
-  pokemonList,
-  P
-} = require('../helpers')
-const {
-  Markup
-} = require('telegraf')
+const { capitalize, pokemonList, P } = require('../helpers')
+const { Markup } = require('telegraf')
+const connection = require('typeorm').getConnection
+const PokemonUsage = require('../model/PokemonUsage').PokemonUsage
 
 module.exports = function pokemon (ctx, markup, request = false, mode = 'description') {
-  console.log('new pokemon request from: ', ctx.from.username, mode) // this will dissapear in final version, it's for testing
+  // console.log('new pokemon request from: ', ctx.from.username, mode) // this will dissapear in final version, it's for testing
   if (request && mode === 'description') {
     return pokemonById(request, ctx, markup)
   } else if (mode === 'description') {
@@ -41,7 +37,18 @@ function replyPokemonByName (ctx, markup) {
   return pokemonById(pokemonRequested, ctx, markup)
 }
 
-function pokemonById (pokemonRequested, ctx, markup) {
+async function pokemonById (pokemonRequested, ctx, markup) {
+  let pokemonUsageRepository = await connection().getRepository('PokemonUsage')
+
+  pokemonUsageRepository.findOneById(pokemonRequested).then((response) => {
+    if (response === undefined) {
+      let pokemonUsage = new PokemonUsage(pokemonRequested, 1)
+      pokemonUsageRepository.save(pokemonUsage)
+    } else {
+      response.timesUsed++
+      pokemonUsageRepository.save(response)
+    }
+  })
   let chatId
   ctx.getChat()
     .then(response => {
@@ -54,10 +61,9 @@ function pokemonById (pokemonRequested, ctx, markup) {
     }).then(() => {
       return P.getPokemonSpeciesByName(pokemonRequested)
     }).then(response => {
-      let description = response.flavor_text_entries[1].flavor_text
+      let description = response.flavor_text_entries.find(language).flavor_text
       const replyOptions = Markup.inlineKeyboard([
         [
-          // Markup.callbackButton('WIP', 'wip'),
           Markup.callbackButton('Stats', `stats ${pokemonRequested}`)
         ],
         [
@@ -136,4 +142,8 @@ Special Attack 🌟 ${stats[2].base_stat}
 Special Defense 🔰 ${stats[1].base_stat}
 Speed 👟 ${stats[0].base_stat}
 `
+}
+
+function language (species) {
+  return species.language.name === 'en' && species.version.name === 'moon'
 }
