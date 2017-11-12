@@ -1,5 +1,7 @@
 # pokegraf
 
+ATTENTION: right now this is spaghetti code.
+
 [pokegraf](https://github.com/elementh/pokegraf) is a bot made with ❤️ by [Lucas Maximiliano Marino](http://lucasmarino.me/) with the help of [contributors](https://github.com/elementh/pokegraf/blob/master/CONTRIBUTORS.md)!.  
 
 It uses the [PokeAPI](https://github.com/PokeAPI/pokeapi), [Pokemon Fusion](http://pokemon.alexonsager.net/) and [Telegraf](https://github.com/telegraf/telegraf/).
@@ -9,9 +11,9 @@ It uses the [PokeAPI](https://github.com/PokeAPI/pokeapi), [Pokemon Fusion](http
 # Roadmap
 
 -   Inline behaviour
--   Refactoring
+-   Refactoring (!!!)
 -   Abilities, etc.
--   Usage stats
+-   Usage stats (Needs refactring too)
 
 # Contributing
 
