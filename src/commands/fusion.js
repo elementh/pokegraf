@@ -1,15 +1,29 @@
 'use strict'
 
 const { randomIntFromInterval } = require('../helpers')
+const connection = require('typeorm').getConnection
+const FusionUsage = require('../model/FusionUsage').FusionUsage
 
-module.exports = function fusion (ctx, markup) {
+module.exports = async function fusion (ctx, markup) {
   let firstPokemon = randomIntFromInterval(1, 151)
   let secondPokemon = randomIntFromInterval(1, 151)
 
   while (firstPokemon === secondPokemon) {
     secondPokemon = randomIntFromInterval(1, 151)
   }
-  console.log(`New fusion request with numbers: ${firstPokemon} and ${secondPokemon}, from user: ${ctx.from.username}`)
+  let fusionUsageRepository = await connection().getRepository('FusionUsage')
+
+  fusionUsageRepository.findOne({firstPokemon: firstPokemon, secondPokemon: secondPokemon}).then((response) => {
+    if (response === undefined) {
+      let fusionUsage = new FusionUsage(firstPokemon, secondPokemon, 1)
+      fusionUsageRepository.save(fusionUsage)
+    } else {
+      response.timesUsed++
+      fusionUsageRepository.save(response)
+    }
+  })
+
+  // console.log(`New fusion request with numbers: ${firstPokemon} and ${secondPokemon}, from user: ${ctx.from.username}`)
 
   return ctx.replyWithPhoto(`http://images.alexonsager.net/pokemon/fused/${firstPokemon}/${firstPokemon}.${secondPokemon}.png`, {caption: `${firstHalf[secondPokemon - 1]}${secondHalf[firstPokemon - 1]}`})
 }
