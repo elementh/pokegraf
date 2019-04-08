@@ -14,4 +14,8 @@
       </Reference>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Pokegraf.Common\Pokegraf.Common.csproj" />
+    </ItemGroup>
+
 </Project>
