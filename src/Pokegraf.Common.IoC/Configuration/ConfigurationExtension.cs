@@ -32,7 +32,8 @@ namespace Pokegraf.Common.IoC.Configuration
                 
                 loggerConf.WriteTo.Elasticsearch(new ElasticsearchSinkOptions(elasticUri)
                 {
-                    AutoRegisterTemplate = true
+                    AutoRegisterTemplate = true,
+                    IndexFormat = "log-pokegraf-{{0:yyyy.MM.dd}"
                 });
             }
 
