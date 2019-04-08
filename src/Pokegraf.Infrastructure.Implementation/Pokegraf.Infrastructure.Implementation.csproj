@@ -4,4 +4,12 @@
         <TargetFramework>netcoreapp2.2</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="PokeApi.NET" Version="1.1.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Pokegraf.Infrastructure.Contract\Pokegraf.Infrastructure.Contract.csproj" />
+    </ItemGroup>
+
 </Project>
