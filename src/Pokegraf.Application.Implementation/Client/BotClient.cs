@@ -9,12 +9,12 @@ namespace Pokegraf.Application.Implementation.Client
 {
     public class BotClient : IBotClient
     {
-        private ILogger<BotClient> _logger;
+        protected readonly ILogger<BotClient> Logger;
         public BlockingTelegramBotClient Client { get; }
         
         public BotClient(IConfiguration configuration, ILogger<BotClient> logger)
         {
-            _logger = logger;
+            Logger = logger;
             
             try
             {
@@ -22,7 +22,7 @@ namespace Pokegraf.Application.Implementation.Client
             }
             catch (Exception e)
             {
-                _logger.LogError("Error setting TelegramBotClient", e);
+                Logger.LogError("Error setting TelegramBotClient", e);
                 
                 throw;
             }
