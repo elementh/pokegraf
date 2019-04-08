@@ -35,6 +35,21 @@ namespace Pokegraf.Common.Result
 
             return result;
         }
+        
+        public static Result NotFound(List<string> errorDescription)
+        {
+            return Result.Fail("not_found", errorDescription);
+        }
+        
+        public static Result UnknownError(List<string> errorDescription)
+        {
+            return Result.Fail("unknown_error", errorDescription);
+        }
+        
+        public static Result ValidationFailure(List<string> errorDescription)
+        {
+            return Result.Fail("validation_failures", errorDescription);
+        }
 
         public static Result Success()
         {
@@ -67,19 +82,19 @@ namespace Pokegraf.Common.Result
             return result;
         }
         
-        public static Result<T> NotFound(List<string> errorDescription)
+        public new static Result<T> NotFound(List<string> errorDescription)
         {
-            return (Result<T>) Result.Fail("not_found", errorDescription);
+            return (Result<T>) Result.NotFound(errorDescription);
         }
         
-        public static Result<T> UnknownError(List<string> errorDescription)
+        public new static Result<T> UnknownError(List<string> errorDescription)
         {
-            return (Result<T>) Result.Fail("unknown_error", errorDescription);
+            return (Result<T>) Result.UnknownError(errorDescription);
         }
         
-        public static Result<T> ValidationFailure(List<string> errorDescription)
+        public new static Result<T> ValidationFailure(List<string> errorDescription)
         {
-            return (Result<T>) Result.Fail("validation_failures", errorDescription);
+            return (Result<T>) Result.ValidationFailure(errorDescription);
         }
 
         public static Result<T> FromResult(IResult result)
