@@ -5,9 +5,8 @@
 
 # Configuration
 
-appsettings.Development.json
-appsettings.Release.json
-appsettings.json
+*appsettings.Development.json
+*appsettings.Release.json
 
 # User-specific files
 *.suo
