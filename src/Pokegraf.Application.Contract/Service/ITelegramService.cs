@@ -1,6 +1,6 @@
 namespace Pokegraf.Application.Contract.Service
 {
-    public interface IBotService
+    public interface ITelegramService
     {
         void StartPokegrafBot();
     }

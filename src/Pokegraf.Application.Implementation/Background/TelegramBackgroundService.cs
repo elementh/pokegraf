@@ -5,11 +5,11 @@ using Pokegraf.Application.Contract.Service;
 
 namespace Pokegraf.Application.Implementation.Background
 {
-    public class TelegramBotBackgroundService : BackgroundService
+    public class TelegramBackgroundService : BackgroundService
     {
         private readonly IServiceScopeFactory _serviceScopeFactory;
 
-        public TelegramBotBackgroundService(IServiceScopeFactory serviceScopeFactory) : base()
+        public TelegramBackgroundService(IServiceScopeFactory serviceScopeFactory) : base()
         {
             _serviceScopeFactory = serviceScopeFactory;
         }
@@ -18,7 +18,7 @@ namespace Pokegraf.Application.Implementation.Background
         {
             using (var scope = _serviceScopeFactory.CreateScope())
             {
-                var botService = scope.ServiceProvider.GetRequiredService<IBotService>();
+                var botService = scope.ServiceProvider.GetRequiredService<ITelegramService>();
                 
                 botService.StartPokegrafBot();
             }

@@ -10,13 +10,13 @@ using Telegram.Bot.Types.Enums;
 
 namespace Pokegraf.Application.Implementation.Service
 {
-    public class BotService : IBotService
+    public class TelegramService : ITelegramService
     {
         protected readonly BlockingTelegramBotClient Bot;
         protected readonly IMediator MediatR;
-        protected readonly ILogger<BotService> Logger;
+        protected readonly ILogger<TelegramService> Logger;
 
-        public BotService(IBotClient bot, IMediator mediatR, ILogger<BotService> logger)
+        public TelegramService(IBotClient bot, IMediator mediatR, ILogger<TelegramService> logger)
         {
             Bot = bot.Client;
             MediatR = mediatR;
