@@ -16,6 +16,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokegraf.Common.IoC", "Poke
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokegraf.Common", "Pokegraf.Common\Pokegraf.Common.csproj", "{E85CA71D-BEB0-4918-966C-06B168612983}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{81DEBEDF-B83B-458E-B949-4587FCD42F5A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokegraf.Infrastructure.Contract", "Pokegraf.Infrastructure.Contract\Pokegraf.Infrastructure.Contract.csproj", "{901CD909-1A2D-45FF-BD61-DF3F69A997C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokegraf.Infrastructure.Implementation", "Pokegraf.Infrastructure.Implementation\Pokegraf.Infrastructure.Implementation.csproj", "{1B4C637B-DBE6-4FB2-9C5E-B862A1CDC18E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +33,8 @@ Global
 		{4D9A34B9-EDBE-4FBC-8838-829C694C1E02} = {C4CEA3A2-C79C-475D-B009-B0E95290604E}
 		{3C9907BC-440F-4014-846C-327C9A990EBD} = {A72734B1-0E20-4254-89F1-84067729F989}
 		{E85CA71D-BEB0-4918-966C-06B168612983} = {A72734B1-0E20-4254-89F1-84067729F989}
+		{901CD909-1A2D-45FF-BD61-DF3F69A997C2} = {81DEBEDF-B83B-458E-B949-4587FCD42F5A}
+		{1B4C637B-DBE6-4FB2-9C5E-B862A1CDC18E} = {81DEBEDF-B83B-458E-B949-4587FCD42F5A}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{FA1270DC-A35E-4716-A961-DF39006B9ED7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -49,5 +57,13 @@ Global
 		{E85CA71D-BEB0-4918-966C-06B168612983}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E85CA71D-BEB0-4918-966C-06B168612983}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E85CA71D-BEB0-4918-966C-06B168612983}.Release|Any CPU.Build.0 = Release|Any CPU
+		{901CD909-1A2D-45FF-BD61-DF3F69A997C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{901CD909-1A2D-45FF-BD61-DF3F69A997C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{901CD909-1A2D-45FF-BD61-DF3F69A997C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{901CD909-1A2D-45FF-BD61-DF3F69A997C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B4C637B-DBE6-4FB2-9C5E-B862A1CDC18E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B4C637B-DBE6-4FB2-9C5E-B862A1CDC18E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B4C637B-DBE6-4FB2-9C5E-B862A1CDC18E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B4C637B-DBE6-4FB2-9C5E-B862A1CDC18E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
