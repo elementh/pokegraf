@@ -1,8 +1,8 @@
 using System.Threading;
 using System.Threading.Tasks;
-using Pokegraf.Application.Contract.Background;
+using Pokegraf.Application.Contract.Service.Background;
 
-namespace Pokegraf.Application.Implementation.Background
+namespace Pokegraf.Application.Implementation.Service.Background
 {
     public abstract class BackgroundService : IBackgroundService
     {

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Pokegraf.Application.Contract.Service;
 
-namespace Pokegraf.Application.Implementation.Background
+namespace Pokegraf.Application.Implementation.Service.Background
 {
     public class TelegramBackgroundService : BackgroundService
     {
