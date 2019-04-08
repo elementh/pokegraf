@@ -1,7 +1,7 @@
 using Pokegraf.Application.Contract.BotAction.Common;
 using Telegram.Bot.Types;
 
-namespace Pokegraf.Application.Implementation.BotAction.Common
+namespace Pokegraf.Application.Implementation.BotActions.Common
 {
     public class BotAction : IBotAction
     {
