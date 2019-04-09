@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using PokeAPI;
+using Pokegraf.Common.Helper;
 using Pokegraf.Common.Result;
 using Pokegraf.Infrastructure.Contract.Dto;
 using Pokegraf.Infrastructure.Contract.Service;
@@ -36,13 +37,13 @@ namespace Pokegraf.Infrastructure.Implementation.Service
                 
                 Logger.LogError($"Unhandled error getting pokemon number {pokeNumber}", e);
                 
-                return Result<PokemonDto>.UnknownError(new List<string> {$"Unhandled error getting pokemon number {pokeNumber}"});
+                return Result<PokemonDto>.UnknownError(new List<string> {$"Unhandled error getting pokemon number {pokeNumber}", e.Message});
             }
             
             var dto = new PokemonDto()
             {
                 Id = pokeNumber,
-                Name = pokemon.Name,
+                Name = pokemon.Name.FirstLetterToUpperCase(),
                 Description = await GetDescription(pokeNumber),
                 Image = GetImageUri(pokeNumber),
                 Before = await GetPokemonBefore(pokeNumber),
@@ -69,7 +70,7 @@ namespace Pokegraf.Infrastructure.Implementation.Service
                 
                 Logger.LogError($"Unhandled error getting pokemon named {pokeName}", e);
                 
-                return Result<PokemonDto>.UnknownError(new List<string> {$"Unhandled error getting pokemon number {pokeName}"});
+                return Result<PokemonDto>.UnknownError(new List<string> {$"Unhandled error getting pokemon number {pokeName}", e.Message});
             }
 
             return await GetPokemon(pokemon.ID);
@@ -79,7 +80,7 @@ namespace Pokegraf.Infrastructure.Implementation.Service
         {
             var species = await DataFetcher.GetApiObject<PokemonSpecies>(pokeNumber);
 
-            return species.FlavorTexts.First(text => text.Language.Name == "en").FlavorText;
+            return species.FlavorTexts.First(text => text.Language.Name == "en").FlavorText.Replace("\n", " ");
         }
 
         protected Uri GetImageUri(int pokeNumber)
