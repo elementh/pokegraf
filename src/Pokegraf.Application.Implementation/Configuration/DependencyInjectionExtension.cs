@@ -1,11 +1,7 @@
-using System.Reflection;
-using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Pokegraf.Application.Contract.Client;
-using Pokegraf.Application.Contract.Service;
-using Pokegraf.Application.Implementation.BotActions.Commands.Pokemon;
 using Pokegraf.Application.Implementation.Client;
 using Pokegraf.Application.Implementation.Service;
 using Pokegraf.Application.Implementation.Service.Background;
@@ -17,16 +13,8 @@ namespace Pokegraf.Application.Implementation.Configuration
     {
         public static IServiceCollection AddApplicationDependencies(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddMediatRHandlers(configuration);
-            services.AddBackgroundServices(configuration);
             services.AddServices(configuration);
-
-            return services;
-        }
-        
-        private static IServiceCollection AddMediatRHandlers(this IServiceCollection services, IConfiguration configuration)
-        {
-            services.AddMediatR(typeof(PokemonCommandActionHandler).GetTypeInfo().Assembly);
+            services.AddBackgroundServices(configuration);
 
             return services;
         }
@@ -34,7 +22,6 @@ namespace Pokegraf.Application.Implementation.Configuration
         private static IServiceCollection AddBackgroundServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddSingleton<IBotClient, BotClient>();
-            services.AddScoped<ITelegramService, TelegramService>();
             services.AddSingleton<IHostedService, TelegramBackgroundService>();
 
             return services;
@@ -46,8 +33,7 @@ namespace Pokegraf.Application.Implementation.Configuration
                 .FromAssemblyOf<TelegramService>()
                 .AddClasses(classes =>
                     classes.Where(c => c.Name.EndsWith("Service") 
-                                       && c.Name != "TelegramBackgroundService" 
-                                       && c.Name != "BackgroundService"))
+                                       && c.Name != "TelegramBackgroundService"))
                 .UsingRegistrationStrategy(RegistrationStrategy.Skip)
                 .AsImplementedInterfaces()
                 .WithScopedLifetime());

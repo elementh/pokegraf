@@ -2,7 +2,7 @@ using Pokegraf.Application.Contract.BotActions.Responses;
 using Pokegraf.Common.Request;
 using Pokegraf.Common.Result;
 
-namespace Pokegraf.Application.Implementation.BotActions.Responses
+namespace Pokegraf.Application.Implementation.BotActions.Responses.Text
 {
     public class TextResponse : Request<Result>, IResponse
     {
