@@ -6,6 +6,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Pokegraf.Application.Contract\Pokegraf.Application.Contract.csproj" />
+      <ProjectReference Include="..\Pokegraf.Infrastructure.Contract\Pokegraf.Infrastructure.Contract.csproj" />
     </ItemGroup>
 
     <ItemGroup>
