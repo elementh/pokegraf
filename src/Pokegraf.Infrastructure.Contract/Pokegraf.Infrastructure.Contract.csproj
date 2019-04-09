@@ -5,7 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Pokegraf.Common.IoC\Pokegraf.Common.IoC.csproj" />
+      <ProjectReference Include="..\Pokegraf.Common\Pokegraf.Common.csproj" />
     </ItemGroup>
 
 </Project>

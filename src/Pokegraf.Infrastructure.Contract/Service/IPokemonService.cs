@@ -1,10 +1,12 @@
+using System.Threading.Tasks;
+using Pokegraf.Common.Result;
 using Pokegraf.Infrastructure.Contract.Dto;
 
 namespace Pokegraf.Infrastructure.Contract.Service
 {
     public interface IPokemonService
     {
-        PokemonDto GetPokemon(int number);
-        PokemonDto GetPokemon(string name);
+        Task<Result<PokemonDto>> GetPokemon(int pokeNumber);
+        Task<Result<PokemonDto>> GetPokemon(string name);
     }
 }
