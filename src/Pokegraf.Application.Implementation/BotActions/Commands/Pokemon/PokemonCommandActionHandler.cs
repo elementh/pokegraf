@@ -31,9 +31,7 @@ namespace Pokegraf.Application.Implementation.BotActions.Commands.Pokemon
             }
             else
             {
-                await MediatR.Send(new TextResponse(request.Chat.Id, "Usage: '/pokemon 12' '/pokemon pikachu'"));
-                
-                return Result.Success();
+                return await MediatR.Send(new TextResponse(request.Chat.Id, "Usage: '/pokemon 12' '/pokemon pikachu'"));
             }
 
             var result = int.TryParse(requestedPokemon, out var pokeNumber)
@@ -42,14 +40,12 @@ namespace Pokegraf.Application.Implementation.BotActions.Commands.Pokemon
 
             if (result.Succeeded)
             {
-                await MediatR.Send(new PhotoWithCaptionResponse(request.Chat.Id, result.Value.Image.ToString(), $"{result.Value.Name}: {result.Value.Description}"));
-                return Result.Success();
+                return await MediatR.Send(new PhotoWithCaptionResponse(request.Chat.Id, result.Value.Image.ToString(), $"{result.Value.Name}: {result.Value.Description}"));
             }
 
             if (result.Errors.ContainsKey("not_found"))
             {
-                await MediatR.Send(new TextResponse(request.Chat.Id, result.Errors["not_found"].First() ?? "Ups, there was an error! Try again later!"));
-                return Result.Success();
+                return await MediatR.Send(new TextResponse(request.Chat.Id, result.Errors["not_found"].First() ?? "Ups, there was an error! Try again later!"));
             }
 
             return result;
