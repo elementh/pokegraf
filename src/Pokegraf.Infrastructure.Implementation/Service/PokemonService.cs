@@ -13,9 +13,9 @@ namespace Pokegraf.Infrastructure.Implementation.Service
 {
     public class PokemonService : IPokemonService
     {
-        protected readonly Logger<PokemonSpecies> Logger;
+        protected readonly ILogger<PokemonSpecies> Logger;
 
-        public PokemonService(Logger<PokemonSpecies> logger)
+        public PokemonService(ILogger<PokemonSpecies> logger)
         {
             Logger = logger;
         }
