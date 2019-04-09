@@ -3,6 +3,7 @@ using System.Threading;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using MihaZupan.TelegramBotClients;
+using Pokegraf.Application.Contract.BotAction.Common;
 using Pokegraf.Application.Contract.Client;
 using Pokegraf.Application.Contract.Service;
 using Telegram.Bot.Args;
@@ -12,24 +13,26 @@ namespace Pokegraf.Application.Implementation.Service
 {
     public class TelegramService : ITelegramService
     {
-        protected readonly BlockingTelegramBotClient Bot;
-        protected readonly IMediator MediatR;
         protected readonly ILogger<TelegramService> Logger;
+        protected readonly IBotClient Bot;
+        protected readonly IMediator MediatR;
+        protected readonly IBotActionFactory BotActionFactory;
 
-        public TelegramService(IBotClient bot, IMediator mediatR, ILogger<TelegramService> logger)
+        public TelegramService(ILogger<TelegramService> logger, IBotClient bot, IMediator mediatR, IBotActionFactory botActionFactory)
         {
-            Bot = bot.Client;
-            MediatR = mediatR;
             Logger = logger;
+            Bot = bot;
+            MediatR = mediatR;
+            BotActionFactory = botActionFactory;
         }
 
         public void StartPokegrafBot()
         {
-            var me = Bot.GetMeAsync().Result;
+            var me = Bot.Client.GetMeAsync().Result;
 
-            Bot.OnMessage += HandleOnMessage;
+            Bot.Client.OnMessage += HandleOnMessage;
 
-            Bot.StartReceiving(Array.Empty<UpdateType>());
+            Bot.Start();
             
             Logger.LogInformation($"Started telegram service for bot: @{me.Username}");
 
@@ -38,7 +41,9 @@ namespace Pokegraf.Application.Implementation.Service
 
         private void HandleOnMessage(object sender, MessageEventArgs e)
         {
-            throw new NotImplementedException();
+            var botAction = BotActionFactory.GetBotAction(e.Message);
+
+            MediatR.Send(botAction);
         }
     }
 }
