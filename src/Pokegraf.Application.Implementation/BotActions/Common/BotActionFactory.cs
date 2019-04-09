@@ -21,7 +21,7 @@ namespace Pokegraf.Application.Implementation.BotActions.Common
             switch (command)
             {
                 case "/pokemon":
-                case "pkm":
+                case "/pkm":
                     return Result<IBotAction>.Success(botAction.ToPokemonCommandAction());
                 case "/fusion":
                     return Result<IBotAction>.Success(botAction.ToFusionCommandAction());
