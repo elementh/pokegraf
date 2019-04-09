@@ -36,9 +36,11 @@ namespace Pokegraf.Application.Implementation.Client
         {
             if (Started == false)
             {
+                var me = Client.GetMeAsync().Result;
+
                 Client.StartReceiving(Array.Empty<UpdateType>());
                 
-                Logger.LogInformation("Telegram Bot Client is receiving updates now.");
+                Logger.LogInformation($"Telegram Bot Client is receiving updates for bot: @{me.Username}");
 
                 return;
             }

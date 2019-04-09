@@ -33,8 +33,6 @@ namespace Pokegraf.Application.Implementation.Service
             Bot.Client.OnMessage += HandleOnMessage;
 
             Bot.Start();
-            
-            Logger.LogInformation($"Started telegram service for bot: @{me.Username}");
 
             Thread.Sleep(int.MaxValue);
         }
