@@ -18,6 +18,8 @@ namespace Pokegraf.Application.Implementation.BotActions.Common
                 case "/pokemon":
                 case "pkm":
                     return botAction as PokemonCommandAction;
+                case "/fusion":
+                    return botAction as PokemonCommandAction;
                 default:
                     return botAction;
             }
