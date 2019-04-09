@@ -1,4 +1,4 @@
-using Pokegraf.Application.Contract.BotAction.Common;
+using Pokegraf.Application.Contract.BotActions.Common;
 using Pokegraf.Common.Request;
 using Pokegraf.Common.Result;
 using Telegram.Bot.Types;

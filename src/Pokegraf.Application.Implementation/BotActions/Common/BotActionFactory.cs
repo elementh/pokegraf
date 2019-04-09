@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Pokegraf.Application.Contract.BotAction.Common;
+using Pokegraf.Application.Contract.BotActions.Common;
 using Pokegraf.Application.Implementation.Mapping.Extension;
 using Pokegraf.Common.Result;
 using Telegram.Bot.Types;
