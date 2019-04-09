@@ -37,7 +37,13 @@ namespace Pokegraf.Application.Implementation.Client
             if (Started == false)
             {
                 Client.StartReceiving(Array.Empty<UpdateType>());
+                
+                Logger.LogInformation("Telegram Bot Client is receiving updates now.");
+
+                return;
             }
+            
+            Logger.LogWarning("Tried to start Telegram Bot Client update receiving when it's already running");
         }
     }
 }
