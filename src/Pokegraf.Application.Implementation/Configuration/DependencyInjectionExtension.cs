@@ -33,7 +33,10 @@ namespace Pokegraf.Application.Implementation.Configuration
         {
             services.Scan(scan => scan
                 .FromAssemblyOf<TelegramService>()
-                .AddClasses(classes => classes.Where(c => c.Name.EndsWith("Service") && c.Name != "TelegramService"))
+                .AddClasses(classes =>
+                    classes.Where(c => c.Name.EndsWith("Service") 
+                                       && c.Name != "TelegramBackgroundService" 
+                                       && c.Name != "BackgroundService"))
                 .UsingRegistrationStrategy(RegistrationStrategy.Skip)
                 .AsImplementedInterfaces()
                 .WithScopedLifetime());
