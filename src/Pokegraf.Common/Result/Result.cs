@@ -68,7 +68,7 @@ namespace Pokegraf.Common.Result
 
         public new static Result<T> Fail(string errorKey, List<string> errorDescription)
         {
-            return (Result<T>) Result.Fail(errorKey, errorDescription);
+            return FromResult(Result.Fail(errorKey, errorDescription));
         }
 
         public static Result<T> Success(T value)
@@ -84,17 +84,17 @@ namespace Pokegraf.Common.Result
         
         public new static Result<T> NotFound(List<string> errorDescription)
         {
-            return (Result<T>) Result.NotFound(errorDescription);
+            return FromResult(Result.NotFound(errorDescription));
         }
         
         public new static Result<T> UnknownError(List<string> errorDescription)
         {
-            return (Result<T>) Result.UnknownError(errorDescription);
+            return FromResult(Result.UnknownError(errorDescription));
         }
         
         public new static Result<T> ValidationFailure(List<string> errorDescription)
         {
-            return (Result<T>) Result.ValidationFailure(errorDescription);
+            return FromResult(Result.ValidationFailure(errorDescription));
         }
 
         public static Result<T> FromResult(IResult result)
