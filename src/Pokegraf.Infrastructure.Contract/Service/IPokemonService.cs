@@ -7,6 +7,6 @@ namespace Pokegraf.Infrastructure.Contract.Service
     public interface IPokemonService
     {
         Task<Result<PokemonDto>> GetPokemon(int pokeNumber);
-        Task<Result<PokemonDto>> GetPokemon(string name);
+        Task<Result<PokemonDto>> GetPokemon(string pokeName);
     }
 }
