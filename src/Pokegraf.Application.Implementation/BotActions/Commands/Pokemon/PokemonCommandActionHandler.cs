@@ -3,9 +3,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Pokegraf.Application.Implementation.Event;
+using Pokegraf.Application.Implementation.BotActions.Responses.Photo;
+using Pokegraf.Application.Implementation.BotActions.Responses.Text;
 using Pokegraf.Common.Result;
-using Pokegraf.Infrastructure.Contract.Dto;
 using Pokegraf.Infrastructure.Contract.Service;
 
 namespace Pokegraf.Application.Implementation.BotActions.Commands.Pokemon
@@ -21,35 +21,39 @@ namespace Pokegraf.Application.Implementation.BotActions.Commands.Pokemon
 
         public override async Task<Result> Handle(PokemonCommandAction request, CancellationToken cancellationToken)
         {
-            var requestedPokemon = request.Text?.Split(" ")?[1];
+            var commandArgs = request.Text?.Split(" ");
 
-            if (string.IsNullOrWhiteSpace(requestedPokemon)) Result.Success();
+            string requestedPokemon;
+            
+            if (commandArgs != null && commandArgs.Length > 1)
+            {
+                requestedPokemon = commandArgs[1];
+            }
+            else
+            {
+                await MediatR.Send(new TextResponse(request.Chat.Id, "Usage: '/pokemon 12' '/pokemon pikachu'"));
+                
+                return Result.Success();
+            }
 
-            Result<PokemonDto> result;
-
-            result = int.TryParse(requestedPokemon, out var pokeNumber)
+            var result = int.TryParse(requestedPokemon, out var pokeNumber)
                 ? await _pokemonService.GetPokemon(pokeNumber)
                 : await _pokemonService.GetPokemon(requestedPokemon);
 
             if (result.Succeeded)
             {
-                await MediatR.Publish(new PhotoResponseRequest
-                {
-                    ChatId = request.Chat.Id,
-                    Photo = result.Value.Image,
-                    Caption = $"{result.Value.Name}: {result.Value.Description}"
-                });
+                await MediatR.Send(new PhotoWithCaptionResponse(request.Chat.Id, result.Value.Image.ToString(), $"{result.Value.Name}: {result.Value.Description}"));
+                return Result.Success();
             }
-            else if (result.Errors.ContainsKey("not_found"))
+
+            if (result.Errors.ContainsKey("not_found"))
             {
-                await MediatR.Publish(new TextResponseRequest
-                {
-                    ChatId = request.Chat.Id,
-                    Text = result.Errors["not_found"].First() ?? "Ups, there was an error! Try again later!"
-                });
+                await MediatR.Send(new TextResponse(request.Chat.Id, result.Errors["not_found"].First() ?? "Ups, there was an error! Try again later!"));
+                return Result.Success();
             }
-            
-            return Result.Success();
+
+            return result;
+
         }
     }
 }
