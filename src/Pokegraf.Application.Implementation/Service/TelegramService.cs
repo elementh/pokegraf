@@ -1,5 +1,7 @@
 
+using System;
 using System.Threading;
+using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Pokegraf.Application.Contract.BotAction.Common;
@@ -37,11 +39,18 @@ namespace Pokegraf.Application.Implementation.Service
             Thread.Sleep(int.MaxValue);
         }
         
-        private void HandleOnMessage(object sender, MessageEventArgs e)
+        private async void HandleOnMessage(object sender, MessageEventArgs e)
         {
             var botAction = BotActionFactory.GetBotAction(e.Message);
 
-            MediatR.Send(botAction);
+            try
+            {
+                await MediatR.Send(botAction);
+            }
+            catch (Exception exception)
+            {
+                Logger.LogError("Unhandled error processing message", exception, e.Message);
+            }
         }
     }
 }
