@@ -28,7 +28,7 @@ namespace Pokegraf.Application.Implementation.BotActions.Responses.Photo
             }
             catch (Exception e)
             {
-                Logger.LogError("Unhandled error sending photo async", e);
+                Logger.LogError("Unhandled error sending photo", e);
                 
                 return Result.UnknownError(new List<string> {e.Message});
             }
