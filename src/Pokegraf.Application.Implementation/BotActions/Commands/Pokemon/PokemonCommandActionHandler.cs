@@ -40,7 +40,8 @@ namespace Pokegraf.Application.Implementation.BotActions.Commands.Pokemon
 
             if (result.Succeeded)
             {
-                return await MediatR.Send(new PhotoWithCaptionResponse(request.Chat.Id, result.Value.Image.ToString(), $"{result.Value.Name}: {result.Value.Description}"));
+                return await MediatR.Send(new PhotoWithCaptionResponse(request.Chat.Id, result.Value.Image.ToString(), 
+                    $"{result.Value.Name}: {result.Value.Description}"));
             }
 
             if (result.Errors.ContainsKey("not_found"))
