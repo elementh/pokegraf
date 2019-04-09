@@ -21,6 +21,7 @@
     <ItemGroup>
       <ProjectReference Include="..\Pokegraf.Application.Implementation\Pokegraf.Application.Implementation.csproj" />
       <ProjectReference Include="..\Pokegraf.Common\Pokegraf.Common.csproj" />
+      <ProjectReference Include="..\Pokegraf.Infrastructure.Implementation\Pokegraf.Infrastructure.Implementation.csproj" />
     </ItemGroup>
     
 </Project>
