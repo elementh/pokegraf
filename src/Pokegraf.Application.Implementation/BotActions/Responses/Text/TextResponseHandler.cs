@@ -23,7 +23,7 @@ namespace Pokegraf.Application.Implementation.BotActions.Responses.Text
         {
             try
             {
-                await Bot.Client.SendTextMessageAsync(request.ChatId, request.Text, cancellationToken: cancellationToken);
+                await Bot.Client.SendTextMessageAsync(request.ChatId, request.Text, request.ParseMode, cancellationToken: cancellationToken);
 
                 return Result.Success();
             }

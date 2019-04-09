@@ -1,6 +1,7 @@
 using Pokegraf.Application.Contract.BotActions.Responses;
 using Pokegraf.Common.Request;
 using Pokegraf.Common.Result;
+using Telegram.Bot.Types.Enums;
 
 namespace Pokegraf.Application.Implementation.BotActions.Responses.Text
 {
@@ -8,11 +9,13 @@ namespace Pokegraf.Application.Implementation.BotActions.Responses.Text
     {
         public long ChatId { get; set; }
         public string Text { get; set; }
+        public ParseMode ParseMode { get; set; }
 
-        public TextResponse(long chatId, string text)
+        public TextResponse(long chatId, string text, ParseMode parseMode = ParseMode.Markdown)
         {
             ChatId = chatId;
             Text = text;
+            ParseMode = parseMode;
         }
     }
 }
