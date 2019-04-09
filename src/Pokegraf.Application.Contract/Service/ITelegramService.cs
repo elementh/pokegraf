@@ -3,7 +3,7 @@ using Pokegraf.Application.Contract.Event;
 
 namespace Pokegraf.Application.Contract.Service
 {
-    public interface ITelegramService: INotificationHandler<IResponseRequest>
+    public interface ITelegramService
     {
         void StartPokegrafBot();
     }
