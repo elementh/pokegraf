@@ -39,16 +39,19 @@ namespace Pokegraf.Application.Implementation.Service
         
         private async void HandleOnMessage(object sender, MessageEventArgs e)
         {
-            var botAction = BotActionFactory.GetBotAction(e.Message);
+            var result = BotActionFactory.GetBotAction(e.Message);
 
+            if (!result.Succeeded) return;
+            
             try
             {
-                await MediatR.Send(botAction);
+                await MediatR.Send(result.Value);
             }
             catch (Exception exception)
             {
                 Logger.LogError("Unhandled error processing message", exception, e.Message);
             }
+
         }
     }
 }

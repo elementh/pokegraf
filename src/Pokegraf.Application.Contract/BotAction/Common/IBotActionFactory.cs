@@ -1,9 +1,10 @@
+using Pokegraf.Common.Result;
 using Telegram.Bot.Types;
 
 namespace Pokegraf.Application.Contract.BotAction.Common
 {
     public interface IBotActionFactory
     {
-        IBotAction GetBotAction(Message message);
+        Result<IBotAction> GetBotAction(Message message);
     }
 }
