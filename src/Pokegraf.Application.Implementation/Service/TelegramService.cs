@@ -35,12 +35,12 @@ namespace Pokegraf.Application.Implementation.Service
         
         private async void HandleOnMessage(object sender, MessageEventArgs e)
         {
-            var botActionResult = BotActionFactory.GetBotAction(e.Message);
-
-            if (!botActionResult.Succeeded) return;
-            
             try
             {
+                var botActionResult = BotActionFactory.GetBotAction(e.Message);
+
+                if (!botActionResult.Succeeded) return;
+                
                 var requestResult = await MediatR.Send(botActionResult.Value);
 
                 if (!requestResult.Succeeded)
