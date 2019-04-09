@@ -13,7 +13,7 @@ namespace Pokegraf.Common.IoC.Configuration
             services.AddPipelines(configuration);
             services.AddApplicationDependencies(configuration);
             services.AddInfrastructureDependencies(configuration);
-
+            
             return services;
         }
     }

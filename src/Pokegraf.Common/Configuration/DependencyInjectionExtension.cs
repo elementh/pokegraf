@@ -9,9 +9,10 @@ namespace Pokegraf.Common.Configuration
     {
         public static IServiceCollection AddPipelines(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPreProcessorBehavior<,>));
+            services.AddMediatR();
+//            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPreProcessorBehavior<,>));
 //            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPerformanceBehaviour<,>));
-
+            
             return services;
         }
     }
