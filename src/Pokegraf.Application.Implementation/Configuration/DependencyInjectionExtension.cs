@@ -1,3 +1,5 @@
+using System.Reflection;
+using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -14,8 +16,16 @@ namespace Pokegraf.Application.Implementation.Configuration
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddMediatRHandlers(configuration);
             services.AddBackgroundServices(configuration);
             services.AddServices(configuration);
+
+            return services;
+        }
+        
+        private static IServiceCollection AddMediatRHandlers(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddMediatR(typeof(DependencyInjectionExtension).GetTypeInfo().Assembly);
 
             return services;
         }
@@ -41,6 +51,14 @@ namespace Pokegraf.Application.Implementation.Configuration
                 .AsImplementedInterfaces()
                 .WithScopedLifetime());
 
+            services.Scan(scan => scan
+                .FromAssemblyOf<TelegramService>()
+                .AddClasses(classes =>
+                    classes.Where(c => c.Name.EndsWith("Factory")))
+                .UsingRegistrationStrategy(RegistrationStrategy.Skip)
+                .AsImplementedInterfaces()
+                .WithScopedLifetime());
+            
             return services;
         }
     }

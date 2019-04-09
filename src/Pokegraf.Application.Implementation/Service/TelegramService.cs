@@ -1,13 +1,11 @@
-using System;
+
 using System.Threading;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using MihaZupan.TelegramBotClients;
 using Pokegraf.Application.Contract.BotAction.Common;
 using Pokegraf.Application.Contract.Client;
 using Pokegraf.Application.Contract.Service;
 using Telegram.Bot.Args;
-using Telegram.Bot.Types.Enums;
 
 namespace Pokegraf.Application.Implementation.Service
 {
@@ -38,7 +36,7 @@ namespace Pokegraf.Application.Implementation.Service
 
             Thread.Sleep(int.MaxValue);
         }
-
+        
         private void HandleOnMessage(object sender, MessageEventArgs e)
         {
             var botAction = BotActionFactory.GetBotAction(e.Message);
