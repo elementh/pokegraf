@@ -1,11 +1,14 @@
 
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Pokegraf.Application.Contract.BotAction.Common;
+using Pokegraf.Application.Contract.BotActions.Common;
 using Pokegraf.Application.Contract.Client;
+using Pokegraf.Application.Contract.Event;
 using Pokegraf.Application.Contract.Service;
+using Pokegraf.Application.Implementation.Event;
 using Telegram.Bot.Args;
 
 namespace Pokegraf.Application.Implementation.Service
@@ -48,7 +51,18 @@ namespace Pokegraf.Application.Implementation.Service
             {
                 Logger.LogError("Unhandled error processing message", exception, e.Message);
             }
+        }
 
+        public Task Handle(IResponseRequest notification, CancellationToken cancellationToken)
+        {
+            if (notification is PhotoResponseRequest request)
+            {
+                return string.IsNullOrWhiteSpace(request.Caption) 
+                    ? Bot.Client.SendPhotoAsync(request.ChatId, request.Photo.ToString()) 
+                    : Bot.Client.SendPhotoAsync(request.ChatId, request.Photo.ToString(), request.Caption );
+            }
+            
+            return Task.CompletedTask;
         }
     }
 }
