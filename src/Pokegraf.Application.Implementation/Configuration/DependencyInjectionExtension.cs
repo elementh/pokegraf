@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Pokegraf.Application.Contract.Client;
 using Pokegraf.Application.Contract.Service;
+using Pokegraf.Application.Implementation.BotActions.Commands.Pokemon;
 using Pokegraf.Application.Implementation.Client;
 using Pokegraf.Application.Implementation.Service;
 using Pokegraf.Application.Implementation.Service.Background;
@@ -14,7 +15,7 @@ namespace Pokegraf.Application.Implementation.Configuration
 {
     public static class DependencyInjectionExtension
     {
-        public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddApplicationDependencies(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddMediatRHandlers(configuration);
             services.AddBackgroundServices(configuration);
@@ -25,7 +26,7 @@ namespace Pokegraf.Application.Implementation.Configuration
         
         private static IServiceCollection AddMediatRHandlers(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddMediatR(typeof(DependencyInjectionExtension).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(PokemonCommandActionHandler).GetTypeInfo().Assembly);
 
             return services;
         }
