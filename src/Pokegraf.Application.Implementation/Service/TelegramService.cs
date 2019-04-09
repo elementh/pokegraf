@@ -35,13 +35,18 @@ namespace Pokegraf.Application.Implementation.Service
         
         private async void HandleOnMessage(object sender, MessageEventArgs e)
         {
-            var result = BotActionFactory.GetBotAction(e.Message);
+            var botActionResult = BotActionFactory.GetBotAction(e.Message);
 
-            if (!result.Succeeded) return;
+            if (!botActionResult.Succeeded) return;
             
             try
             {
-                await MediatR.Send(result.Value);
+                var requestResult = await MediatR.Send(botActionResult.Value);
+
+                if (!requestResult.Succeeded)
+                {
+                    Logger.LogWarning("Request was not processed corectly", botActionResult.Value, requestResult.Errors);
+                }
             }
             catch (Exception exception)
             {
