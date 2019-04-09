@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MihaZupan.TelegramBotClients;
 using Pokegraf.Application.Contract.Client;
+using Telegram.Bot.Types.Enums;
 
 namespace Pokegraf.Application.Implementation.Client
 {
@@ -12,8 +13,11 @@ namespace Pokegraf.Application.Implementation.Client
         protected readonly ILogger<BotClient> Logger;
         public BlockingTelegramBotClient Client { get; }
         
+        public bool Started { get; set; }
+        
         public BotClient(IConfiguration configuration, ILogger<BotClient> logger)
         {
+            Started = false;
             Logger = logger;
             
             try
@@ -25,6 +29,14 @@ namespace Pokegraf.Application.Implementation.Client
                 Logger.LogError("Error setting TelegramBotClient", e);
                 
                 throw;
+            }
+        }
+
+        public void Start()
+        {
+            if (Started == false)
+            {
+                Client.StartReceiving(Array.Empty<UpdateType>());
             }
         }
     }
