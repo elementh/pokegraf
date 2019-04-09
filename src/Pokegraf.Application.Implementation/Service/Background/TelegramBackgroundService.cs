@@ -9,7 +9,7 @@ namespace Pokegraf.Application.Implementation.Service.Background
     {
         private readonly IServiceScopeFactory _serviceScopeFactory;
 
-        public TelegramBackgroundService(IServiceScopeFactory serviceScopeFactory) : base()
+        public TelegramBackgroundService(IServiceScopeFactory serviceScopeFactory)
         {
             _serviceScopeFactory = serviceScopeFactory;
         }

@@ -2,7 +2,6 @@ using AutoMapper;
 using Pokegraf.Application.Implementation.BotActions.Commands.Fusion;
 using Pokegraf.Application.Implementation.BotActions.Commands.Pokemon;
 using Pokegraf.Application.Implementation.BotActions.Common;
-using Pokegraf.Common.Result;
 
 namespace Pokegraf.Application.Implementation.Mapping.Extension
 {

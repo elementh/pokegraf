@@ -26,7 +26,7 @@ namespace Pokegraf.Application.Implementation.BotActions.Common
                 case "/fusion":
                     return Result<IBotAction>.Success(botAction.ToFusionCommandAction());
                 default:
-                    return Result<IBotAction>.NotFound(new List<string> {"No corresponding action found."});;
+                    return Result<IBotAction>.NotFound(new List<string> {"No corresponding action found."});
             }
         }
         

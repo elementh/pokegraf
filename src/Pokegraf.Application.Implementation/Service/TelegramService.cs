@@ -1,7 +1,6 @@
 
 using System;
 using System.Threading;
-using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Pokegraf.Application.Contract.BotAction.Common;
@@ -28,8 +27,6 @@ namespace Pokegraf.Application.Implementation.Service
 
         public void StartPokegrafBot()
         {
-            var me = Bot.Client.GetMeAsync().Result;
-
             Bot.Client.OnMessage += HandleOnMessage;
 
             Bot.Start();

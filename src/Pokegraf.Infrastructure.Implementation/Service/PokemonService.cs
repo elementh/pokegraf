@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using PokeAPI;
@@ -40,8 +39,6 @@ namespace Pokegraf.Infrastructure.Implementation.Service
                 return Result<PokemonDto>.UnknownError(new List<string> {$"Unhandled error getting pokemon number {pokeNumber}"});
             }
             
-            var species = await DataFetcher.GetApiObject<PokemonSpecies>(pokeNumber);
-
             var dto = new PokemonDto()
             {
                 Id = pokeNumber,

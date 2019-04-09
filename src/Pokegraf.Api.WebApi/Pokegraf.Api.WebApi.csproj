@@ -15,4 +15,8 @@
       <ProjectReference Include="..\Pokegraf.Common.IoC\Pokegraf.Common.IoC.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Controllers" />
+    </ItemGroup>
+
 </Project>

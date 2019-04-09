@@ -38,17 +38,17 @@ namespace Pokegraf.Common.Result
         
         public static Result NotFound(List<string> errorDescription)
         {
-            return Result.Fail("not_found", errorDescription);
+            return Fail("not_found", errorDescription);
         }
         
         public static Result UnknownError(List<string> errorDescription)
         {
-            return Result.Fail("unknown_error", errorDescription);
+            return Fail("unknown_error", errorDescription);
         }
         
         public static Result ValidationFailure(List<string> errorDescription)
         {
-            return Result.Fail("validation_failures", errorDescription);
+            return Fail("validation_failures", errorDescription);
         }
 
         public static Result Success()

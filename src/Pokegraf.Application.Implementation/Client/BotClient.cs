@@ -1,5 +1,4 @@
 using System;
-using System.Net.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MihaZupan.TelegramBotClients;
@@ -22,7 +21,7 @@ namespace Pokegraf.Application.Implementation.Client
             
             try
             {
-                Client = new BlockingTelegramBotClient(configuration["Telegram:Token"], (HttpClient) null/*, new SchedulerSettings(60, 10, 500, 6, 1500, 6)*/);
+                Client = new BlockingTelegramBotClient(configuration["Telegram:Token"]);
             }
             catch (Exception e)
             {
