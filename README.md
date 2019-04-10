@@ -2,7 +2,7 @@
 
 [pokegraf](https://github.com/elementh/pokegraf) is a bot made with ❤️ by [Lucas Maximiliano Marino](https://lucasmarino.me/) with the help of [contributors](CONTRIBUTORS.md)!.  
 
-It uses the [PokeAPI](https://github.com/PokeAPI/pokeapi) and[Pokemon Fusion](https://pokemon.alexonsager.net/).
+It uses the [PokeAPI](https://github.com/PokeAPI/pokeapi) and [Pokemon Fusion](https://pokemon.alexonsager.net/).
 
 Pokegraf is developed in netcore using domain driven design and clean code. Please take that into account when contributing.
 
