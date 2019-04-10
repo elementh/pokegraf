@@ -2,6 +2,7 @@ using AutoMapper;
 using Pokegraf.Application.Implementation.BotActions.Commands.About;
 using Pokegraf.Application.Implementation.BotActions.Commands.Fusion;
 using Pokegraf.Application.Implementation.BotActions.Commands.Pokemon;
+using Pokegraf.Application.Implementation.BotActions.Commands.Start;
 using Pokegraf.Application.Implementation.BotActions.Common;
 
 namespace Pokegraf.Application.Implementation.Mapping.Extension
@@ -20,7 +21,15 @@ namespace Pokegraf.Application.Implementation.Mapping.Extension
             return botAction != null
                 ? Mapper.Map<AboutCommandAction>(botAction)
                 : null;
-        }     
+        }
+
+        public static StartCommandAction ToStartCommandAction(this BotAction botAction)
+        {
+            return botAction != null
+                ? Mapper.Map<StartCommandAction>(botAction)
+                : null;
+        }
+        
         public static PokemonCommandAction ToPokemonCommandAction(this BotAction botAction)
         {
             return botAction != null
