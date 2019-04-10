@@ -26,11 +26,11 @@ namespace Pokegraf.Common.IoC.Configuration
                 .Enrich.WithExceptionDetails()
                 .WriteTo.Console();
 
-            var elasticUri = GetElasticUri(configuration);
+            var elasticConnectionString = GetElasticsearchConnectionString(configuration);
             
-            if (elasticUri != null)
+            if (!string.IsNullOrWhiteSpace(elasticConnectionString))
             {
-                loggerConf.WriteTo.Elasticsearch(new ElasticsearchSinkOptions(elasticUri)
+                loggerConf.WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(elasticConnectionString))
                 {
                     AutoRegisterTemplate = true,
                     IndexFormat = "log-pokegraf-{{0:yyyy.MM.dd}"
@@ -49,11 +49,11 @@ namespace Pokegraf.Common.IoC.Configuration
             return loggerConf.CreateLogger();
         }
 
-        private static Uri GetElasticUri(IConfiguration configuration)
+        private static string GetElasticsearchConnectionString(IConfiguration configuration)
         {
             var elasticUri = string.IsNullOrWhiteSpace(configuration["POKEGRAF_ELASTICSEARCH_URL"]) 
-                ? new Uri(configuration.GetConnectionString("ElasticSearch")) 
-                : new Uri(configuration["POKEGRAF_ELASTICSEARCH_URL"]);
+                ? configuration.GetConnectionString("ElasticSearch") 
+                : configuration["POKEGRAF_ELASTICSEARCH_URL"];
 
             return elasticUri;
         }
