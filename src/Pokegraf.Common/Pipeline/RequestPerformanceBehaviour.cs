@@ -26,15 +26,14 @@ namespace Pokegraf.Common.Pipeline
 
             _timer.Stop();
 
-            if (_timer.ElapsedMilliseconds <= 3000)
+            if (_timer.ElapsedMilliseconds <= 5000)
             {
                 return response;
             }
 
             var name = typeof(TRequest).Name;
 
-
-            _logger.LogWarning("ElGuayaBot Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@Request}", name, _timer.ElapsedMilliseconds, request);
+            _logger.LogWarning($"Pokegraf long running request: {name} ({_timer.ElapsedMilliseconds} milliseconds)", request);
 
             return response;
         }
