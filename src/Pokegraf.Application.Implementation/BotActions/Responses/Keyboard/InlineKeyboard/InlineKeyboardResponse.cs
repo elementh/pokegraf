@@ -3,7 +3,7 @@ using Pokegraf.Common.Request;
 using Pokegraf.Common.Result;
 using Telegram.Bot.Types.ReplyMarkups;
 
-namespace Pokegraf.Application.Implementation.BotActions.Responses.InlineKeyboard
+namespace Pokegraf.Application.Implementation.BotActions.Responses.Keyboard.InlineKeyboard
 {
     public class InlineKeyboardResponse : Request<Result>, IResponse
     {

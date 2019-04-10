@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Pokegraf.Application.Implementation.BotActions.Responses.InlineKeyboard;
+using Pokegraf.Application.Implementation.BotActions.Responses.Keyboard.InlineKeyboard;
 using Pokegraf.Application.Implementation.BotActions.Responses.Photo;
 using Pokegraf.Application.Implementation.BotActions.Responses.Text;
 using Pokegraf.Common.Result;

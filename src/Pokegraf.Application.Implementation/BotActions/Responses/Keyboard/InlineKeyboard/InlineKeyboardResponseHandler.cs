@@ -6,9 +6,8 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using Pokegraf.Application.Contract.Client;
 using Pokegraf.Common.Result;
-using Telegram.Bot.Types.ReplyMarkups;
 
-namespace Pokegraf.Application.Implementation.BotActions.Responses.InlineKeyboard
+namespace Pokegraf.Application.Implementation.BotActions.Responses.Keyboard.InlineKeyboard
 {
     public class InlineKeyboardResponseHandler : Pokegraf.Common.Request.RequestHandler<InlineKeyboardResponse, Result>
     {
