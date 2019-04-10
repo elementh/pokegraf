@@ -8,6 +8,13 @@ namespace Pokegraf.Application.Implementation.BotActions.Responses.InlineKeyboar
     public class InlineKeyboardResponse : Request<Result>, IResponse
     {
         public long ChatId { get; set; }
+        public string Text { get; set; }
         public InlineKeyboardMarkup Keyboard { get; set; }
+
+        public InlineKeyboardResponse(long chatId, InlineKeyboardMarkup keyboard)
+        {
+            ChatId = chatId;
+            Keyboard = keyboard;
+        }
     }
 }
