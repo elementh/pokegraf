@@ -102,7 +102,7 @@ namespace Pokegraf.Infrastructure.Implementation.Service
 
             var pokemon = await DataFetcher.GetApiObject<Pokemon>(pokeNumber);
             
-            return new Tuple<int, string>(pokeNumber, pokemon.Name);
+            return new Tuple<int, string>(pokeNumber, pokemon.Name.FirstLetterToUpperCase());
         }
         
         protected async Task<Tuple<int, string>> GetPokemonBefore(int pokeNumber)
@@ -113,13 +113,13 @@ namespace Pokegraf.Infrastructure.Implementation.Service
                     pokeNumber = 721;
                     break;
                 default:
-                    ++pokeNumber;
+                    --pokeNumber;
                     break;
             }
 
             var pokemon = await DataFetcher.GetApiObject<Pokemon>(pokeNumber);
             
-            return new Tuple<int, string>(pokeNumber, pokemon.Name);
+            return new Tuple<int, string>(pokeNumber, pokemon.Name.FirstLetterToUpperCase());
         }
     }
 }
