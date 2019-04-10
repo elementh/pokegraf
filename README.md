@@ -1,19 +1,15 @@
 # pokegraf
 
-ATTENTION: right now this is spaghetti code.
+[pokegraf](https://github.com/elementh/pokegraf) is a bot made with ❤️ by [Lucas Maximiliano Marino](https://lucasmarino.me/) with the help of [contributors](CONTRIBUTORS.md)!.  
 
-[pokegraf](https://github.com/elementh/pokegraf) is a bot made with ❤️ by [Lucas Maximiliano Marino](http://lucasmarino.me/) with the help of [contributors](https://github.com/elementh/pokegraf/blob/master/CONTRIBUTORS.md)!.  
+It uses the [PokeAPI](https://github.com/PokeAPI/pokeapi) and[Pokemon Fusion](https://pokemon.alexonsager.net/).
 
-It uses the [PokeAPI](https://github.com/PokeAPI/pokeapi), [Pokemon Fusion](http://pokemon.alexonsager.net/) and [Telegraf](https://github.com/telegraf/telegraf/).
-
-[![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
+Pokegraf is developed in netcore using domain driven design and clean code. Please take that into account when contributing.
 
 # Roadmap
 
--   Inline behaviour
--   Refactoring (!!!)
--   Abilities, etc.
--   Usage stats (Needs refactring too)
+- Inline behaviour
+- Abilities, etc.
 
 # Contributing
 
@@ -21,11 +17,11 @@ Please have a look at [CONTRIBUTING](CONTRIBUTING.md).
 
 # Disclaimer
 
-Pokémon ©1995 [pokémon](http://www.pokemon.com/), [nintendo](http://www.nintendo.com/), [game freak](http://www.gamefreak.co.jp/), [creatures](http://www.creatures.co.jp/html/en/).
+Pokémon ©1995 [pokémon](https://www.pokemon.com/), [nintendo](https://www.nintendo.com/), [game freak](https://www.gamefreak.co.jp/), [creatures](https://www.creatures.co.jp/html/en/).
 
 # License
 
-pokegraf Copyright (C) 2017  Lucas Maximiliano Marino
+pokegraf Copyright (C) 2017-2019  Lucas Maximiliano Marino
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

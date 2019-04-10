@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.2</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Pokegraf.Application.Contract\Pokegraf.Application.Contract.csproj" />
+      <ProjectReference Include="..\Pokegraf.Infrastructure.Contract\Pokegraf.Infrastructure.Contract.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="8.0.0" />
+      <PackageReference Include="MediatR" Version="6.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="2.2.0" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
+      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.2.0" />
+      <PackageReference Include="Scrutor" Version="3.0.2" />
+    </ItemGroup>
+
+</Project>
