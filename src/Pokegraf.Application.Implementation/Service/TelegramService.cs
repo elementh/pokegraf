@@ -27,6 +27,7 @@ namespace Pokegraf.Application.Implementation.Service
         public void StartPokegrafBot()
         {
             Bot.Client.OnMessage += HandleOnMessage;
+            Bot.Client.OnCallbackQuery += HandleOnCallbackQuery;
 
             Bot.Start();
 
@@ -45,12 +46,38 @@ namespace Pokegraf.Application.Implementation.Service
 
                 if (!requestResult.Succeeded)
                 {
-                    Logger.LogWarning("Request was not processed corectly", botActionResult.Value, requestResult.Errors);
+                    Logger.LogWarning("Message request was not processed correctly.", botActionResult.Value, requestResult.Errors);
                 }
             }
             catch (Exception exception)
             {
-                Logger.LogError("Unhandled error processing message", exception, e.Message);
+                Logger.LogError("Unhandled error processing message.", exception, e.Message);
+            }
+        }
+
+        private async void HandleOnCallbackQuery(object sender, CallbackQueryEventArgs e)
+        {
+            try
+            {
+                var callbackQueryResult = BotActionFactory.GetBotAction(e.CallbackQuery);
+
+                if (!callbackQueryResult.Succeeded) return;
+
+                var requestResult = await MediatR.Send(callbackQueryResult.Value);
+
+                if (!requestResult.Succeeded)
+                {
+                    Logger.LogWarning("Callback query request was not processed correctly", callbackQueryResult.Value,
+                        requestResult.Errors);
+                }
+            }
+            catch (Exception exception)
+            {
+                Logger.LogError("Unhandled error processing callback query.", exception, e.CallbackQuery);
+            }
+            finally
+            {
+                await Bot.Client.AnswerCallbackQueryAsync(e.CallbackQuery.Id);
             }
         }
     }
