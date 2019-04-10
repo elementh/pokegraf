@@ -19,19 +19,17 @@ namespace Pokegraf.Common.IoC.Configuration
                 .Build();
         }
         
-        public static ILogger LoadLogger(IConfiguration configuration, bool useElasticSearch = false)
+        public static ILogger LoadLogger(IConfiguration configuration)
         {
             var loggerConf = new LoggerConfiguration()
                 .Enrich.FromLogContext()
                 .Enrich.WithExceptionDetails()
                 .WriteTo.Console();
 
-            if (useElasticSearch)
+            var elasticUri = GetElasticUri(configuration);
+            
+            if (elasticUri != null)
             {
-                var elasticUri = string.IsNullOrWhiteSpace(configuration["POKEGRAF_ELASTICSEARCH_URL"]) 
-                    ? new Uri(configuration.GetConnectionString("ElasticSearch")) 
-                    : new Uri(configuration["POKEGRAF_ELASTICSEARCH_URL"]);
-
                 loggerConf.WriteTo.Elasticsearch(new ElasticsearchSinkOptions(elasticUri)
                 {
                     AutoRegisterTemplate = true,
@@ -49,6 +47,15 @@ namespace Pokegraf.Common.IoC.Configuration
             }
 
             return loggerConf.CreateLogger();
+        }
+
+        private static Uri GetElasticUri(IConfiguration configuration)
+        {
+            var elasticUri = string.IsNullOrWhiteSpace(configuration["POKEGRAF_ELASTICSEARCH_URL"]) 
+                ? new Uri(configuration.GetConnectionString("ElasticSearch")) 
+                : new Uri(configuration["POKEGRAF_ELASTICSEARCH_URL"]);
+
+            return elasticUri;
         }
     }
 }
