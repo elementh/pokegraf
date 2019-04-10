@@ -18,7 +18,7 @@ namespace Pokegraf.Application.Implementation.BotActions.Common
             
             var botAction = ToBotAction(message);
 
-            switch (command)
+            switch (command.ToLower())
             {
                 case "/pokemon":
                 case "/pkm":
@@ -42,7 +42,7 @@ namespace Pokegraf.Application.Implementation.BotActions.Common
             
             var botAction = ToBotAction(callbackQuery);
 
-            switch (command[0])
+            switch (command[0].ToLower())
             {
                 case "/pokemon":
                     return Result<IBotAction>.Success(botAction.ToPokemonCommandAction());
