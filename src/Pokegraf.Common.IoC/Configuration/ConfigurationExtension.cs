@@ -28,8 +28,10 @@ namespace Pokegraf.Common.IoC.Configuration
 
             if (useElasticSearch)
             {
-                var elasticUri = new Uri(configuration.GetConnectionString("ElasticSearch"));
-                
+                var elasticUri = string.IsNullOrWhiteSpace(configuration["POKEGRAF_ELASTICSEARCH_URL"]) 
+                    ? new Uri(configuration.GetConnectionString("ElasticSearch")) 
+                    : new Uri(configuration["POKEGRAF_ELASTICSEARCH_URL"]);
+
                 loggerConf.WriteTo.Elasticsearch(new ElasticsearchSinkOptions(elasticUri)
                 {
                     AutoRegisterTemplate = true,
