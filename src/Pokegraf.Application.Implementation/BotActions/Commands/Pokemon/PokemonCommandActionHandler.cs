@@ -48,12 +48,14 @@ namespace Pokegraf.Application.Implementation.BotActions.Commands.Pokemon
 
                 if (photoSentResult.Succeeded)
                 {
-                    await MediatR.Send(new InlineKeyboardResponse(request.Chat.Id, result.Value.Description, new InlineKeyboardMarkup(new[]
+                    return await MediatR.Send(new InlineKeyboardResponse(request.Chat.Id, result.Value.Description, new InlineKeyboardMarkup(new[]
                     {
                         InlineKeyboardButton.WithCallbackData($"⬅{result.Value.Before.Item2}", $"/pokemon {result.Value.Before.Item1}"),
                         InlineKeyboardButton.WithCallbackData($"{result.Value.Next.Item2}➡", $"/pokemon {result.Value.Next.Item1}")
                     })));
                 }
+
+                return photoSentResult;
             }
 
             if (result.Errors.ContainsKey("not_found"))
