@@ -4,10 +4,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using Pokegraf.Application.Implementation.BotActions.Responses.InlineKeyboard;
 using Pokegraf.Application.Implementation.BotActions.Responses.Photo;
 using Pokegraf.Application.Implementation.BotActions.Responses.Text;
 using Pokegraf.Common.Result;
 using Pokegraf.Infrastructure.Contract.Service;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace Pokegraf.Application.Implementation.BotActions.Commands.Pokemon
 {
@@ -41,8 +43,17 @@ namespace Pokegraf.Application.Implementation.BotActions.Commands.Pokemon
 
             if (result.Succeeded)
             {
-                return await MediatR.Send(new PhotoWithCaptionResponse(request.Chat.Id, result.Value.Image.ToString(), 
-                    $"{result.Value.Name}: {result.Value.Description}"));
+                var photoSentResult = await MediatR.Send(new PhotoWithCaptionResponse(request.Chat.Id, result.Value.Image.ToString(), 
+                    $"{result.Value.Name}"));
+
+                if (photoSentResult.Succeeded)
+                {
+                    await MediatR.Send(new InlineKeyboardResponse(request.Chat.Id, result.Value.Description, new InlineKeyboardMarkup(new[]
+                    {
+                        InlineKeyboardButton.WithCallbackData($"⬅{result.Value.Before.Item2}", $"/pokemon {result.Value.Before.Item1}"),
+                        InlineKeyboardButton.WithCallbackData($"{result.Value.Next.Item2}➡", $"/pokemon {result.Value.Next.Item1}")
+                    })));
+                }
             }
 
             if (result.Errors.ContainsKey("not_found"))
