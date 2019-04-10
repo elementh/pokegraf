@@ -77,7 +77,14 @@ namespace Pokegraf.Application.Implementation.Service
             }
             finally
             {
-                await Bot.Client.AnswerCallbackQueryAsync(e.CallbackQuery.Id);
+                try
+                {
+                    await Bot.Client.AnswerCallbackQueryAsync(e.CallbackQuery.Id);
+                }
+                catch
+                {
+                    // ignored
+                }
             }
         }
     }

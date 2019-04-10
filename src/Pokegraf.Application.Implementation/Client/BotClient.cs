@@ -21,7 +21,9 @@ namespace Pokegraf.Application.Implementation.Client
             
             try
             {
-                Client = new BlockingTelegramBotClient(configuration["Telegram:Token"]);
+                Client = string.IsNullOrWhiteSpace(configuration["POKEGRAF_TELEGRAM_TOKEN"]) 
+                    ? new BlockingTelegramBotClient(configuration["Telegram:Token"]) 
+                    : new BlockingTelegramBotClient(configuration["POKEGRAF_TELEGRAM_TOKEN"]);
             }
             catch (Exception e)
             {
