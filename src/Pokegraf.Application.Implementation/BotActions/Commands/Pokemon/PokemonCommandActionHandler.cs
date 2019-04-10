@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -31,7 +32,7 @@ namespace Pokegraf.Application.Implementation.BotActions.Commands.Pokemon
             }
             else
             {
-                return await MediatR.Send(new TextResponse(request.Chat.Id, "Usage: '/pokemon 12' '/pokemon pikachu'"));
+                requestedPokemon = new Random().Next(1, 721).ToString();
             }
 
             var result = int.TryParse(requestedPokemon, out var pokeNumber)
