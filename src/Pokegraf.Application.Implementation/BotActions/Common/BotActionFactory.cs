@@ -14,10 +14,10 @@ namespace Pokegraf.Application.Implementation.BotActions.Common
         {
             var command = GetCommand(message);
 
-            var botAction = ToBotAction(message);
-
             if (command == null) return Result<IBotAction>.NotFound(new List<string> {"No corresponding action found."});
             
+            var botAction = ToBotAction(message);
+
             switch (command)
             {
                 case "/pokemon":
@@ -31,6 +31,24 @@ namespace Pokegraf.Application.Implementation.BotActions.Common
                     return Result<IBotAction>.NotFound(new List<string> {"No corresponding action found."});
             }
         }
+
+        public Result<IBotAction> GetBotAction(CallbackQuery callbackQuery)
+        {
+            var command = callbackQuery.Data.Split(" ");
+            
+            if (command.Length <= 1) return Result<IBotAction>.NotFound(new List<string> {"No corresponding action found."});
+            
+            var botAction = ToBotAction(callbackQuery);
+
+            switch (command[0])
+            {
+                case "/pokemon":
+                    return Result<IBotAction>.Success(botAction.ToPokemonCommandAction());
+                default:
+                    return Result<IBotAction>.NotFound(new List<string> {"No corresponding action found."});
+            }
+        }
+
         
         private string GetCommand(Message message)
         {
@@ -55,6 +73,17 @@ namespace Pokegraf.Application.Implementation.BotActions.Common
                 Chat = message.Chat,
                 From = message.From,
                 Text = message.Text
+            };
+        }
+
+        private BotAction ToBotAction(CallbackQuery callbackQuery)
+        {
+            return new BotAction()
+            {
+                MessageId = callbackQuery.Message.MessageId,
+                Chat = callbackQuery.Message.Chat,
+                From = callbackQuery.From,
+                Text = callbackQuery.Data
             };
         }
     }
