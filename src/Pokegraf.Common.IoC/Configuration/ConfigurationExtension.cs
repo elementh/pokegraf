@@ -3,6 +3,7 @@ using System.IO;
 using Microsoft.Extensions.Configuration;
 using Serilog;
 using Serilog.Exceptions;
+using Serilog.Formatting.Elasticsearch;
 using Serilog.Sinks.Elasticsearch;
 
 namespace Pokegraf.Common.IoC.Configuration
@@ -30,10 +31,17 @@ namespace Pokegraf.Common.IoC.Configuration
             
             if (!string.IsNullOrWhiteSpace(elasticConnectionString))
             {
+                var username = configuration["POKEGRAF_ELASTICSEARCH_USERNAME"];
+                var password = configuration["POKEGRAF_ELASTICSEARCH_PASSWORD"];
+                
                 loggerConf.WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(elasticConnectionString))
                 {
+                
+                    ModifyConnectionSettings = (conn) => conn.BasicAuthentication(username, password),
                     AutoRegisterTemplate = true,
-                    IndexFormat = "log-pokegraf-{{0:yyyy.MM.dd}"
+                    AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv6,
+                    IndexFormat = "log-pokegraf-{{0:yyyy.MM.dd}",
+                    CustomFormatter = new ExceptionAsObjectJsonFormatter(renderMessage:true)
                 });
             }
 
