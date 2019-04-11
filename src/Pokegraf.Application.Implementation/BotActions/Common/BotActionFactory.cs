@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
+using Newtonsoft.Json;
 using Pokegraf.Application.Contract.BotActions.Common;
 using Pokegraf.Application.Implementation.Mapping.Extension;
 using Pokegraf.Common.Result;
@@ -16,7 +19,7 @@ namespace Pokegraf.Application.Implementation.BotActions.Common
 
             if (command == null) return Result<IBotAction>.NotFound(new List<string> {"No corresponding action found."});
             
-            var botAction = ToBotAction(message);
+            var botAction = message.ToBotAction();
 
             switch (command.ToLower())
             {
@@ -34,20 +37,23 @@ namespace Pokegraf.Application.Implementation.BotActions.Common
             }
         }
 
-        public Result<IBotAction> GetBotAction(CallbackQuery callbackQuery)
+        public Result<ICallbackAction> GetCallbackAction(CallbackQuery callbackQuery)
         {
-            var command = callbackQuery.Data.Split(" ");
-            
-            if (command.Length <= 1) return Result<IBotAction>.NotFound(new List<string> {"No corresponding action found."});
-            
-            var botAction = ToBotAction(callbackQuery);
+            var callbackAction = callbackQuery.ToCallbackAction();
 
-            switch (command[0].ToLower())
+            if (!callbackAction.Data.Contains("action"))
             {
-                case "/pokemon":
-                    return Result<IBotAction>.Success(botAction.ToPokemonCommandAction());
+                return Result<ICallbackAction>.NotFound(new List<string> {"No corresponding action found."});
+            }
+            
+            switch (callbackAction.Data["action"])
+            {
+                case "pokemonBefore":
+//                    return Result<ICallbackAction>.Success(callbackAction.ToPokemonNextCallbackAction());
+                case "pokemonNext":
+                    return Result<ICallbackAction>.Success(callbackAction.ToPokemonNextCallbackAction());
                 default:
-                    return Result<IBotAction>.NotFound(new List<string> {"No corresponding action found."});
+                    return Result<ICallbackAction>.NotFound(new List<string> {"No corresponding action found."});
             }
         }
 
@@ -60,33 +66,11 @@ namespace Pokegraf.Application.Implementation.BotActions.Common
 
             if (!command.Contains('@')) return command;
                 
-            if (!command.ToLower().Contains("@pokegraf")) return null;
+            if (!command.ToLower().Contains("@pokegraf_bot")) return null;
 
             command = command.Substring(0, command.IndexOf('@'));
 
             return command;
-        }
-        
-        private BotAction ToBotAction(Message message)
-        {
-            return new BotAction()
-            {
-                MessageId = message.MessageId,
-                Chat = message.Chat,
-                From = message.From,
-                Text = message.Text
-            };
-        }
-
-        private BotAction ToBotAction(CallbackQuery callbackQuery)
-        {
-            return new BotAction()
-            {
-                MessageId = callbackQuery.Message.MessageId,
-                Chat = callbackQuery.Message.Chat,
-                From = callbackQuery.From,
-                Text = callbackQuery.Data
-            };
         }
     }
 }
