@@ -41,7 +41,7 @@ namespace Pokegraf.Application.Implementation.BotActions.Common
         {
             var callbackAction = callbackQuery.ToCallbackAction();
 
-            if (!callbackAction.Data.Contains("action"))
+            if (!callbackAction.Data.ContainsKey("action"))
             {
                 return Result<ICallbackAction>.NotFound(new List<string> {"No corresponding action found."});
             }

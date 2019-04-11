@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using AutoMapper;
 using Newtonsoft.Json;
@@ -19,14 +20,14 @@ namespace Pokegraf.Application.Implementation.Mapping.Extension
         
         public static CallbackAction ToCallbackAction(this CallbackQuery callbackQuery)
         {
-            OrderedDictionary callbackData;
+            Dictionary<string, string> callbackData;
             try
             {
-                callbackData = JsonConvert.DeserializeObject<OrderedDictionary>(callbackQuery.Data);
+                callbackData = JsonConvert.DeserializeObject<Dictionary<string, string>>(callbackQuery.Data);
             }
             catch
             {
-                callbackData = new OrderedDictionary();
+                callbackData = new Dictionary<string, string>();
             }
             
             return new CallbackAction()
