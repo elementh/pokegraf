@@ -59,7 +59,7 @@ namespace Pokegraf.Application.Implementation.Service
         {
             try
             {
-                var callbackQueryResult = BotActionFactory.GetBotAction(e.CallbackQuery);
+                var callbackQueryResult = BotActionFactory.GetCallbackAction(e.CallbackQuery);
 
                 if (!callbackQueryResult.Succeeded) return;
 
