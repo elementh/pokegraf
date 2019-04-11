@@ -18,8 +18,4 @@
       <PackageReference Include="Scrutor" Version="3.0.2" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="BotActions\Callbacks" />
-    </ItemGroup>
-
 </Project>
