@@ -1,5 +1,7 @@
 using Pokegraf.Application.Implementation.BotActions.Callbacks.PokemonBefore;
+using Pokegraf.Application.Implementation.BotActions.Callbacks.PokemonDescription;
 using Pokegraf.Application.Implementation.BotActions.Callbacks.PokemonNext;
+using Pokegraf.Application.Implementation.BotActions.Callbacks.PokemonStats;
 using Pokegraf.Application.Implementation.BotActions.Common;
 
 namespace Pokegraf.Application.Implementation.Mapping.Profile
@@ -10,6 +12,8 @@ namespace Pokegraf.Application.Implementation.Mapping.Profile
         {
             CreateMap<CallbackAction, PokemonBeforeCallbackAction>();
             CreateMap<CallbackAction, PokemonNextCallbackAction>();
+            CreateMap<CallbackAction, PokemonStatsCallbackAction>();
+            CreateMap<CallbackAction, PokemonDescriptionCallbackAction>();
         }
     }
 }
