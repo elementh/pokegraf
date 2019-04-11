@@ -6,6 +6,7 @@ using Pokegraf.Application.Contract.BotActions.Common;
 using Pokegraf.Application.Contract.Client;
 using Pokegraf.Application.Contract.Service;
 using Telegram.Bot.Args;
+using Telegram.Bot.Types.Enums;
 
 namespace Pokegraf.Application.Implementation.Service
 {
@@ -33,7 +34,7 @@ namespace Pokegraf.Application.Implementation.Service
 
             Thread.Sleep(int.MaxValue);
         }
-        
+
         private async void HandleOnMessage(object sender, MessageEventArgs e)
         {
             try
@@ -41,12 +42,14 @@ namespace Pokegraf.Application.Implementation.Service
                 var botActionResult = BotActionFactory.GetBotAction(e.Message);
 
                 if (!botActionResult.Succeeded) return;
+
+                await Bot.Client.SendChatActionAsync(e.Message.Chat.Id, ChatAction.Typing);
                 
                 var requestResult = await MediatR.Send(botActionResult.Value);
 
-                if (!requestResult.Succeeded)
+                if (!requestResult.Succeeded && !requestResult.Errors.ContainsKey("not_found"))
                 {
-                    Logger.LogWarning("Message request was not processed correctly.", botActionResult.Value, requestResult.Errors);
+                    Logger.LogError("Message request was not processed correctly.", botActionResult.Value, requestResult.Errors);
                 }
             }
             catch (Exception exception)
@@ -65,9 +68,9 @@ namespace Pokegraf.Application.Implementation.Service
 
                 var requestResult = await MediatR.Send(callbackQueryResult.Value);
 
-                if (!requestResult.Succeeded)
+                if (!requestResult.Succeeded && !requestResult.Errors.ContainsKey("not_found"))
                 {
-                    Logger.LogWarning("Callback query request was not processed correctly", callbackQueryResult.Value,
+                    Logger.LogError("Callback query request was not processed correctly", callbackQueryResult.Value,
                         requestResult.Errors);
                 }
             }
