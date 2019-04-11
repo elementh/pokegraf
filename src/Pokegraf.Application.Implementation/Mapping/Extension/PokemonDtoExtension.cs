@@ -33,12 +33,12 @@ namespace Pokegraf.Application.Implementation.Mapping.Extension
             {
                 new[]
                 {
-                    InlineKeyboardButton.WithCallbackData($"Show stats", "no_callback"),
+                    InlineKeyboardButton.WithCallbackData($"Show stats", JsonConvert.SerializeObject(pokemonStatsCallback)),
                 },
                 new[]
                 {
                     InlineKeyboardButton.WithCallbackData($"⬅ {pokemonDto.Before.Item2}", JsonConvert.SerializeObject(pokemonBeforeCallback)),
-                    InlineKeyboardButton.WithCallbackData($"{pokemonDto.Name}", JsonConvert.SerializeObject(pokemonStatsCallback)),
+                    InlineKeyboardButton.WithCallbackData($"{pokemonDto.Name}", "no_callback"),
                     InlineKeyboardButton.WithCallbackData($"{pokemonDto.Next.Item2} ➡", JsonConvert.SerializeObject(pokemonNextCallback))
                 }
             });
@@ -68,12 +68,12 @@ namespace Pokegraf.Application.Implementation.Mapping.Extension
             {
                 new[]
                 {
-                    InlineKeyboardButton.WithCallbackData($"Show description", "no_callback"),
+                    InlineKeyboardButton.WithCallbackData($"Show description", JsonConvert.SerializeObject(pokemonDescriptionCallback)),
                 },
                 new[]
                 {
                     InlineKeyboardButton.WithCallbackData($"⬅ {pokemonDto.Before.Item2}", JsonConvert.SerializeObject(pokemonBeforeCallback)),
-                    InlineKeyboardButton.WithCallbackData($"{pokemonDto.Name}", JsonConvert.SerializeObject(pokemonDescriptionCallback)),
+                    InlineKeyboardButton.WithCallbackData($"{pokemonDto.Name}", "no_callback"),
                     InlineKeyboardButton.WithCallbackData($"{pokemonDto.Next.Item2} ➡", JsonConvert.SerializeObject(pokemonNextCallback))
                 }
             });

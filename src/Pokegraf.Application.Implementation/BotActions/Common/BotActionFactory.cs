@@ -53,9 +53,9 @@ namespace Pokegraf.Application.Implementation.BotActions.Common
                 case "pokemon_next":
                     return Result<ICallbackAction>.Success(callbackAction.ToPokemonNextCallbackAction());
                 case "pokemon_stats":
-                    return Result<ICallbackAction>.Success(callbackAction.ToPokemonNextCallbackAction());
+                    return Result<ICallbackAction>.Success(callbackAction.ToPokemonStatsCallbackAction());
                 case "pokemon_description":
-                    return Result<ICallbackAction>.Success(callbackAction.ToPokemonNextCallbackAction());
+                    return Result<ICallbackAction>.Success(callbackAction.ToPokemonDescriptionCallbackAction());
                 default:
                     return Result<ICallbackAction>.NotFound(new List<string> {"No corresponding action found."});
             }
