@@ -45,6 +45,7 @@ namespace Pokegraf.Infrastructure.Implementation.Service
                 Id = pokeNumber,
                 Name = pokemon.Name.FirstLetterToUpperCase(),
                 Description = await GetDescription(pokeNumber),
+                Stats = await GetStats(pokeNumber),
                 Image = GetImageUri(pokeNumber),
                 Before = await GetPokemonBefore(pokeNumber),
                 Next = await GetPokemonNext(pokeNumber)
@@ -83,6 +84,20 @@ namespace Pokegraf.Infrastructure.Implementation.Service
             return species.FlavorTexts.First(text => text.Language.Name == "en").FlavorText.Replace("\n", " ");
         }
 
+        protected async Task<PokemonDto.StatsDto> GetStats(int pokeNumber)
+        {
+            var pokemon = await DataFetcher.GetApiObject<Pokemon>(pokeNumber);
+            return new PokemonDto.StatsDto
+            {
+                Health = pokemon.Stats[5].BaseValue,
+                Attack = pokemon.Stats[4].BaseValue,
+                Defense = pokemon.Stats[4].BaseValue,
+                SpecialAttack = pokemon.Stats[2].BaseValue,
+                SpecialDefense = pokemon.Stats[1].BaseValue,
+                Speed = pokemon.Stats[0].BaseValue,
+            };
+        }
+        
         protected Uri GetImageUri(int pokeNumber)
         {
             return new Uri($"https://veekun.com/dex/media/pokemon/global-link/{pokeNumber}.png");
