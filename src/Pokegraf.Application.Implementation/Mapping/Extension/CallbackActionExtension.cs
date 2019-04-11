@@ -1,6 +1,7 @@
 using System.Collections.Specialized;
 using AutoMapper;
 using Newtonsoft.Json;
+using Pokegraf.Application.Implementation.BotActions.Callbacks.PokemonBefore;
 using Pokegraf.Application.Implementation.BotActions.Callbacks.PokemonNext;
 using Pokegraf.Application.Implementation.BotActions.Common;
 using Telegram.Bot.Types;
@@ -42,6 +43,13 @@ namespace Pokegraf.Application.Implementation.Mapping.Extension
         {
             return callbackAction != null
                 ? Mapper.Map<PokemonNextCallbackAction>(callbackAction)
+                : null;
+        }        
+        
+        public static PokemonBeforeCallbackAction ToPokemonBeforeCallbackAction(this CallbackAction callbackAction)
+        {
+            return callbackAction != null
+                ? Mapper.Map<PokemonBeforeCallbackAction>(callbackAction)
                 : null;
         }
     }
