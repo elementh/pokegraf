@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 using Pokegraf.Application.Contract.Client;
 using Pokegraf.Common.Result;
 
-namespace Pokegraf.Application.Implementation.BotActions.Responses.PhotoWithKeyboard
+namespace Pokegraf.Application.Implementation.BotActions.Responses.PhotoWithKeyboard.Send
 {
     public class PhotoWithKeyboardResponseHandler : Pokegraf.Common.Request.RequestHandler<PhotoWithKeyboardResponse, Result>
     {
