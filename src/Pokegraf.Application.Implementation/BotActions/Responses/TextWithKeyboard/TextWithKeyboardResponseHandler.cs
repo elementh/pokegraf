@@ -7,18 +7,18 @@ using Microsoft.Extensions.Logging;
 using Pokegraf.Application.Contract.Client;
 using Pokegraf.Common.Result;
 
-namespace Pokegraf.Application.Implementation.BotActions.Responses.Keyboard.InlineKeyboard
+namespace Pokegraf.Application.Implementation.BotActions.Responses.TextWithKeyboard
 {
-    public class InlineKeyboardResponseHandler : Pokegraf.Common.Request.RequestHandler<InlineKeyboardResponse, Result>
+    public class TextWithKeyboardResponseHandler : Pokegraf.Common.Request.RequestHandler<TextWithKeyboardResponse, Result>
     {
         protected readonly IBotClient Bot;
 
-        public InlineKeyboardResponseHandler(ILogger<Pokegraf.Common.Request.RequestHandler<InlineKeyboardResponse, Result>> logger, IMediator mediatR, IBotClient bot) : base(logger, mediatR)
+        public TextWithKeyboardResponseHandler(ILogger<Pokegraf.Common.Request.RequestHandler<TextWithKeyboardResponse, Result>> logger, IMediator mediatR, IBotClient bot) : base(logger, mediatR)
         {
             Bot = bot;
         }
 
-        public override async Task<Result> Handle(InlineKeyboardResponse request, CancellationToken cancellationToken)
+        public override async Task<Result> Handle(TextWithKeyboardResponse request, CancellationToken cancellationToken)
         {
             try
             {
@@ -28,7 +28,7 @@ namespace Pokegraf.Application.Implementation.BotActions.Responses.Keyboard.Inli
             }
             catch (Exception e)
             {
-                Logger.LogError("Unhandled error sending inline keyboard", e);
+                Logger.LogError("Unhandled error sending text response with inline keyboard", e);
                 
                 return Result.UnknownError(new List<string> {e.Message});
             }

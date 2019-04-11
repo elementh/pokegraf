@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Pokegraf.Application.Implementation.BotActions.Responses.Keyboard.InlineKeyboard;
 using Pokegraf.Application.Implementation.BotActions.Responses.Photo;
 using Pokegraf.Application.Implementation.BotActions.Responses.Text;
+using Pokegraf.Application.Implementation.BotActions.Responses.TextWithKeyboard;
 using Pokegraf.Common.Result;
 using Pokegraf.Infrastructure.Contract.Dto;
 using Pokegraf.Infrastructure.Contract.Service;
@@ -62,7 +62,7 @@ namespace Pokegraf.Application.Implementation.BotActions.Commands.Pokemon
 
             var keyboard = GetKeyboard(result.Value);
             
-            return await MediatR.Send(new InlineKeyboardResponse(request.Chat.Id, result.Value.Description, keyboard));
+            return await MediatR.Send(new TextWithKeyboardResponse(request.Chat.Id, result.Value.Description, keyboard));
         }
 
         private InlineKeyboardMarkup GetKeyboard(PokemonDto pokemon)
@@ -82,6 +82,7 @@ namespace Pokegraf.Application.Implementation.BotActions.Commands.Pokemon
             return new InlineKeyboardMarkup(new[]
             {
                 InlineKeyboardButton.WithCallbackData($"⬅{pokemon.Before.Item2}", JsonConvert.SerializeObject(pokemonBeforeCallback)),
+                InlineKeyboardButton.WithCallbackData($"{pokemon.Name}", "no_callback"),
                 InlineKeyboardButton.WithCallbackData($"{pokemon.Next.Item2}➡", JsonConvert.SerializeObject(pokemonNextCallback))
             });
         }
