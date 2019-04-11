@@ -6,6 +6,6 @@ namespace Pokegraf.Application.Contract.BotActions.Common
     public interface IBotActionFactory
     {
         Result<IBotAction> GetBotAction(Message message);
-        Result<IBotAction> GetBotAction(CallbackQuery callbackQuery);
+        Result<ICallbackAction> GetCallbackAction(CallbackQuery callbackQuery);
     }
 }
