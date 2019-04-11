@@ -7,6 +7,7 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Pokegraf.Application.Implementation.BotActions.Responses.Photo;
+using Pokegraf.Application.Implementation.BotActions.Responses.PhotoWithKeyboard;
 using Pokegraf.Application.Implementation.BotActions.Responses.Text;
 using Pokegraf.Application.Implementation.BotActions.Responses.TextWithKeyboard;
 using Pokegraf.Common.Result;
@@ -54,36 +55,38 @@ namespace Pokegraf.Application.Implementation.BotActions.Commands.Pokemon
 
                 return result;
             }
-
-            var photoSentResult = await MediatR.Send(new PhotoWithCaptionResponse(request.Chat.Id, result.Value.Image.ToString(), 
-                $"{result.Value.Name}"));
-
-            if (!photoSentResult.Succeeded) return photoSentResult;
-
             var keyboard = GetKeyboard(result.Value);
-            
-            return await MediatR.Send(new TextWithKeyboardResponse(request.Chat.Id, result.Value.Description, keyboard));
+
+            return await MediatR.Send(new PhotoWithCaptionWithKeyboardResponse(request.Chat.Id, result.Value.Image.ToString(), 
+                $"{result.Value.Description}", keyboard));
         }
 
         private InlineKeyboardMarkup GetKeyboard(PokemonDto pokemon)
         {
             var pokemonBeforeCallback = new OrderedDictionary
             {
-                {"callback_action", "pokemonBefore"}, 
+                {"action", "pokemon_before"}, 
                 {"requested_pokemon", pokemon.Before.Item1}
             };
             
             var pokemonNextCallback = new OrderedDictionary
             {
-                {"callback_action", "pokemonNext"},
+                {"action", "pokemon_next"},
                 {"requested_pokemon", pokemon.Next.Item1}
             };
 
             return new InlineKeyboardMarkup(new[]
             {
-                InlineKeyboardButton.WithCallbackData($"⬅{pokemon.Before.Item2}", JsonConvert.SerializeObject(pokemonBeforeCallback)),
-                InlineKeyboardButton.WithCallbackData($"{pokemon.Name}", "no_callback"),
-                InlineKeyboardButton.WithCallbackData($"{pokemon.Next.Item2}➡", JsonConvert.SerializeObject(pokemonNextCallback))
+                new[]
+                {
+                    InlineKeyboardButton.WithCallbackData($"Show stats", "no_callback"),
+                },
+                new[]
+                {
+                    InlineKeyboardButton.WithCallbackData($"⬅ {pokemon.Before.Item2}", JsonConvert.SerializeObject(pokemonBeforeCallback)),
+                    InlineKeyboardButton.WithCallbackData($"{pokemon.Name}", "no_callback"),
+                    InlineKeyboardButton.WithCallbackData($"{pokemon.Next.Item2} ➡", JsonConvert.SerializeObject(pokemonNextCallback))
+                }
             });
         }
     }

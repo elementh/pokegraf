@@ -48,9 +48,9 @@ namespace Pokegraf.Application.Implementation.BotActions.Common
             
             switch (callbackAction.Data["action"])
             {
-                case "pokemonBefore":
-//                    return Result<ICallbackAction>.Success(callbackAction.ToPokemonNextCallbackAction());
-                case "pokemonNext":
+                case "pokemon_before":
+                    return Result<ICallbackAction>.Success(callbackAction.ToPokemonBeforeCallbackAction());
+                case "pokemon_next":
                     return Result<ICallbackAction>.Success(callbackAction.ToPokemonNextCallbackAction());
                 default:
                     return Result<ICallbackAction>.NotFound(new List<string> {"No corresponding action found."});
