@@ -5,26 +5,24 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Pokegraf.Application.Implementation.BotActions.Commands.Pokemon;
-using Pokegraf.Application.Implementation.BotActions.Responses.Photo;
-using Pokegraf.Application.Implementation.BotActions.Responses.PhotoWithKeyboard.Send;
+using Pokegraf.Application.Implementation.BotActions.Responses.PhotoWithKeyboard.Edit;
 using Pokegraf.Common.Result;
 using Pokegraf.Infrastructure.Contract.Service;
 using Telegram.Bot.Types.ReplyMarkups;
 
-namespace Pokegraf.Application.Implementation.BotActions.Commands.Fusion
+namespace Pokegraf.Application.Implementation.BotActions.Callbacks.Fusion
 {
-    public class FusionCommandActionHandler : Pokegraf.Common.Request.RequestHandler<FusionCommandAction, Result>
+    public class FusionCallbackActionHandler : Pokegraf.Common.Request.RequestHandler<FusionCallbackAction, Result>
     {
         private readonly IPokemonService _pokemonService;
 
-        public FusionCommandActionHandler(ILogger<Pokegraf.Common.Request.RequestHandler<FusionCommandAction, Result>> logger,
+        public FusionCallbackActionHandler(ILogger<Pokegraf.Common.Request.RequestHandler<FusionCallbackAction, Result>> logger,
             IMediator mediatR, IPokemonService pokemonService) : base(logger, mediatR)
         {
             _pokemonService = pokemonService;
         }
 
-        public override async Task<Result> Handle(FusionCommandAction request, CancellationToken cancellationToken)
+        public override async Task<Result> Handle(FusionCallbackAction request, CancellationToken cancellationToken)
         {
             var fusionResult = _pokemonService.GetFusion();
 
@@ -35,9 +33,9 @@ namespace Pokegraf.Application.Implementation.BotActions.Commands.Fusion
                 {"action", "fusion"}
             };
 
-            return await MediatR.Send(new PhotoWithCaptionWithKeyboardResponse(request.Chat.Id, fusionResult.Value.Item2.ToString(),
+            return await MediatR.Send(new EditPhotoWithCaptionWithKeyboardResponse(request.Chat.Id, fusionResult.Value.Item2.ToString(),
                 fusionResult.Value.Item1, new InlineKeyboardMarkup(InlineKeyboardButton.WithCallbackData("More fusion!",
-                    JsonConvert.SerializeObject(fusionCallback)))));
+                    JsonConvert.SerializeObject(fusionCallback))), request.MessageId));
         }
     }
 }

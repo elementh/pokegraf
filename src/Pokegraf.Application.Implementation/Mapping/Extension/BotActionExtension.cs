@@ -4,6 +4,7 @@ using Pokegraf.Application.Implementation.BotActions.Commands.Fusion;
 using Pokegraf.Application.Implementation.BotActions.Commands.Pokemon;
 using Pokegraf.Application.Implementation.BotActions.Commands.Start;
 using Pokegraf.Application.Implementation.BotActions.Common;
+using Telegram.Bot.Types;
 
 namespace Pokegraf.Application.Implementation.Mapping.Extension
 {
@@ -16,6 +17,17 @@ namespace Pokegraf.Application.Implementation.Mapping.Extension
             Mapper = new MapperConfiguration(cfg => { }).CreateMapper();
         }
 
+        public static BotAction ToBotAction(this Message message)
+        {
+            return new BotAction()
+            {
+                MessageId = message.MessageId,
+                Chat = message.Chat,
+                From = message.From,
+                Text = message.Text
+            };
+        }
+        
         public static AboutCommandAction ToAboutCommandAction(this BotAction botAction)
         {
             return botAction != null
