@@ -56,6 +56,8 @@ namespace Pokegraf.Application.Implementation.BotActions.Common
                     return Result<ICallbackAction>.Success(callbackAction.ToPokemonStatsCallbackAction());
                 case "pokemon_description":
                     return Result<ICallbackAction>.Success(callbackAction.ToPokemonDescriptionCallbackAction());
+                case "fusion":
+                    return Result<ICallbackAction>.Success(callbackAction.ToFusionCallbackAction());
                 default:
                     return Result<ICallbackAction>.NotFound(new List<string> {"No corresponding action found."});
             }

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using AutoMapper;
 using Newtonsoft.Json;
+using Pokegraf.Application.Implementation.BotActions.Callbacks.Fusion;
 using Pokegraf.Application.Implementation.BotActions.Callbacks.PokemonBefore;
 using Pokegraf.Application.Implementation.BotActions.Callbacks.PokemonDescription;
 using Pokegraf.Application.Implementation.BotActions.Callbacks.PokemonNext;
@@ -67,6 +68,13 @@ namespace Pokegraf.Application.Implementation.Mapping.Extension
         {
             return callbackAction != null
                 ? Mapper.Map<PokemonDescriptionCallbackAction>(callbackAction)
+                : null;
+        }
+        
+        public static FusionCallbackAction ToFusionCallbackAction(this CallbackAction callbackAction)
+        {
+            return callbackAction != null
+                ? Mapper.Map<FusionCallbackAction>(callbackAction)
                 : null;
         }
     }
