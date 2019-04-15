@@ -8,18 +8,18 @@ using Telegram.Bot.Types;
 
 namespace Pokegraf.Application.Implementation.Mapping.Extension
 {
-    public static class BotActionExtension
+    public static class CommandActionExtension
     {
         internal static IMapper Mapper { get; set; }
 
-        static BotActionExtension()
+        static CommandActionExtension()
         {
             Mapper = new MapperConfiguration(cfg => { }).CreateMapper();
         }
 
-        public static BotAction ToBotAction(this Message message)
+        public static CommandAction ToCommandAction(this Message message)
         {
-            return new BotAction()
+            return new CommandAction()
             {
                 MessageId = message.MessageId,
                 Chat = message.Chat,
@@ -28,28 +28,28 @@ namespace Pokegraf.Application.Implementation.Mapping.Extension
             };
         }
         
-        public static AboutCommandAction ToAboutCommandAction(this BotAction botAction)
+        public static AboutCommandAction ToAboutCommandAction(this CommandAction botAction)
         {
             return botAction != null
                 ? Mapper.Map<AboutCommandAction>(botAction)
                 : null;
         }
 
-        public static StartCommandAction ToStartCommandAction(this BotAction botAction)
+        public static StartCommandAction ToStartCommandAction(this CommandAction botAction)
         {
             return botAction != null
                 ? Mapper.Map<StartCommandAction>(botAction)
                 : null;
         }
         
-        public static PokemonCommandAction ToPokemonCommandAction(this BotAction botAction)
+        public static PokemonCommandAction ToPokemonCommandAction(this CommandAction botAction)
         {
             return botAction != null
                 ? Mapper.Map<PokemonCommandAction>(botAction)
                 : null;
         }
         
-        public static FusionCommandAction ToFusionCommandAction(this BotAction botAction)
+        public static FusionCommandAction ToFusionCommandAction(this CommandAction botAction)
         {
             return botAction != null
                 ? Mapper.Map<FusionCommandAction>(botAction)

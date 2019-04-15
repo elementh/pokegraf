@@ -19,19 +19,19 @@ namespace Pokegraf.Application.Implementation.BotActions.Common
 
             if (command == null) return Result<IBotAction>.NotFound(new List<string> {"No corresponding action found."});
             
-            var botAction = message.ToBotAction();
+            var commandAction = message.ToCommandAction();
 
             switch (command.ToLower())
             {
                 case "/pokemon":
                 case "/pkm":
-                    return Result<IBotAction>.Success(botAction.ToPokemonCommandAction());
+                    return Result<IBotAction>.Success(commandAction.ToPokemonCommandAction());
                 case "/fusion":
-                    return Result<IBotAction>.Success(botAction.ToFusionCommandAction());
+                    return Result<IBotAction>.Success(commandAction.ToFusionCommandAction());
                 case "/about":
-                    return Result<IBotAction>.Success(botAction.ToAboutCommandAction());
+                    return Result<IBotAction>.Success(commandAction.ToAboutCommandAction());
                 case "/start":
-                    return Result<IBotAction>.Success(botAction.ToStartCommandAction());
+                    return Result<IBotAction>.Success(commandAction.ToStartCommandAction());
                 default:
                     return Result<IBotAction>.NotFound(new List<string> {"No corresponding action found."});
             }
@@ -63,7 +63,11 @@ namespace Pokegraf.Application.Implementation.BotActions.Common
             }
         }
 
-        
+        public Result<IInlineAction> GetInlineAction(InlineQuery eInlineQuery)
+        {
+            throw new NotImplementedException();
+        }
+
         private string GetCommand(Message message)
         {
             if (message.Entities?.First()?.Type != MessageEntityType.BotCommand) return null;

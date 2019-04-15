@@ -6,14 +6,14 @@ using Pokegraf.Application.Implementation.BotActions.Common;
 
 namespace Pokegraf.Application.Implementation.Mapping.Profile
 {
-    public class BotActionProfile : AutoMapper.Profile
+    public class CommandActionProfile : AutoMapper.Profile
     {
-        public BotActionProfile()
+        public CommandActionProfile()
         {
-            CreateMap<BotAction, AboutCommandAction>();
-            CreateMap<BotAction, StartCommandAction>();
-            CreateMap<BotAction, PokemonCommandAction>();
-            CreateMap<BotAction, FusionCommandAction>();
+            CreateMap<CommandAction, AboutCommandAction>();
+            CreateMap<CommandAction, StartCommandAction>();
+            CreateMap<CommandAction, PokemonCommandAction>();
+            CreateMap<CommandAction, FusionCommandAction>();
         }
     }
 }
