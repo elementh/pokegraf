@@ -1,21 +1,14 @@
 using System;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Pokegraf.Application.Implementation.BotActions.Responses.Photo;
-using Pokegraf.Application.Implementation.BotActions.Responses.PhotoWithKeyboard;
-using Pokegraf.Application.Implementation.BotActions.Responses.PhotoWithKeyboard.Send;
-using Pokegraf.Application.Implementation.BotActions.Responses.Text;
-using Pokegraf.Application.Implementation.BotActions.Responses.TextWithKeyboard;
+using Pokegraf.Application.Implementation.Common.Responses.PhotoWithKeyboard.Send;
+using Pokegraf.Application.Implementation.Common.Responses.Text;
 using Pokegraf.Application.Implementation.Mapping.Extension;
 using Pokegraf.Common.Result;
-using Pokegraf.Infrastructure.Contract.Dto;
 using Pokegraf.Infrastructure.Contract.Service;
-using Telegram.Bot.Types.ReplyMarkups;
 
 namespace Pokegraf.Application.Implementation.BotActions.Commands.Pokemon
 {

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Pokegraf.Application.Implementation.BotActions.Responses.PhotoWithKeyboard.Edit;
+using Pokegraf.Application.Implementation.Common.Responses.PhotoWithKeyboard.Edit;
 using Pokegraf.Common.Result;
 using Pokegraf.Infrastructure.Contract.Service;
 using Telegram.Bot.Types.ReplyMarkups;

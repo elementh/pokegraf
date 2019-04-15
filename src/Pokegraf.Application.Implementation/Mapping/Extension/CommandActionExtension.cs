@@ -4,6 +4,7 @@ using Pokegraf.Application.Implementation.BotActions.Commands.Fusion;
 using Pokegraf.Application.Implementation.BotActions.Commands.Pokemon;
 using Pokegraf.Application.Implementation.BotActions.Commands.Start;
 using Pokegraf.Application.Implementation.BotActions.Common;
+using Pokegraf.Application.Implementation.Common.Actions;
 using Telegram.Bot.Types;
 
 namespace Pokegraf.Application.Implementation.Mapping.Extension

@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using Newtonsoft.Json;
 using Pokegraf.Application.Contract.BotActions.Common;
+using Pokegraf.Application.Contract.Common.Actions;
 using Pokegraf.Application.Implementation.Mapping.Extension;
 using Pokegraf.Common.Result;
 using Telegram.Bot.Types;

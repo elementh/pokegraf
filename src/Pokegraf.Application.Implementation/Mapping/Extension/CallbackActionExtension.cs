@@ -8,6 +8,7 @@ using Pokegraf.Application.Implementation.BotActions.Callbacks.PokemonDescriptio
 using Pokegraf.Application.Implementation.BotActions.Callbacks.PokemonNext;
 using Pokegraf.Application.Implementation.BotActions.Callbacks.PokemonStats;
 using Pokegraf.Application.Implementation.BotActions.Common;
+using Pokegraf.Application.Implementation.Common.Actions;
 using Telegram.Bot.Types;
 
 namespace Pokegraf.Application.Implementation.Mapping.Extension
