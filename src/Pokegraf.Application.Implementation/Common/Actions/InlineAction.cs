@@ -2,7 +2,7 @@ using Pokegraf.Application.Contract.Common.Actions;
 
 namespace Pokegraf.Application.Implementation.Common.Actions
 {
-    public class InlineAction : BotAction, IInlineAction
+    public abstract class InlineAction : BotAction, IInlineAction
     {
         
     }
