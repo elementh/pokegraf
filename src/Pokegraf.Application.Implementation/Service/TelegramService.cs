@@ -1,5 +1,6 @@
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Pokegraf.Application.Contract.BotActions.Common;
@@ -29,6 +30,7 @@ namespace Pokegraf.Application.Implementation.Service
         {
             Bot.Client.OnMessage += HandleOnMessage;
             Bot.Client.OnCallbackQuery += HandleOnCallbackQuery;
+            Bot.Client.OnInlineQuery += HandleOnInlineQuery;
 
             Bot.Start();
 
@@ -84,6 +86,28 @@ namespace Pokegraf.Application.Implementation.Service
                 #pragma warning disable 4014
                 Bot.Client.AnswerCallbackQueryAsync(e.CallbackQuery.Id);
                 #pragma warning restore 4014
+            }
+        }
+        
+        private async void HandleOnInlineQuery(object sender, InlineQueryEventArgs e)
+        {
+            try
+            {
+                var inlineQueryResult = BotActionFactory.GetInlineAction(e.InlineQuery);
+                
+                if (!inlineQueryResult.Succeeded) return;
+
+                var requestResult = await MediatR.Send(inlineQueryResult.Value);
+
+                if (!requestResult.Succeeded && !requestResult.Errors.ContainsKey("not_found"))
+                {
+                    Logger.LogError("{InlineQueryAction} request was not processed correctly: {@Errors}",
+                        inlineQueryResult.Value.GetType().Name, requestResult.Errors);
+                }
+            }
+            catch (Exception exception)
+            {
+                Logger.LogError(exception, "Unhandled error processing inline query ({@InlineQuery}).", e.InlineQuery);
             }
         }
     }
