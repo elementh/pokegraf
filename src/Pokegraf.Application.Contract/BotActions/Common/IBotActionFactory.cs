@@ -7,5 +7,6 @@ namespace Pokegraf.Application.Contract.BotActions.Common
     {
         Result<IBotAction> GetBotAction(Message message);
         Result<ICallbackAction> GetCallbackAction(CallbackQuery callbackQuery);
+        Result<IInlineAction> GetInlineAction(InlineQuery eInlineQuery);
     }
 }
