@@ -29,7 +29,7 @@ namespace Pokegraf.Application.Implementation.BotActions.Responses.Text
             }
             catch (Exception e)
             {
-                Logger.LogError("Unhandled error sending text response", e);
+                Logger.LogError(e, "Unhandled error sending text response ({@Request}).", request);
                 
                 return Result.UnknownError(new List<string> {e.Message});
             }

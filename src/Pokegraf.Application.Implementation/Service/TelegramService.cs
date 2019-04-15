@@ -44,17 +44,18 @@ namespace Pokegraf.Application.Implementation.Service
                 if (!botActionResult.Succeeded) return;
 
                 await Bot.Client.SendChatActionAsync(e.Message.Chat.Id, ChatAction.Typing);
-                
+
                 var requestResult = await MediatR.Send(botActionResult.Value);
 
                 if (!requestResult.Succeeded && !requestResult.Errors.ContainsKey("not_found"))
                 {
-                    Logger.LogError("Message request was not processed correctly.", botActionResult.Value, requestResult.Errors);
+                    Logger.LogError("{BotAction} was not processed correctly: {@Errors}",
+                        botActionResult.Value.GetType().Name, requestResult.Errors);
                 }
             }
             catch (Exception exception)
             {
-                Logger.LogError("Unhandled error processing message.", exception, e.Message);
+                Logger.LogError(exception, "Unhandled error processing message ({@Message}).", e.Message);
             }
         }
 
@@ -70,24 +71,19 @@ namespace Pokegraf.Application.Implementation.Service
 
                 if (!requestResult.Succeeded && !requestResult.Errors.ContainsKey("not_found"))
                 {
-                    Logger.LogError("Callback query request was not processed correctly", callbackQueryResult.Value,
-                        requestResult.Errors);
+                    Logger.LogError("{CallbackQueryAction} request was not processed correctly: {@Errors}",
+                        callbackQueryResult.Value.GetType().Name, requestResult.Errors);
                 }
             }
             catch (Exception exception)
             {
-                Logger.LogError("Unhandled error processing callback query.", exception, e.CallbackQuery);
+                Logger.LogError(exception, "Unhandled error processing callback query ({@CallbackQuery}).", e.CallbackQuery);
             }
             finally
             {
-                try
-                {
-                    await Bot.Client.AnswerCallbackQueryAsync(e.CallbackQuery.Id);
-                }
-                catch
-                {
-                    // ignored
-                }
+                #pragma warning disable 4014
+                Bot.Client.AnswerCallbackQueryAsync(e.CallbackQuery.Id);
+                #pragma warning restore 4014
             }
         }
     }

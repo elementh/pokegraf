@@ -27,7 +27,7 @@ namespace Pokegraf.Application.Implementation.Client
             }
             catch (Exception e)
             {
-                Logger.LogError("Error setting TelegramBotClient", e);
+                Logger.LogError(e, "Error setting TelegramBotClient.");
                 
                 throw;
             }

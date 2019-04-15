@@ -28,7 +28,7 @@ namespace Pokegraf.Application.Implementation.BotActions.Responses.TextWithKeybo
             }
             catch (Exception e)
             {
-                Logger.LogError("Unhandled error sending text response with inline keyboard", e);
+                Logger.LogError(e, "Unhandled error sending text response with inline keyboard ({@Request}).", request);
                 
                 return Result.UnknownError(new List<string> {e.Message});
             }

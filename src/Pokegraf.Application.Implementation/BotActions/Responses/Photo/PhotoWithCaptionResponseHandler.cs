@@ -28,7 +28,7 @@ namespace Pokegraf.Application.Implementation.BotActions.Responses.Photo
             }
             catch (Exception e)
             {
-                Logger.LogError("Unhandled error sending photo with caption", e);
+                Logger.LogError(e, "Unhandled error sending photo with caption ({@Request}).", request);
                 
                 return Result.UnknownError(new List<string> {e.Message});
             }
