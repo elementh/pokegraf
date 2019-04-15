@@ -5,6 +5,9 @@ namespace Pokegraf.Application.Implementation.BotActions.Callbacks.PokemonBefore
 {
     public class PokemonBeforeCallbackAction : CallbackAction
     {
-        
+        public override bool CanHandle(string condition)
+        {
+            return condition == "pokemon_before";
+        }
     }
 }
