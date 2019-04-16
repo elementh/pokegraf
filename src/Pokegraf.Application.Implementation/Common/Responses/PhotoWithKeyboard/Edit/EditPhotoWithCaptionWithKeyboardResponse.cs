@@ -7,7 +7,7 @@ namespace Pokegraf.Application.Implementation.Common.Responses.PhotoWithKeyboard
     {
         public int MessageId { get; set; }
 
-        public EditPhotoWithCaptionWithKeyboardResponse(long chatId, string photo, string caption, InlineKeyboardMarkup keyboard, int messageId) : base(chatId, photo, caption, keyboard)
+        public EditPhotoWithCaptionWithKeyboardResponse(string photo, string caption, InlineKeyboardMarkup keyboard, int messageId) : base(photo, caption, keyboard)
         {
             MessageId = messageId;
         }
