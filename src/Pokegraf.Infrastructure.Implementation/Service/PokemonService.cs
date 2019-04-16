@@ -47,6 +47,7 @@ namespace Pokegraf.Infrastructure.Implementation.Service
                 Description = await GetDescription(pokeNumber),
                 Stats = await GetStats(pokeNumber),
                 Image = GetImageUri(pokeNumber),
+                Sprite = new Uri(pokemon.Sprites.FrontMale),
                 Before = await GetPokemonBefore(pokeNumber),
                 Next = await GetPokemonNext(pokeNumber)
             };
