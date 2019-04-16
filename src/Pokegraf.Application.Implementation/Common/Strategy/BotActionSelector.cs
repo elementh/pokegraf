@@ -53,7 +53,15 @@ namespace Pokegraf.Application.Implementation.Common.Strategy
 
         public Result<IInlineAction> GetInlineAction()
         {
-            throw new NotImplementedException();
+            var inline = BotContext.InlineQuery.Query;
+            
+            if (inline == null) return Result<IInlineAction>.NotFound(new List<string> {"No corresponding action found."});
+
+            var action = StrategyContext.GetInlineStrategyContext().FirstOrDefault(botAction => botAction.CanHandle(inline));
+            
+            if (action == null) return Result<IInlineAction>.NotFound(new List<string> {"No corresponding action found."});
+
+            return Result<IInlineAction>.Success(action);
         }
 
         private string GetCommand(Message message)
