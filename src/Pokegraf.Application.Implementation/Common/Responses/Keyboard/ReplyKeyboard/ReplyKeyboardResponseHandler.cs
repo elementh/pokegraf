@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Pokegraf.Application.Contract.Client;
+using Pokegraf.Application.Contract.Common.Client;
 using Pokegraf.Common.Result;
 
 namespace Pokegraf.Application.Implementation.Common.Responses.Keyboard.ReplyKeyboard
