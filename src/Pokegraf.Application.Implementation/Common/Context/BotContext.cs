@@ -33,6 +33,7 @@ namespace Pokegraf.Application.Implementation.Common.Context
         public void Populate(CallbackQuery callbackQuery)
         {
             CallbackQuery = callbackQuery;
+            Message = callbackQuery.Message;
             User = callbackQuery.From;
             Chat = callbackQuery.Message.Chat;
 
