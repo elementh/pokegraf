@@ -5,24 +5,26 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Pokegraf.Application.Contract.Common.Client;
+using Pokegraf.Application.Contract.Common.Context;
+using Pokegraf.Application.Implementation.Common.Context;
 using Pokegraf.Common.Result;
 
 namespace Pokegraf.Application.Implementation.Common.Responses.Text
 {
     public class TextResponseHandler : Pokegraf.Common.Request.RequestHandler<TextResponse, Result>
     {
-        protected readonly IBotClient Bot;
+        protected readonly IBotContext BotContext;
 
-        public TextResponseHandler(ILogger<Pokegraf.Common.Request.RequestHandler<TextResponse, Result>> logger, IMediator mediatR, IBotClient bot) : base(logger, mediatR)
+        public TextResponseHandler(ILogger<Pokegraf.Common.Request.RequestHandler<TextResponse, Result>> logger, IMediator mediatR, IBotContext botContext) : base(logger, mediatR)
         {
-            Bot = bot;
+            BotContext = botContext;
         }
 
         public override async Task<Result> Handle(TextResponse request, CancellationToken cancellationToken)
         {
             try
             {
-                await Bot.Client.SendTextMessageAsync(request.ChatId, request.Text, request.ParseMode, cancellationToken: cancellationToken);
+                await BotContext.BotClient.Client.SendTextMessageAsync(BotContext.Chat.Id, request.Text, request.ParseMode, cancellationToken: cancellationToken);
 
                 return Result.Success();
             }
