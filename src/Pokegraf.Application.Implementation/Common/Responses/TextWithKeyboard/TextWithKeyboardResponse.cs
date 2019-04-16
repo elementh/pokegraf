@@ -1,20 +1,18 @@
 using Pokegraf.Application.Contract.Common.Responses;
+using Pokegraf.Application.Implementation.Common.Responses.Text;
 using Pokegraf.Common.Request;
 using Pokegraf.Common.Result;
+using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace Pokegraf.Application.Implementation.Common.Responses.TextWithKeyboard
 {
-    public class TextWithKeyboardResponse : Request<Result>, IResponse
+    public class TextWithKeyboardResponse : TextResponse
     {
-        public long ChatId { get; set; }
-        public string Text { get; set; }
         public InlineKeyboardMarkup Keyboard { get; set; }
 
-        public TextWithKeyboardResponse(long chatId, string text, InlineKeyboardMarkup keyboard)
+        public TextWithKeyboardResponse(InlineKeyboardMarkup keyboard, string text, ParseMode parseMode = ParseMode.Markdown) : base(text, parseMode)
         {
-            ChatId = chatId;
-            Text = text;
             Keyboard = keyboard;
         }
     }
