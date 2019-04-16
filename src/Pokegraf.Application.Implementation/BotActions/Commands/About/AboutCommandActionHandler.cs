@@ -20,7 +20,7 @@ namespace Pokegraf.Application.Implementation.BotActions.Commands.About
 It uses the [PokeAPI](https://github.com/PokeAPI/pokeapi) and [Pokemon Fusion](http://pokemon.alexonsager.net/).  
 Pokémon ©1995 [pokémon](http://www.pokemon.com/), [nintendo](http://www.nintendo.com/), [game freak](http://www.gamefreak.co.jp/), [creatures](http://www.creatures.co.jp/html/en/).";
 
-            return await MediatR.Send(new TextResponse(request.Chat.Id, aboutText));
+            return await MediatR.Send(new TextResponse(aboutText));
         }
     }
 }

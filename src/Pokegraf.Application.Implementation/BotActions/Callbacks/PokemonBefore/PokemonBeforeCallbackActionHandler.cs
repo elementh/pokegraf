@@ -34,8 +34,7 @@ namespace Pokegraf.Application.Implementation.BotActions.Callbacks.PokemonBefore
             {
                 if (result.Errors.ContainsKey("not_found"))
                 {
-                    return await MediatR.Send(new TextResponse(request.Chat.Id,
-                        result.Errors["not_found"].First() ?? "Ups, there was an error! Try again later!"));
+                    return await MediatR.Send(new TextResponse(result.Errors["not_found"].First() ?? "Ups, there was an error! Try again later!"));
                 }
 
                 return result;
@@ -43,8 +42,7 @@ namespace Pokegraf.Application.Implementation.BotActions.Callbacks.PokemonBefore
             
             var keyboard = result.Value.ToDescriptionKeyboard();
 
-            return await MediatR.Send(new EditPhotoWithCaptionWithKeyboardResponse(request.Chat.Id, result.Value.Image.ToString(),
-                result.Value.Description, keyboard, request.MessageId));
+            return await MediatR.Send(new EditPhotoWithCaptionWithKeyboardResponse(result.Value.Image.ToString(), result.Value.Description, keyboard, request.MessageId));
         }
     }
 }

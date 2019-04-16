@@ -33,7 +33,7 @@ namespace Pokegraf.Application.Implementation.BotActions.Callbacks.Fusion
                 {"action", "fusion"}
             };
 
-            return await MediatR.Send(new EditPhotoWithCaptionWithKeyboardResponse(request.Chat.Id, fusionResult.Value.Item2.ToString(),
+            return await MediatR.Send(new EditPhotoWithCaptionWithKeyboardResponse(fusionResult.Value.Item2.ToString(),
                 fusionResult.Value.Item1, new InlineKeyboardMarkup(InlineKeyboardButton.WithCallbackData("More fusion!",
                     JsonConvert.SerializeObject(fusionCallback))), request.MessageId));
         }
