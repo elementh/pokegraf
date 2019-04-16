@@ -1,8 +1,10 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Pokegraf.Application.Contract.Client;
-using Pokegraf.Application.Implementation.Client;
+using Pokegraf.Application.Contract.Common.Client;
+using Pokegraf.Application.Contract.Common.Context;
+using Pokegraf.Application.Implementation.Common.Client;
+using Pokegraf.Application.Implementation.Common.Context;
 using Pokegraf.Application.Implementation.Service;
 using Pokegraf.Application.Implementation.Service.Background;
 using Scrutor;
@@ -15,7 +17,7 @@ namespace Pokegraf.Application.Implementation.Configuration
         {
             services.AddServices(configuration);
             services.AddBackgroundServices(configuration);
-
+            services.AddBotContext(configuration);
             return services;
         }
         
@@ -46,6 +48,13 @@ namespace Pokegraf.Application.Implementation.Configuration
                 .AsImplementedInterfaces()
                 .WithScopedLifetime());
             
+            return services;
+        }
+        
+        private static IServiceCollection AddBotContext(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddScoped<IBotContext, BotContext>();
+
             return services;
         }
     }
