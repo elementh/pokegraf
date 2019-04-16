@@ -12,7 +12,7 @@ namespace Pokegraf.Application.Implementation.BotActions.Commands.About
 
         public override bool CanHandle(string condition)
         {
-            return condition == "*/about";
+            return condition == "/about";
         }
     }
 }
