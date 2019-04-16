@@ -1,18 +1,13 @@
-using System.Collections.Specialized;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Pokegraf.Application.Contract.Client;
-using Pokegraf.Application.Implementation.BotActions.Responses.PhotoWithKeyboard.Edit;
-using Pokegraf.Application.Implementation.BotActions.Responses.Text;
+using Pokegraf.Application.Implementation.Common.Responses.PhotoWithKeyboard.Edit;
+using Pokegraf.Application.Implementation.Common.Responses.Text;
 using Pokegraf.Application.Implementation.Mapping.Extension;
 using Pokegraf.Common.Result;
-using Pokegraf.Infrastructure.Contract.Dto;
 using Pokegraf.Infrastructure.Contract.Service;
-using Telegram.Bot.Types.ReplyMarkups;
 
 namespace Pokegraf.Application.Implementation.BotActions.Callbacks.PokemonBefore
 {
@@ -39,8 +34,7 @@ namespace Pokegraf.Application.Implementation.BotActions.Callbacks.PokemonBefore
             {
                 if (result.Errors.ContainsKey("not_found"))
                 {
-                    return await MediatR.Send(new TextResponse(request.Chat.Id,
-                        result.Errors["not_found"].First() ?? "Ups, there was an error! Try again later!"));
+                    return await MediatR.Send(new TextResponse(result.Errors["not_found"].First() ?? "Ups, there was an error! Try again later!"));
                 }
 
                 return result;
@@ -48,8 +42,7 @@ namespace Pokegraf.Application.Implementation.BotActions.Callbacks.PokemonBefore
             
             var keyboard = result.Value.ToDescriptionKeyboard();
 
-            return await MediatR.Send(new EditPhotoWithCaptionWithKeyboardResponse(request.Chat.Id, result.Value.Image.ToString(),
-                result.Value.Description, keyboard, request.MessageId));
+            return await MediatR.Send(new EditPhotoWithCaptionWithKeyboardResponse(result.Value.Image.ToString(), result.Value.Description, keyboard, request.MessageId));
         }
     }
 }

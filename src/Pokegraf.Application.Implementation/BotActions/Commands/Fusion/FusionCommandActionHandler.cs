@@ -6,8 +6,7 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Pokegraf.Application.Implementation.BotActions.Commands.Pokemon;
-using Pokegraf.Application.Implementation.BotActions.Responses.Photo;
-using Pokegraf.Application.Implementation.BotActions.Responses.PhotoWithKeyboard.Send;
+using Pokegraf.Application.Implementation.Common.Responses.PhotoWithKeyboard.Send;
 using Pokegraf.Common.Result;
 using Pokegraf.Infrastructure.Contract.Service;
 using Telegram.Bot.Types.ReplyMarkups;
@@ -35,7 +34,7 @@ namespace Pokegraf.Application.Implementation.BotActions.Commands.Fusion
                 {"action", "fusion"}
             };
 
-            return await MediatR.Send(new PhotoWithCaptionWithKeyboardResponse(request.Chat.Id, fusionResult.Value.Item2.ToString(),
+            return await MediatR.Send(new PhotoWithCaptionWithKeyboardResponse(fusionResult.Value.Item2.ToString(),
                 fusionResult.Value.Item1, new InlineKeyboardMarkup(InlineKeyboardButton.WithCallbackData("More fusion!",
                     JsonConvert.SerializeObject(fusionCallback)))));
         }

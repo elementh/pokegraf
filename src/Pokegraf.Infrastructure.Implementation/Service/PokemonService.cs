@@ -35,7 +35,7 @@ namespace Pokegraf.Infrastructure.Implementation.Service
                     return Result<PokemonDto>.NotFound(new List<string> {"The requested pokemon does not exist."});
                 }
                 
-                Logger.LogError($"Unhandled error getting pokemon number {pokeNumber}", e);
+                Logger.LogError(e, "Unhandled error getting pokemon number {PokeNumber}", pokeNumber);
                 
                 return Result<PokemonDto>.UnknownError(new List<string> {$"Unhandled error getting pokemon number {pokeNumber}", e.Message});
             }
@@ -47,6 +47,7 @@ namespace Pokegraf.Infrastructure.Implementation.Service
                 Description = await GetDescription(pokeNumber),
                 Stats = await GetStats(pokeNumber),
                 Image = GetImageUri(pokeNumber),
+                Sprite = new Uri(pokemon.Sprites.FrontMale),
                 Before = await GetPokemonBefore(pokeNumber),
                 Next = await GetPokemonNext(pokeNumber)
             };
@@ -69,7 +70,7 @@ namespace Pokegraf.Infrastructure.Implementation.Service
                     return Result<PokemonDto>.NotFound(new List<string> {"The requested pokemon does not exist."});
                 }
                 
-                Logger.LogError($"Unhandled error getting pokemon named {pokeName}", e);
+                Logger.LogError(e, "Unhandled error getting pokemon named {PokeName}", pokeName);
                 
                 return Result<PokemonDto>.UnknownError(new List<string> {$"Unhandled error getting pokemon number {pokeName}", e.Message});
             }
