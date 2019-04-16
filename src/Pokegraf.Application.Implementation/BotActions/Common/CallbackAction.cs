@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using Pokegraf.Application.Contract.Common.Actions;
+using Pokegraf.Application.Contract.BotActions.Common;
 using Pokegraf.Application.Contract.Common.Context;
-using Telegram.Bot.Types;
 
-namespace Pokegraf.Application.Implementation.Common.Actions
+namespace Pokegraf.Application.Implementation.BotActions.Common
 {
     public abstract class CallbackAction : BotAction, ICallbackAction
     {

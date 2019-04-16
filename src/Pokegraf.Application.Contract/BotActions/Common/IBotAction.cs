@@ -2,7 +2,7 @@ using MediatR;
 using Pokegraf.Common.Result;
 using Telegram.Bot.Types;
 
-namespace Pokegraf.Application.Contract.Common.Actions
+namespace Pokegraf.Application.Contract.BotActions.Common
 {
     public interface IBotAction : IRequest<Result>
     {

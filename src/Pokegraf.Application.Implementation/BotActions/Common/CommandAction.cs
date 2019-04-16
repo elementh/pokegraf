@@ -1,7 +1,7 @@
-using Pokegraf.Application.Contract.Common.Actions;
+using Pokegraf.Application.Contract.BotActions.Common;
 using Pokegraf.Application.Contract.Common.Context;
 
-namespace Pokegraf.Application.Implementation.Common.Actions
+namespace Pokegraf.Application.Implementation.BotActions.Common
 {
     public abstract class CommandAction : BotAction, ICommandAction
     {

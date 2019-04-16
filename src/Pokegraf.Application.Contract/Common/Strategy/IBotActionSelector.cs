@@ -1,8 +1,7 @@
-using Pokegraf.Application.Contract.Common.Actions;
+using Pokegraf.Application.Contract.BotActions.Common;
 using Pokegraf.Common.Result;
-using Telegram.Bot.Types;
 
-namespace Pokegraf.Application.Contract.BotActions.Common
+namespace Pokegraf.Application.Contract.Common.Strategy
 {
     public interface IBotActionSelector
     {

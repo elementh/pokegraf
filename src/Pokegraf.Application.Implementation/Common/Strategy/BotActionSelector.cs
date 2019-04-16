@@ -1,19 +1,16 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Pokegraf.Application.Contract.BotActions.Common;
-using Pokegraf.Application.Contract.Common.Actions;
 using Pokegraf.Application.Contract.Common.Context;
 using Pokegraf.Application.Contract.Common.Strategy;
-using Pokegraf.Application.Implementation.Mapping.Extension;
 using Pokegraf.Common.Result;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
-namespace Pokegraf.Application.Implementation.BotActions.Common
+namespace Pokegraf.Application.Implementation.Common.Strategy
 {
     public class BotActionSelector : IBotActionSelector
     {

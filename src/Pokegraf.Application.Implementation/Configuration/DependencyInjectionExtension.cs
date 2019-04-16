@@ -1,11 +1,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Pokegraf.Application.Contract.BotActions.Common;
 using Pokegraf.Application.Contract.Common.Client;
 using Pokegraf.Application.Contract.Common.Context;
 using Pokegraf.Application.Contract.Common.Strategy;
-using Pokegraf.Application.Implementation.BotActions.Common;
 using Pokegraf.Application.Implementation.Common.Client;
 using Pokegraf.Application.Implementation.Common.Context;
 using Pokegraf.Application.Implementation.Common.Strategy;
