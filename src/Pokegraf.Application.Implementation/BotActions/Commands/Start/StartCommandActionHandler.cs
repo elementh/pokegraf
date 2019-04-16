@@ -2,7 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Pokegraf.Application.Implementation.BotActions.Responses.Text;
+using Pokegraf.Application.Implementation.Common.Responses.Text;
 using Pokegraf.Common.Result;
 
 namespace Pokegraf.Application.Implementation.BotActions.Commands.Start
@@ -18,7 +18,7 @@ namespace Pokegraf.Application.Implementation.BotActions.Commands.Start
         {
             var startText = "Hello there Pokémon Trainer! Welcome to *pokegraf*!\n\nWhy don't you try doing /pokemon ?";
 
-            return await MediatR.Send(new TextResponse(request.Chat.Id, startText));
+            return await MediatR.Send(new TextResponse(startText));
         }
     }
 }

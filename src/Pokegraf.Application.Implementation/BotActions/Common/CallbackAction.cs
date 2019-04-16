@@ -1,11 +1,27 @@
 using System.Collections.Generic;
-using System.Collections.Specialized;
+using Newtonsoft.Json;
 using Pokegraf.Application.Contract.BotActions.Common;
+using Pokegraf.Application.Contract.Common.Context;
 
 namespace Pokegraf.Application.Implementation.BotActions.Common
 {
-    public class CallbackAction : BotAction, ICallbackAction
+    public abstract class CallbackAction : BotAction, ICallbackAction
     {
         public Dictionary<string, string> Data { get; set; }
+
+        public CallbackAction(IBotContext botContext) : base(botContext)
+        {
+            Dictionary<string, string> callbackData;
+            try
+            {
+                callbackData = JsonConvert.DeserializeObject<Dictionary<string, string>>(botContext.CallbackQuery.Data);
+            }
+            catch
+            {
+                callbackData = new Dictionary<string, string>();
+            }
+
+            Data = callbackData;
+        }
     }
 }

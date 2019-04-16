@@ -9,6 +9,7 @@ namespace Pokegraf.Infrastructure.Contract.Dto
         public string Description { get; set; }
         public StatsDto Stats { get; set; }
         public Uri Image { get; set; }
+        public Uri Sprite { get; set; }
         public Tuple<int, string> Before { get; set; }
         public Tuple<int, string> Next { get; set; }
 

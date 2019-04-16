@@ -10,5 +10,6 @@ namespace Pokegraf.Application.Contract.BotActions.Common
         Chat Chat { get; set; }
         User From { get; set; }
         string Text { get; set; }
+        bool CanHandle(string condition);
     }
 }
