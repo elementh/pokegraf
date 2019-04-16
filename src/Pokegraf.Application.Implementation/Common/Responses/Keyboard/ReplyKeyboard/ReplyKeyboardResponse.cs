@@ -7,13 +7,11 @@ namespace Pokegraf.Application.Implementation.Common.Responses.Keyboard.ReplyKey
 {
     public class ReplyKeyboardResponse : Request<Result>, IResponse
     {
-        public long ChatId { get; set; }
         public string Text { get; set; }
         public ReplyKeyboardMarkup Keyboard { get; set; }
 
-        public ReplyKeyboardResponse(long chatId, string text, ReplyKeyboardMarkup keyboard)
+        public ReplyKeyboardResponse(string text, ReplyKeyboardMarkup keyboard)
         {
-            ChatId = chatId;
             Text = text;
             Keyboard = keyboard;
         }
