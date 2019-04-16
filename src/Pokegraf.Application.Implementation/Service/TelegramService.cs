@@ -18,14 +18,12 @@ namespace Pokegraf.Application.Implementation.Service
     {
         protected readonly ILogger<TelegramService> Logger;
         protected readonly IBotClient Bot;
-        protected readonly IMediator MediatR;
         protected readonly IServiceScopeFactory ServiceScopeFactory;
 
-        public TelegramService(ILogger<TelegramService> logger, IBotClient bot, IMediator mediatR, IServiceScopeFactory serviceScopeFactory)
+        public TelegramService(ILogger<TelegramService> logger, IBotClient bot, IServiceScopeFactory serviceScopeFactory)
         {
             Logger = logger;
             Bot = bot;
-            MediatR = mediatR;
             ServiceScopeFactory = serviceScopeFactory;
         }
 
@@ -42,22 +40,24 @@ namespace Pokegraf.Application.Implementation.Service
 
         private async void HandleOnMessage(object sender, MessageEventArgs e)
         {
-            using (var scope = ServiceScopeFactory.CreateScope())
+            try
             {
-                var botContext = scope.ServiceProvider.GetRequiredService<IBotContext>();
-                botContext.Populate(e.Message);
-
-                var actionSelector = scope.ServiceProvider.GetRequiredService<IBotActionSelector>();
-
-                try
+                using (var scope = ServiceScopeFactory.CreateScope())
                 {
+                    var botContext = scope.ServiceProvider.GetRequiredService<IBotContext>();
+                    botContext.Populate(e.Message);
+
+                    var mediatR = scope.ServiceProvider.GetRequiredService<IMediator>();
+                    var actionSelector = scope.ServiceProvider.GetRequiredService<IBotActionSelector>();
+
+
                     var botActionResult = actionSelector.GetCommandAction();
 
                     if (!botActionResult.Succeeded) return;
 
-                    await Bot.Client.SendChatActionAsync(e.Message.Chat.Id, ChatAction.Typing);
+                    await botContext.BotClient.Client.SendChatActionAsync(e.Message.Chat.Id, ChatAction.Typing);
 
-                    var requestResult = await MediatR.Send(botActionResult.Value);
+                    var requestResult = await mediatR.Send(botActionResult.Value);
 
                     if (!requestResult.Succeeded && !requestResult.Errors.ContainsKey("not_found"))
                     {
@@ -65,29 +65,30 @@ namespace Pokegraf.Application.Implementation.Service
                             botActionResult.Value.GetType().Name, requestResult.Errors);
                     }
                 }
-                catch (Exception exception)
-                {
-                    Logger.LogError(exception, "Unhandled error processing message ({@Message}).", e.Message);
-                }
+            }
+            catch (Exception exception)
+            {
+                Logger.LogError(exception, "Unhandled error processing message ({@Message}).", e.Message);
             }
         }
 
         private async void HandleOnCallbackQuery(object sender, CallbackQueryEventArgs e)
         {
-            using (var scope = ServiceScopeFactory.CreateScope())
+            try
             {
-                var botContext = scope.ServiceProvider.GetRequiredService<IBotContext>();
-                botContext.Populate(e.CallbackQuery);
-
-                var actionSelector = scope.ServiceProvider.GetRequiredService<IBotActionSelector>();
-
-                try
+                using (var scope = ServiceScopeFactory.CreateScope())
                 {
+                    var botContext = scope.ServiceProvider.GetRequiredService<IBotContext>();
+                    botContext.Populate(e.CallbackQuery);
+
+                    var mediatR = scope.ServiceProvider.GetRequiredService<IMediator>();
+                    var actionSelector = scope.ServiceProvider.GetRequiredService<IBotActionSelector>();
+
                     var callbackActionResult = actionSelector.GetCallbackAction();
 
                     if (!callbackActionResult.Succeeded) return;
 
-                    var requestResult = await MediatR.Send(callbackActionResult.Value);
+                    var requestResult = await mediatR.Send(callbackActionResult.Value);
 
                     if (!requestResult.Succeeded && !requestResult.Errors.ContainsKey("not_found"))
                     {
@@ -95,35 +96,37 @@ namespace Pokegraf.Application.Implementation.Service
                             callbackActionResult.Value.GetType().Name, requestResult.Errors);
                     }
                 }
-                catch (Exception exception)
-                {
-                    Logger.LogError(exception, "Unhandled error processing callback query ({@CallbackQuery}).", e.CallbackQuery);
-                }
-                finally
-                {
+            }
+            catch (Exception exception)
+            {
+                Logger.LogError(exception, "Unhandled error processing callback query ({@CallbackQuery}).", e.CallbackQuery);
+            }
+            finally
+            {
 #pragma warning disable 4014
-                    Bot.Client.AnswerCallbackQueryAsync(e.CallbackQuery.Id);
+                Bot.Client.AnswerCallbackQueryAsync(e.CallbackQuery.Id);
 #pragma warning restore 4014
-                }
             }
         }
 
         private async void HandleOnInlineQuery(object sender, InlineQueryEventArgs e)
         {
-            using (var scope = ServiceScopeFactory.CreateScope())
+            try
             {
-                var botContext = scope.ServiceProvider.GetRequiredService<IBotContext>();
-                botContext.Populate(e.InlineQuery);
-
-                var actionSelector = scope.ServiceProvider.GetRequiredService<IBotActionSelector>();
-
-                try
+                using (var scope = ServiceScopeFactory.CreateScope())
                 {
+                    var botContext = scope.ServiceProvider.GetRequiredService<IBotContext>();
+                    botContext.Populate(e.InlineQuery);
+
+                    var mediatR = scope.ServiceProvider.GetRequiredService<IMediator>();
+                    var actionSelector = scope.ServiceProvider.GetRequiredService<IBotActionSelector>();
+
+
                     var inlineActionResult = actionSelector.GetInlineAction();
 
                     if (!inlineActionResult.Succeeded) return;
 
-                    var requestResult = await MediatR.Send(inlineActionResult.Value);
+                    var requestResult = await mediatR.Send(inlineActionResult.Value);
 
                     if (!requestResult.Succeeded && !requestResult.Errors.ContainsKey("not_found"))
                     {
@@ -131,10 +134,10 @@ namespace Pokegraf.Application.Implementation.Service
                             inlineActionResult.Value.GetType().Name, requestResult.Errors);
                     }
                 }
-                catch (Exception exception)
-                {
-                    Logger.LogError(exception, "Unhandled error processing inline query ({@InlineQuery}).", e.InlineQuery);
-                }
+            }
+            catch (Exception exception)
+            {
+                Logger.LogError(exception, "Unhandled error processing inline query ({@InlineQuery}).", e.InlineQuery);
             }
         }
     }
