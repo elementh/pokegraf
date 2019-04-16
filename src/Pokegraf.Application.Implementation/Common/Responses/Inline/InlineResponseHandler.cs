@@ -28,6 +28,13 @@ namespace Pokegraf.Application.Implementation.Common.Responses.Inline
             }
             catch (Exception e)
             {
+                if (e.Message == "query is too old and response timeout expired or query ID is invalid")
+                {
+                    Logger.LogWarning(e,"Inline request timeout, could not answer properly ({@Request}).", request);
+                    
+                    return Result.Fail("timeout", new List<string> {e.Message});
+                }
+                
                 Logger.LogError(e, "Unhandled error sending inline response ({@Request}).", request);
                 
                 return Result.UnknownError(new List<string> {e.Message});
