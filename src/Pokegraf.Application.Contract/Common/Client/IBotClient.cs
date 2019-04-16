@@ -1,6 +1,6 @@
 using MihaZupan.TelegramBotClients;
 
-namespace Pokegraf.Application.Contract.Client
+namespace Pokegraf.Application.Contract.Common.Client
 {
     public interface IBotClient
     {

@@ -2,10 +2,10 @@ using System;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MihaZupan.TelegramBotClients;
-using Pokegraf.Application.Contract.Client;
+using Pokegraf.Application.Contract.Common.Client;
 using Telegram.Bot.Types.Enums;
 
-namespace Pokegraf.Application.Implementation.Client
+namespace Pokegraf.Application.Implementation.Common.Client
 {
     public class BotClient : IBotClient
     {
