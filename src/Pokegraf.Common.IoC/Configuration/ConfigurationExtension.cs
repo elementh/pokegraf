@@ -36,11 +36,10 @@ namespace Pokegraf.Common.IoC.Configuration
                 
                 loggerConf.WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(elasticConnectionString))
                 {
-                
                     ModifyConnectionSettings = (conn) => conn.BasicAuthentication(username, password),
                     AutoRegisterTemplate = true,
                     AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv6,
-                    IndexFormat = "log-pokegraf-{{0:yyyy.MM.dd}",
+                    IndexFormat = "log-pokegraf-{0:yyyy.MM.dd}",
                     CustomFormatter = new ExceptionAsObjectJsonFormatter(renderMessage:true)
                 });
             }
@@ -51,7 +50,7 @@ namespace Pokegraf.Common.IoC.Configuration
             }
             else
             {
-                loggerConf.MinimumLevel.Warning();
+                loggerConf.MinimumLevel.Information();
             }
 
             return loggerConf.CreateLogger();
