@@ -29,7 +29,7 @@ namespace Pokegraf.Application.Implementation.BotActions.Inline.Pokemon
                 ? await _pokemonService.GetPokemon(pokeNumber)
                 : await _pokemonService.GetPokemon(requestedPokemon);
             
-            if (!result.Succeeded) return result;
+            if (!result.Succeeded) return await MediatR.Send(new InlineResponse(new InlineQueryResultBase[]{}), cancellationToken);
             
             var keyboard = result.Value.ToDescriptionKeyboard();
 
@@ -37,12 +37,11 @@ namespace Pokegraf.Application.Implementation.BotActions.Inline.Pokemon
             {
                 new InlineQueryResultPhoto($"pokemon:{result.Value.Id}", result.Value.Image.ToString(), result.Value.Sprite.ToString())
                 {
-                    Caption = $"{result.Value.Description}",
-                    ReplyMarkup = keyboard
+                    Caption = $"{result.Value.Description}"
                 }
             };
 
-            return await MediatR.Send(new InlineResponse(results));
+            return await MediatR.Send(new InlineResponse(results), cancellationToken);
         }
     }
 }
