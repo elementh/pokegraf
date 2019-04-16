@@ -5,24 +5,25 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Pokegraf.Application.Contract.Common.Client;
+using Pokegraf.Application.Contract.Common.Context;
 using Pokegraf.Common.Result;
 
 namespace Pokegraf.Application.Implementation.Common.Responses.Photo
 {
     public class PhotoResponseHandler : Pokegraf.Common.Request.RequestHandler<PhotoResponse, Result>
     {
-        protected readonly IBotClient Bot;
+        protected readonly IBotContext BotContext;
 
-        public PhotoResponseHandler(ILogger<Pokegraf.Common.Request.RequestHandler<PhotoResponse, Result>> logger, IMediator mediatR, IBotClient bot) : base(logger, mediatR)
+        public PhotoResponseHandler(ILogger<Pokegraf.Common.Request.RequestHandler<PhotoResponse, Result>> logger, IMediator mediatR, IBotContext botContext) : base(logger, mediatR)
         {
-            Bot = bot;
+            BotContext = botContext;
         }
 
         public override async Task<Result> Handle(PhotoResponse request, CancellationToken cancellationToken)
         {
             try
             {
-                await Bot.Client.SendPhotoAsync(request.ChatId, request.Photo, cancellationToken: cancellationToken);
+                await BotContext.BotClient.Client.SendPhotoAsync(BotContext.Chat.Id, request.Photo, cancellationToken: cancellationToken);
 
                 return Result.Success();
             }

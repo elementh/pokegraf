@@ -6,12 +6,10 @@ namespace Pokegraf.Application.Implementation.Common.Responses.Photo
 {
     public class PhotoResponse : Request<Result>, IResponse
     {
-        public long ChatId { get; set; }
         public string Photo { get; set; }
 
-        public PhotoResponse(long chatId, string photo)
+        public PhotoResponse(string photo)
         {
-            ChatId = chatId;
             Photo = photo;
         }
     }
