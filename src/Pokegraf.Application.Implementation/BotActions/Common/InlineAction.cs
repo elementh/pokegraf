@@ -10,8 +10,8 @@ namespace Pokegraf.Application.Implementation.BotActions.Common
      
         public InlineAction(IBotContext botContext) : base(botContext)
         {
-            Query = botContext.InlineQuery.Query;
-            Offset = botContext.InlineQuery.Offset;
+            Query = botContext.InlineQuery?.Query;
+            Offset = botContext.InlineQuery?.Offset;
         }
     }
 }

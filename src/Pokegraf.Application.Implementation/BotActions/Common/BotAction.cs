@@ -22,10 +22,10 @@ namespace Pokegraf.Application.Implementation.BotActions.Common
 
         protected BotAction(IBotContext botContext)
         {
-            MessageId = botContext.Message.MessageId;
+            MessageId = botContext.Message?.MessageId ?? 0;
             Chat = botContext.Chat;
             From = botContext.User;
-            Text = botContext.Message.Text;
+            Text = botContext.Message?.Text;
         }
         
         public abstract bool CanHandle(string condition);
