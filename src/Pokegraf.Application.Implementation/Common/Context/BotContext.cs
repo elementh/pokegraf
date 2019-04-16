@@ -27,7 +27,7 @@ namespace Pokegraf.Application.Implementation.Common.Context
             User = message.From;
             Chat = message.Chat;
 
-            Logger.LogInformation("Populated HttpContext with Message ({@Message})", message);
+            Logger.LogTrace("Populated HttpContext with Message.", message);
         }
 
         public void Populate(CallbackQuery callbackQuery)
@@ -37,7 +37,7 @@ namespace Pokegraf.Application.Implementation.Common.Context
             User = callbackQuery.From;
             Chat = callbackQuery.Message.Chat;
 
-            Logger.LogInformation("Populated HttpContext with CallbackQuery ({@CallbackQuery})", callbackQuery);
+            Logger.LogTrace("Populated HttpContext with CallbackQuery.", callbackQuery);
         }
 
         public void Populate(InlineQuery inlineQuery)
@@ -45,7 +45,7 @@ namespace Pokegraf.Application.Implementation.Common.Context
             InlineQuery = inlineQuery;
             User = inlineQuery.From;
 
-            Logger.LogInformation("Populated HttpContext with InlineQuery ({@InlineQuery})", inlineQuery);
+            Logger.LogTrace("Populated HttpContext with InlineQuery.", inlineQuery);
         }
     }
 }
