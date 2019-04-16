@@ -4,7 +4,7 @@ namespace Pokegraf.Application.Implementation.Common.Responses.Photo
     {
         public string Caption { get; set; }
 
-        public PhotoWithCaptionResponse(long chatId, string photo, string caption) : base(chatId, photo)
+        public PhotoWithCaptionResponse(string photo, string caption) : base(photo)
         {
             Caption = caption;
         }
