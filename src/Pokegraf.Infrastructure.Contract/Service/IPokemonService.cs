@@ -10,6 +10,6 @@ namespace Pokegraf.Infrastructure.Contract.Service
     {
         Task<Result<PokemonDto>> GetPokemon(int pokeNumber);
         Task<Result<PokemonDto>> GetPokemon(string pokeName);
-        Result<Tuple<string, Uri>> GetFusion();
+        Result<PokemonFusionDto> GetFusion();
     }
 }
