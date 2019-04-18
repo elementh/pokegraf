@@ -1,9 +1,13 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Pokegraf.Application.Implementation.Common.Responses.Inline;
+using Pokegraf.Application.Implementation.Mapping.Extension;
 using Pokegraf.Common.Result;
+using Pokegraf.Infrastructure.Contract.Dto;
 using Pokegraf.Infrastructure.Contract.Service;
 using Telegram.Bot.Types.InlineQueryResults;
 
@@ -18,15 +22,18 @@ namespace Pokegraf.Application.Implementation.BotActions.Inline.Fusion
             _pokemonService = pokemonService;
         }
 
-        public override Task<Result> Handle(FusionInlineAction request, CancellationToken cancellationToken)
+        public override async Task<Result> Handle(FusionInlineAction request, CancellationToken cancellationToken)
         {
-            InlineQueryResultBase[] results =
+            var fusions = new List<PokemonFusionDto>();
+
+            for (var i = 0; i < 50; i++)
             {
-                new InlineQueryResultPhoto($"pokemon:{result.Value.Id}", result.Value.Image.ToString(), result.Value.Sprite.ToString())
-                {
-                    Caption = $"{result.Value.Description}"
-                }
-            };
+                var fusionResult = _pokemonService.GetFusion();
+
+                if (fusionResult.Succeeded) fusions.Add(fusionResult.Value);
+            }
+
+            InlineQueryResultBase[] results = fusions.Select(fusion => fusion.ToInlineQueryResultPhoto()).ToArray();
 
             return await MediatR.Send(new InlineResponse(results), cancellationToken);
         }
