@@ -31,8 +31,6 @@ namespace Pokegraf.Application.Implementation.BotActions.Inline.Pokemon
             
             if (!result.Succeeded) return await MediatR.Send(new InlineResponse(new InlineQueryResultBase[]{}), cancellationToken);
             
-            var keyboard = result.Value.ToDescriptionKeyboard();
-
             InlineQueryResultBase[] results =
             {
                 new InlineQueryResultPhoto($"pokemon:{result.Value.Id}", result.Value.Image.ToString(), result.Value.Sprite.ToString())

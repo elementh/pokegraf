@@ -8,7 +8,6 @@ Pokegraf is developed in netcore using domain driven design and clean code. Plea
 
 # Roadmap
 
-- Inline behaviour
 - Abilities, etc.
 
 # Contributing

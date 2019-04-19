@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using PokeAPI;
 using Pokegraf.Common.Helper;
 using Pokegraf.Common.Result;
@@ -14,14 +16,25 @@ namespace Pokegraf.Infrastructure.Implementation.Service
     public class PokemonService : IPokemonService
     {
         protected readonly ILogger<PokemonSpecies> Logger;
+        protected readonly IDistributedCache Cache;
 
-        public PokemonService(ILogger<PokemonSpecies> logger)
+        public PokemonService(ILogger<PokemonSpecies> logger, IDistributedCache cache)
         {
             Logger = logger;
+            Cache = cache;
         }
 
         public async Task<Result<PokemonDto>> GetPokemon(int pokeNumber)
         {
+            var rawCachedPokemon = await Cache.GetStringAsync($"pokemon:{pokeNumber}");
+
+            if (rawCachedPokemon != null)
+            {
+                var cachedPokemon = JsonConvert.DeserializeObject<PokemonDto>(rawCachedPokemon);
+                
+                return Result<PokemonDto>.Success(cachedPokemon);
+            }
+            
             Pokemon pokemon;
             
             try
@@ -51,6 +64,8 @@ namespace Pokegraf.Infrastructure.Implementation.Service
                 Before = await GetPokemonBefore(pokeNumber),
                 Next = await GetPokemonNext(pokeNumber)
             };
+
+            await Cache.SetStringAsync($"pokemon:{dto.Id}", JsonConvert.SerializeObject(dto));
             
             return Result<PokemonDto>.Success(dto);
         }
@@ -78,7 +93,7 @@ namespace Pokegraf.Infrastructure.Implementation.Service
             return await GetPokemon(pokemon.ID);
         }
 
-        public Result<Tuple<string, Uri>> GetFusion()
+        public Result<PokemonFusionDto> GetFusion()
         {
             string[] firstHalf = {"Bulb", "Ivy", "Venu", "Char", "Char", "Char", "Squirt", "War", "Blast", "Cater", "Meta", "Butter", 
                 "Wee", "Kak", "Bee", "Pid", "Pidg", "Pidg", "Rat", "Rat", "Spear", "Fear", "Ek", "Arb", "Pika", "Rai", "Sand", "Sand", "Nido", 
@@ -109,12 +124,12 @@ namespace Pokegraf.Infrastructure.Implementation.Service
                 secondPokemon = new Random().Next(1, 151);
             }
 
-            Uri photoUrl = new Uri($"http://images.alexonsager.net/pokemon/fused/{firstPokemon}/{firstPokemon}.{secondPokemon}.png");
-            var caption = $"{firstHalf[secondPokemon - 1]}{secondHalf[firstPokemon - 1]}";
+            var image = new Uri($"http://images.alexonsager.net/pokemon/fused/{firstPokemon}/{firstPokemon}.{secondPokemon}.png");
+            var name = $"{firstHalf[secondPokemon - 1]}{secondHalf[firstPokemon - 1]}";
             
-            var tuple = new Tuple<string, Uri>(caption, photoUrl);
+            var pokemonFusionDto = new PokemonFusionDto(name, image);
             
-            return Result<Tuple<string, Uri>>.Success(tuple);
+            return Result<PokemonFusionDto>.Success(pokemonFusionDto);
         }
 
         protected async Task<string> GetDescription(int pokeNumber)
