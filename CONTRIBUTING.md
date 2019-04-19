@@ -14,7 +14,7 @@ git clone git@github.com:<YOUR_USERNAME>/pokegraf.git
 ```
 - Create a new branch with a descriptive name:
 ```
-git checkout -b my_new_branch
+git checkout -b feature/my_new_feature
 ```
 <!-- - Write some code, fix something, and add a test to prove that it works. **No pull request will be accepted without tests passing, or without new tests if new features are added.** -->
 
