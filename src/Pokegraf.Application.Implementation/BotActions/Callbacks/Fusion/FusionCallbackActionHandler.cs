@@ -33,8 +33,8 @@ namespace Pokegraf.Application.Implementation.BotActions.Callbacks.Fusion
                 {"action", "fusion"}
             };
 
-            return await MediatR.Send(new EditPhotoWithCaptionWithKeyboardResponse(fusionResult.Value.Item2.ToString(),
-                fusionResult.Value.Item1, new InlineKeyboardMarkup(InlineKeyboardButton.WithCallbackData("More fusion!",
+            return await MediatR.Send(new EditPhotoWithCaptionWithKeyboardResponse(fusionResult.Value.Image.ToString(),
+                fusionResult.Value.Name, new InlineKeyboardMarkup(InlineKeyboardButton.WithCallbackData("More fusion!",
                     JsonConvert.SerializeObject(fusionCallback))), request.MessageId));
         }
     }

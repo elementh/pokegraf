@@ -93,7 +93,7 @@ namespace Pokegraf.Infrastructure.Implementation.Service
             return await GetPokemon(pokemon.ID);
         }
 
-        public Result<Tuple<string, Uri>> GetFusion()
+        public Result<PokemonFusionDto> GetFusion()
         {
             string[] firstHalf = {"Bulb", "Ivy", "Venu", "Char", "Char", "Char", "Squirt", "War", "Blast", "Cater", "Meta", "Butter", 
                 "Wee", "Kak", "Bee", "Pid", "Pidg", "Pidg", "Rat", "Rat", "Spear", "Fear", "Ek", "Arb", "Pika", "Rai", "Sand", "Sand", "Nido", 
@@ -124,12 +124,12 @@ namespace Pokegraf.Infrastructure.Implementation.Service
                 secondPokemon = new Random().Next(1, 151);
             }
 
-            Uri photoUrl = new Uri($"http://images.alexonsager.net/pokemon/fused/{firstPokemon}/{firstPokemon}.{secondPokemon}.png");
-            var caption = $"{firstHalf[secondPokemon - 1]}{secondHalf[firstPokemon - 1]}";
+            var image = new Uri($"http://images.alexonsager.net/pokemon/fused/{firstPokemon}/{firstPokemon}.{secondPokemon}.png");
+            var name = $"{firstHalf[secondPokemon - 1]}{secondHalf[firstPokemon - 1]}";
             
-            var tuple = new Tuple<string, Uri>(caption, photoUrl);
+            var pokemonFusionDto = new PokemonFusionDto(name, image);
             
-            return Result<Tuple<string, Uri>>.Success(tuple);
+            return Result<PokemonFusionDto>.Success(pokemonFusionDto);
         }
 
         protected async Task<string> GetDescription(int pokeNumber)
