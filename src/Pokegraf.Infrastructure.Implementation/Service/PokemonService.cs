@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using PokeAPI;
 using Pokegraf.Common.Helper;
 using Pokegraf.Common.Result;
@@ -14,14 +16,25 @@ namespace Pokegraf.Infrastructure.Implementation.Service
     public class PokemonService : IPokemonService
     {
         protected readonly ILogger<PokemonSpecies> Logger;
+        protected readonly IDistributedCache Cache;
 
-        public PokemonService(ILogger<PokemonSpecies> logger)
+        public PokemonService(ILogger<PokemonSpecies> logger, IDistributedCache cache)
         {
             Logger = logger;
+            Cache = cache;
         }
 
         public async Task<Result<PokemonDto>> GetPokemon(int pokeNumber)
         {
+            var rawCachedPokemon = await Cache.GetStringAsync($"pokemon:{pokeNumber}");
+
+            if (rawCachedPokemon != null)
+            {
+                var cachedPokemon = JsonConvert.DeserializeObject<PokemonDto>(rawCachedPokemon);
+                
+                return Result<PokemonDto>.Success(cachedPokemon);
+            }
+            
             Pokemon pokemon;
             
             try
@@ -51,6 +64,8 @@ namespace Pokegraf.Infrastructure.Implementation.Service
                 Before = await GetPokemonBefore(pokeNumber),
                 Next = await GetPokemonNext(pokeNumber)
             };
+
+            await Cache.SetStringAsync($"pokemon:{dto.Id}", JsonConvert.SerializeObject(dto));
             
             return Result<PokemonDto>.Success(dto);
         }

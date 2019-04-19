@@ -11,6 +11,7 @@ namespace Pokegraf.Common.IoC.Configuration
         public static IServiceCollection AddDependencyInjection(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddPipelines(configuration);
+            services.AddDistributedCache(configuration);
             services.AddApplicationDependencies(configuration);
             services.AddInfrastructureDependencies(configuration);
             
