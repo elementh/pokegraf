@@ -69,6 +69,11 @@ namespace Pokegraf.Application.Implementation.Service
                         await botContext.BotClient.Client.SendChatActionAsync(e.Message.Chat.Id, ChatAction.Typing);
 
                         var conversationActionResult = actionSelector.GetConversationAction();
+
+                        if (conversationActionResult.Succeeded)
+                        {
+                            await botContext.BotClient.Client.SendChatActionAsync(e.Message.Chat.Id, ChatAction.Typing);
+                        }
                         
                         var requestResult = await mediatR.Send(conversationActionResult.Value);
 
