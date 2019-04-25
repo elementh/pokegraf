@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Google.Apis.Auth.OAuth2;
 using Google.Cloud.Dialogflow.V2;
@@ -38,12 +39,12 @@ namespace Pokegraf.Infrastructure.Implementation.Service
             Client = SessionsClient.Create(channel);
         }
 
-        public async Task<Result<IntentDto>> GetIntent(DetectIntentQuery query)
+        public async Task<Result<IntentDto>> GetIntent(DetectIntentQuery query, CancellationToken cancellationToken = default(CancellationToken))
         {
             try
             {
                 var session = new SessionName(Configuration["GoogleCredential:project_id"], Guid.NewGuid().ToString());
-                var response = await Client.DetectIntentAsync(session, query.ToQueryInput());
+                var response = await Client.DetectIntentAsync(session, query.ToQueryInput(), cancellationToken);
 
                 return Result<IntentDto>.Success(response.ToIntentDto());
             }
@@ -51,7 +52,7 @@ namespace Pokegraf.Infrastructure.Implementation.Service
             {
                 Logger.LogError(e, "Unhandled error detecting intent");
 
-                return null;
+                return Result<IntentDto>.UnknownError(new List<string> {e.Message});
             }
         }
     }

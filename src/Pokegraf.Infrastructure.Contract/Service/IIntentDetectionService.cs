@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using Pokegraf.Common.Result;
 using Pokegraf.Infrastructure.Contract.Dto;
@@ -7,6 +8,6 @@ namespace Pokegraf.Infrastructure.Contract.Service
 {
     public interface IIntentDetectionService
     {
-        Task<Result<IntentDto>> GetIntent(DetectIntentQuery query);
+        Task<Result<IntentDto>> GetIntent(DetectIntentQuery query, CancellationToken cancellationToken = default(CancellationToken));
     }
 }
