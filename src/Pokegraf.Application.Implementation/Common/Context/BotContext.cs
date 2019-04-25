@@ -1,32 +1,49 @@
+using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Pokegraf.Application.Contract.Common.Client;
 using Pokegraf.Application.Contract.Common.Context;
+using Pokegraf.Application.Contract.Model;
+using Pokegraf.Application.Implementation.Mapping.Extension;
+using Pokegraf.Infrastructure.Contract.Model;
+using Pokegraf.Infrastructure.Contract.Service;
 using Telegram.Bot.Types;
 
 namespace Pokegraf.Application.Implementation.Common.Context
 {
     public class BotContext : IBotContext
     {
+        
         protected readonly ILogger<BotContext> Logger;
+        private IIntentDetectionService _intentDetectionService;
         public IBotClient BotClient { get; set; }
+
         public Message Message { get; set; }
         public CallbackQuery CallbackQuery { get; set; }
         public InlineQuery InlineQuery { get; set; }
+        public Intent Intent { get; set; }
         public User User { get; set; }
         public Chat Chat { get; set; }
 
-        public BotContext(ILogger<BotContext> logger, IBotClient botClient)
+        public BotContext(ILogger<BotContext> logger, IBotClient botClient, IIntentDetectionService intentDetectionService)
         {
             Logger = logger;
             BotClient = botClient;
+            _intentDetectionService = intentDetectionService;
         }
 
-        public void Populate(Message message)
+        public async Task Populate(Message message)
         {
             Message = message;
             User = message.From;
             Chat = message.Chat;
+            
+            var intentResult = await _intentDetectionService.GetIntent(new DetectIntentQuery(Message.Text, "en-us"));
 
+            if (intentResult.Succeeded)
+            {
+                Intent = intentResult.Value.ToIntent();
+            }
+            
             Logger.LogTrace("Populated HttpContext with Message.", message);
         }
 
