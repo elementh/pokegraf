@@ -1,4 +1,4 @@
-namespace Pokegraf.Application.Contract.BotActions.Common
+namespace Pokegraf.Application.Contract.Model.Action.Inline
 {
     public interface IInlineAction : IBotAction
     {

@@ -51,7 +51,7 @@ namespace Pokegraf.Application.Implementation.Service
                     var actionSelector = scope.ServiceProvider.GetRequiredService<IBotActionSelector>();
 
 
-                    var botActionResult = actionSelector.GetCommandAction();
+                    var botActionResult = await actionSelector.GetCommandAction();
 
                     if (!botActionResult.Succeeded) return;
 

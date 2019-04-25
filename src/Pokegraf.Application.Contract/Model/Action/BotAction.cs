@@ -1,10 +1,9 @@
-using Pokegraf.Application.Contract.BotActions.Common;
 using Pokegraf.Application.Contract.Common.Context;
 using Pokegraf.Common.Request;
 using Pokegraf.Common.Result;
 using Telegram.Bot.Types;
 
-namespace Pokegraf.Application.Implementation.BotActions.Common
+namespace Pokegraf.Application.Contract.Model.Action
 {
     public abstract class BotAction : Request<Result>, IBotAction
     {

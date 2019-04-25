@@ -1,12 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Pokegraf.Application.Contract.BotActions.Common;
 using Pokegraf.Application.Contract.Common.Context;
 using Pokegraf.Application.Contract.Common.Strategy;
+using Pokegraf.Application.Contract.Model.Action;
+using Pokegraf.Application.Contract.Model.Action.Callback;
+using Pokegraf.Application.Contract.Model.Action.Command;
+using Pokegraf.Application.Contract.Model.Action.Inline;
 using Pokegraf.Common.Result;
+using Pokegraf.Infrastructure.Contract.Model;
+using Pokegraf.Infrastructure.Contract.Service;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
@@ -16,17 +22,21 @@ namespace Pokegraf.Application.Implementation.Common.Strategy
     {
         protected readonly ILogger<BotActionSelector> Logger;
         protected readonly IStrategyContext StrategyContext;
+        protected IIntentDetectionService IntentDetectionService;
         protected readonly IBotContext BotContext;
 
-        public BotActionSelector(ILogger<BotActionSelector> logger, IStrategyContext strategyContext, IBotContext botContext)
+        public BotActionSelector(ILogger<BotActionSelector> logger, IStrategyContext strategyContext, IBotContext botContext, IIntentDetectionService intentDetectionService)
         {
             Logger = logger;
             StrategyContext = strategyContext;
             BotContext = botContext;
+            IntentDetectionService = intentDetectionService;
         }
 
-        public Result<ICommandAction> GetCommandAction()
+        public async Task<Result<ICommandAction>> GetCommandAction()
         {
+            var intent = await IntentDetectionService.GetIntent(new DetectIntentQuery("I need to know about Pikachu", "en-us"));
+            
             var command = GetCommand(BotContext.Message);
             
             if (command == null) return Result<ICommandAction>.NotFound(new List<string> {"No corresponding action found."});
