@@ -42,18 +42,7 @@ namespace Pokegraf.Application.Implementation.BotActions.Callbacks.PokemonStats
 
             var keyboard = result.Value.ToStatsKeyboard();
 
-            var sb = new StringBuilder();
-            
-            sb.AppendLine($"HP 💗 {result.Value.Stats.Health}");
-            sb.AppendLine($"Attack 💥 {result.Value.Stats.Attack}");
-            sb.AppendLine($"Defense 🛡 {result.Value.Stats.Defense}");
-            sb.AppendLine($"Special Attack 🌟 {result.Value.Stats.SpecialAttack}");
-            sb.AppendLine($"Special Defense 🔰 {result.Value.Stats.SpecialDefense}");
-            sb.AppendLine($"Speed 👟 {result.Value.Stats.Speed}");
-
-            var statsTable = sb.ToString();
-
-            return await MediatR.Send(new EditPhotoWithCaptionWithKeyboardResponse(result.Value.Image.ToString(), statsTable, keyboard, request.MessageId));
+            return await MediatR.Send(new EditPhotoWithCaptionWithKeyboardResponse(result.Value.Image.ToString(), result.Value.ToStatsCaption(), keyboard, request.MessageId));
         }
     }
 }
