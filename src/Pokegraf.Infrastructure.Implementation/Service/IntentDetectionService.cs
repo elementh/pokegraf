@@ -41,12 +41,21 @@ namespace Pokegraf.Infrastructure.Implementation.Service
             {
                 Text = new TextInput
                 {
-                    Text = "I want info of pidgey?",
+                    Text = "I want info of pidgey",
                     LanguageCode = "en-us"
                 }
             };
 
-            var response = await Client.DetectIntentAsync(session, formalQuery);
+            try
+            {
+                var response = await Client.DetectIntentAsync(session, formalQuery);
+
+            }
+            catch (Exception e)
+            {
+                Logger.LogError(e, "Unhandled error detecting intent");
+            }
+
             
             return new IntentDto();
         }
