@@ -1,6 +1,6 @@
 namespace Pokegraf.Application.Contract.Model.Action.Conversation
 {
-    public interface IConversationAction
+    public interface IConversationAction : IBotAction
     {
         
     }
