@@ -43,7 +43,7 @@ namespace Pokegraf.Infrastructure.Implementation.Service
         {
             try
             {
-                var session = new SessionName(Configuration["GoogleCredential:project_id"], Guid.NewGuid().ToString());
+                var session = new SessionName(Configuration["GoogleCredentials:project_id"], Guid.NewGuid().ToString());
                 var response = await Client.DetectIntentAsync(session, query.ToQueryInput(), cancellationToken);
 
                 return Result<IntentDto>.Success(response.ToIntentDto());

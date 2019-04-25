@@ -10,7 +10,7 @@ namespace Pokegraf.Infrastructure.Implementation.Mapping.Extension
         {
             return new IntentDto
             {
-                DisplayName = intentResponse.QueryResult.Intent.DisplayName,
+                DisplayName = intentResponse.QueryResult.Intent?.DisplayName,
                 Parameters = intentResponse.QueryResult.Parameters.Fields.ToDictionary(pair => pair.Key, pair => pair.Value.ToString()),
                 Action = intentResponse.QueryResult.Action,
                 FulfillmentText = intentResponse.QueryResult.FulfillmentText,
