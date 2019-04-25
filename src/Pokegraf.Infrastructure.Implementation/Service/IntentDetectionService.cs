@@ -9,8 +9,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Binder;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Pokegraf.Common.Result;
 using Pokegraf.Infrastructure.Contract.Dto;
+using Pokegraf.Infrastructure.Contract.Model;
 using Pokegraf.Infrastructure.Contract.Service;
+using Pokegraf.Infrastructure.Implementation.Mapping.Extension;
 
 namespace Pokegraf.Infrastructure.Implementation.Service
 {
@@ -18,11 +21,13 @@ namespace Pokegraf.Infrastructure.Implementation.Service
     {
         protected readonly ILogger<IntentDetectionService> Logger;
         protected readonly SessionsClient Client;
+        protected readonly IConfiguration Configuration;
         
         public IntentDetectionService(ILogger<IntentDetectionService> logger, IConfiguration configuration)
         {
             Logger = logger;
-            
+            Configuration = configuration;
+
             //TODO: refactor as custom config
             var credentialsJson = JsonConvert.SerializeObject(configuration.GetSection("GoogleCredentials").Get<Dictionary<string, string>>());
             
@@ -33,31 +38,21 @@ namespace Pokegraf.Infrastructure.Implementation.Service
             Client = SessionsClient.Create(channel);
         }
 
-        public async Task<IntentDto> GetIntent(string userQuery)
+        public async Task<Result<IntentDto>> GetIntent(DetectIntentQuery query)
         {
-            var session = new SessionName("newagent-9bc74", Guid.NewGuid().ToString());
-            
-            var formalQuery = new QueryInput
-            {
-                Text = new TextInput
-                {
-                    Text = "I want info of pidgey",
-                    LanguageCode = "en-us"
-                }
-            };
-
             try
             {
-                var response = await Client.DetectIntentAsync(session, formalQuery);
+                var session = new SessionName(Configuration["GoogleCredential:project_id"], Guid.NewGuid().ToString());
+                var response = await Client.DetectIntentAsync(session, query.ToQueryInput());
 
+                return Result<IntentDto>.Success(response.ToIntentDto());
             }
             catch (Exception e)
             {
                 Logger.LogError(e, "Unhandled error detecting intent");
-            }
 
-            
-            return new IntentDto();
+                return null;
+            }
         }
     }
 }
