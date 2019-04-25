@@ -6,10 +6,13 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Pokegraf.Application.Contract.Common.Context;
 using Pokegraf.Application.Contract.Common.Strategy;
+using Pokegraf.Application.Contract.Model;
 using Pokegraf.Application.Contract.Model.Action;
 using Pokegraf.Application.Contract.Model.Action.Callback;
 using Pokegraf.Application.Contract.Model.Action.Command;
+using Pokegraf.Application.Contract.Model.Action.Conversation;
 using Pokegraf.Application.Contract.Model.Action.Inline;
+using Pokegraf.Application.Implementation.Mapping.Extension;
 using Pokegraf.Common.Result;
 using Pokegraf.Infrastructure.Contract.Model;
 using Pokegraf.Infrastructure.Contract.Service;
@@ -22,21 +25,17 @@ namespace Pokegraf.Application.Implementation.Common.Strategy
     {
         protected readonly ILogger<BotActionSelector> Logger;
         protected readonly IStrategyContext StrategyContext;
-        protected IIntentDetectionService IntentDetectionService;
         protected readonly IBotContext BotContext;
 
-        public BotActionSelector(ILogger<BotActionSelector> logger, IStrategyContext strategyContext, IBotContext botContext, IIntentDetectionService intentDetectionService)
+        public BotActionSelector(ILogger<BotActionSelector> logger, IStrategyContext strategyContext, IBotContext botContext)
         {
             Logger = logger;
             StrategyContext = strategyContext;
             BotContext = botContext;
-            IntentDetectionService = intentDetectionService;
         }
 
-        public async Task<Result<ICommandAction>> GetCommandAction()
-        {
-            var intent = await IntentDetectionService.GetIntent(new DetectIntentQuery("I need to know about Pikachu", "en-us"));
-            
+        public Result<ICommandAction> GetCommandAction()
+        {            
             var command = GetCommand(BotContext.Message);
             
             if (command == null) return Result<ICommandAction>.NotFound(new List<string> {"No corresponding action found."});
@@ -46,6 +45,19 @@ namespace Pokegraf.Application.Implementation.Common.Strategy
             if (action == null) return Result<ICommandAction>.NotFound(new List<string> {"No corresponding action found."});
 
             return Result<ICommandAction>.Success(action);
+        }
+
+        public Result<IConversationAction> GetConversationAction()
+        {
+            var intent = BotContext.Intent;
+            
+            if (intent == null) return Result<IConversationAction>.NotFound(new List<string> {"No corresponding action found."});
+            
+            var action = StrategyContext.GetConversationStrategyContext().FirstOrDefault(botAction => botAction.CanHandle(intent.Action));
+            
+            if (action == null) return Result<IConversationAction>.NotFound(new List<string> {"No corresponding action found."});
+
+            return Result<IConversationAction>.Success(action);
         }
 
         public Result<ICallbackAction> GetCallbackAction()
