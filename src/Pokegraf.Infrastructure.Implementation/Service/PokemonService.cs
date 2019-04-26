@@ -9,6 +9,7 @@ using PokeAPI;
 using Pokegraf.Common.Helper;
 using Pokegraf.Common.Result;
 using Pokegraf.Infrastructure.Contract.Dto;
+using Pokegraf.Infrastructure.Contract.Dto.Pokemon;
 using Pokegraf.Infrastructure.Contract.Service;
 
 namespace Pokegraf.Infrastructure.Implementation.Service
@@ -30,16 +31,19 @@ namespace Pokegraf.Infrastructure.Implementation.Service
 
             if (rawCachedPokemon != null)
             {
+                Logger.LogTrace("Found pokemon @PokemonId in cache.", pokeNumber);
+                
                 var cachedPokemon = JsonConvert.DeserializeObject<PokemonDto>(rawCachedPokemon);
                 
                 return Result<PokemonDto>.Success(cachedPokemon);
             }
             
             Pokemon pokemon;
-            
+            PokemonSpecies species;
             try
             {
                 pokemon = await DataFetcher.GetApiObject<Pokemon>(pokeNumber);
+                species = await DataFetcher.GetApiObject<PokemonSpecies>(pokeNumber);
             }
             catch (Exception e)
             {
@@ -56,8 +60,8 @@ namespace Pokegraf.Infrastructure.Implementation.Service
             var dto = new PokemonDto()
             {
                 Id = pokeNumber,
-                Name = pokemon.Name.FirstLetterToUpperCase(),
-                Description = await GetDescription(pokeNumber),
+                Name = GetName(pokemon),
+                Description = GetDescription(species),
                 Stats = await GetStats(pokeNumber),
                 Image = GetImageUri(pokeNumber),
                 Sprite = new Uri(pokemon.Sprites.FrontMale),
@@ -132,13 +136,57 @@ namespace Pokegraf.Infrastructure.Implementation.Service
             return Result<PokemonFusionDto>.Success(pokemonFusionDto);
         }
 
-        protected async Task<string> GetDescription(int pokeNumber)
+        public async Task<Result<BerryDto>> GetBerry(string berryName)
         {
-            var species = await DataFetcher.GetApiObject<PokemonSpecies>(pokeNumber);
+            var rawCachedBerry = await Cache.GetStringAsync($"berry:{berryName}");
 
+            if (rawCachedBerry != null)
+            {
+                Logger.LogTrace("Found berry @BerryName in cache.", berryName);
+
+                var cachedBerry = JsonConvert.DeserializeObject<BerryDto>(rawCachedBerry);
+
+                return Result<BerryDto>.Success(cachedBerry);
+            }
+
+            Berry berry;
+            
+            try
+            {
+                berry = await DataFetcher.GetNamedApiObject<Berry>(berryName);
+            }
+            catch (Exception e)
+            {
+                if (e.Message == "Response status code does not indicate success: 404 (Not Found).")
+                {
+                    return Result<BerryDto>.NotFound(new List<string> {"The requested berry does not exist."});
+                }
+                
+                Logger.LogError(e, "Unhandled error getting berry {BerryName}", berryName);
+                
+                return Result<BerryDto>.UnknownError(new List<string> {$"Unhandled error getting berry {berryName}", e.Message});
+            }
+            
+            return Result<BerryDto>.Success(new BerryDto());
+        }
+
+        protected string GetDescription(PokemonSpecies species)
+        {
             return species.FlavorTexts.First(text => text.Language.Name == "en").FlavorText.Replace("\n", " ");
         }
 
+        protected string GetName(Pokemon pokemon)
+        {
+            var name = pokemon.Name.FirstLetterToUpperCase();
+
+            if (name.Contains('-'))
+            {
+                name = name.Substring(0, name.IndexOf('-'));
+            }
+
+            return name;
+        }
+        
         protected async Task<PokemonDto.StatsDto> GetStats(int pokeNumber)
         {
             var pokemon = await DataFetcher.GetApiObject<Pokemon>(pokeNumber);
