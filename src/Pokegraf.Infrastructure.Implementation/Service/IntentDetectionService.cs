@@ -6,6 +6,7 @@ using Google.Apis.Auth.OAuth2;
 using Google.Cloud.Dialogflow.V2;
 using Grpc.Auth;
 using Grpc.Core;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Binder;
 using Microsoft.Extensions.Logging;
@@ -23,11 +24,13 @@ namespace Pokegraf.Infrastructure.Implementation.Service
         protected readonly ILogger<IntentDetectionService> Logger;
         protected readonly SessionsClient Client;
         protected readonly IConfiguration Configuration;
+        protected readonly IDistributedCache Cache;
         
-        public IntentDetectionService(ILogger<IntentDetectionService> logger, IConfiguration configuration)
+        public IntentDetectionService(ILogger<IntentDetectionService> logger, IConfiguration configuration, IDistributedCache cache)
         {
             Logger = logger;
             Configuration = configuration;
+            Cache = cache;
 
             //TODO: refactor as custom config
             var credentialsJson = JsonConvert.SerializeObject(configuration.GetSection("GoogleCredentials").Get<Dictionary<string, string>>());
@@ -41,11 +44,25 @@ namespace Pokegraf.Infrastructure.Implementation.Service
 
         public async Task<Result<IntentDto>> GetIntent(DetectIntentQuery query, CancellationToken cancellationToken = default(CancellationToken))
         {
+            var key = $"intent:{query.Text.Trim().ToLower().GetHashCode()}";
+            var rawCachedIntent = await Cache.GetStringAsync(key, cancellationToken);
+
+            if (rawCachedIntent != null)
+            {
+                var cachedIntent = JsonConvert.DeserializeObject<IntentDto>(rawCachedIntent);
+                
+                return Result<IntentDto>.Success(cachedIntent);
+            }
+            
             try
             {
                 var session = new SessionName(Configuration["GoogleCredentials:project_id"], Guid.NewGuid().ToString());
                 var response = await Client.DetectIntentAsync(session, query.ToQueryInput(), cancellationToken);
 
+                var intent = response.ToIntentDto();
+                
+                await Cache.SetStringAsync(key, JsonConvert.SerializeObject(intent), cancellationToken);
+                
                 return Result<IntentDto>.Success(response.ToIntentDto());
             }
             catch (Exception e)

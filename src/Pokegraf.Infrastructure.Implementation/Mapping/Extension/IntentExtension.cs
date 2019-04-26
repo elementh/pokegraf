@@ -25,7 +25,7 @@ namespace Pokegraf.Infrastructure.Implementation.Mapping.Extension
 
         private static Dictionary<string, string> GetParameters(Struct queryResultParameters)
         {
-            Dictionary<string, string> parameters = new Dictionary<string, string>();
+            var parameters = new Dictionary<string, string>();
             
             foreach (var parameter in queryResultParameters.Fields)
             {
