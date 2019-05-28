@@ -4,6 +4,7 @@ using System.Text;
 using Newtonsoft.Json;
 using Pokegraf.Application.Implementation.BotActions.Callbacks.PokemonStats;
 using Pokegraf.Infrastructure.Contract.Dto;
+using Pokegraf.Infrastructure.Contract.Dto.Pokemon;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace Pokegraf.Application.Implementation.Mapping.Extension

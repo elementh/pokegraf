@@ -1,6 +1,6 @@
 using System;
 
-namespace Pokegraf.Infrastructure.Contract.Dto
+namespace Pokegraf.Infrastructure.Contract.Dto.Pokemon
 {
     public class PokemonDto
     {

@@ -8,6 +8,7 @@ using Pokegraf.Application.Implementation.Common.Responses.Inline;
 using Pokegraf.Application.Implementation.Mapping.Extension;
 using Pokegraf.Common.Result;
 using Pokegraf.Infrastructure.Contract.Dto;
+using Pokegraf.Infrastructure.Contract.Dto.Pokemon;
 using Pokegraf.Infrastructure.Contract.Service;
 using Telegram.Bot.Types.InlineQueryResults;
 
