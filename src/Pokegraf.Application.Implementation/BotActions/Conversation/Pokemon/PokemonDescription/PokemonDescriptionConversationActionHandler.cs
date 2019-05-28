@@ -7,11 +7,10 @@ using Pokegraf.Application.Implementation.Common.Responses.PhotoWithKeyboard.Sen
 using Pokegraf.Application.Implementation.Common.Responses.Text;
 using Pokegraf.Application.Implementation.Mapping.Extension;
 using Pokegraf.Common.Result;
-using Pokegraf.Infrastructure.Contract.Dto;
 using Pokegraf.Infrastructure.Contract.Dto.Pokemon;
 using Pokegraf.Infrastructure.Contract.Service;
 
-namespace Pokegraf.Application.Implementation.BotActions.Conversation.PokemonDescription
+namespace Pokegraf.Application.Implementation.BotActions.Conversation.Pokemon.PokemonDescription
 {
     public class PokemonDescriptionConversationActionHandler : Pokegraf.Common.Request.RequestHandler<PokemonDescriptionConversationAction, Result>
     {

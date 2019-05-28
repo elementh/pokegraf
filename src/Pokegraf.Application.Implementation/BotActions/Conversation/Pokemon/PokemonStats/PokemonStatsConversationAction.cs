@@ -1,7 +1,7 @@
 using Pokegraf.Application.Contract.Common.Context;
 using Pokegraf.Application.Contract.Model.Action.Conversation;
 
-namespace Pokegraf.Application.Implementation.BotActions.Conversation.PokemonStats
+namespace Pokegraf.Application.Implementation.BotActions.Conversation.Pokemon.PokemonStats
 {
     public class PokemonStatsConversationAction : ConversationAction
     {
