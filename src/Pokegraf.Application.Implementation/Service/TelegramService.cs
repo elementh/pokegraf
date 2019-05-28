@@ -73,14 +73,19 @@ namespace Pokegraf.Application.Implementation.Service
                         if (conversationActionResult.Succeeded)
                         {
                             await botContext.BotClient.Client.SendChatActionAsync(e.Message.Chat.Id, ChatAction.Typing);
+                         
+                            var requestResult = await mediatR.Send(conversationActionResult.Value);
+                            
+                            if (!requestResult.Succeeded && !requestResult.Errors.ContainsKey("not_found"))
+                            {
+                                Logger.LogError("{BotAction} was not processed correctly: {@Errors}",
+                                    actionResult.Value.GetType().Name, requestResult.Errors);
+                            }
                         }
-                        
-                        var requestResult = await mediatR.Send(conversationActionResult.Value);
-
-                        if (!requestResult.Succeeded && !requestResult.Errors.ContainsKey("not_found"))
+                        if (!conversationActionResult.Succeeded && !conversationActionResult.Errors.ContainsKey("not_found"))
                         {
                             Logger.LogError("{BotAction} was not processed correctly: {@Errors}",
-                                actionResult.Value.GetType().Name, requestResult.Errors);
+                                actionResult.Value.GetType().Name, conversationActionResult.Errors);
                         }
                     }
                 }

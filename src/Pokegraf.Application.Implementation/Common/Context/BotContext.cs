@@ -39,7 +39,7 @@ namespace Pokegraf.Application.Implementation.Common.Context
             User = message.From;
             Chat = message.Chat;
 
-            if (Message.Entities == null || Message.Entities.All(entity => entity.Type != MessageEntityType.BotCommand))
+            if ((Message.Entities == null || Message.Entities.All(entity => entity.Type != MessageEntityType.BotCommand)) && !string.IsNullOrWhiteSpace(Message.Text))
             {
                 var intentResult = await _intentDetectionService.GetIntent(new DetectIntentQuery(Message.Text, "en-us"));
 

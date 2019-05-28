@@ -30,10 +30,12 @@ namespace Pokegraf.Application.Implementation.BotActions.Inline.Pokemon
                 : await _pokemonService.GetPokemon(requestedPokemon);
             
             if (!result.Succeeded) return await MediatR.Send(new InlineResponse(new InlineQueryResultBase[]{}), cancellationToken);
+
+            var sprite = result.Value.Sprite ?? result.Value.Image;
             
             InlineQueryResultBase[] results =
             {
-                new InlineQueryResultPhoto($"pokemon:{result.Value.Id}", result.Value.Image.ToString(), result.Value.Sprite.ToString())
+                new InlineQueryResultPhoto($"pokemon:{result.Value.Id}", result.Value.Image, sprite)
                 {
                     Caption = $"{result.Value.Description}"
                 }

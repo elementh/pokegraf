@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -28,8 +29,9 @@ namespace Pokegraf.Application.Implementation.Common.Responses.Keyboard.ReplyKey
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                Logger.LogError(e, "Unhandled error sending reply keyboard ({@Request}).", request);
+                
+                return Result.UnknownError(new List<string> {e.Message});
             }
 
             
