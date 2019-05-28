@@ -18,7 +18,9 @@ namespace Pokegraf.Infrastructure.Implementation.Mapping.Profile
                     src.GrowthTime))
                 .ForMember(dest => dest.NaturalGiftType, opt => opt.Ignore())
                 .ForMember(dest => dest.Flavors, opt => opt.MapFrom(src =>
-                    src.Flavors.Select(berryFlavor => berryFlavor.Flavor.Name).ToList()))
+                    src.Flavors.Where(berryFlavor => berryFlavor.Potency > 0)
+                        .OrderByDescending(berryFlavor => berryFlavor.Potency)
+                        .Select(berryFlavor => berryFlavor.Flavor.Name).ToList()))
                 .ForMember(dest => dest.Firmness, opt => opt.MapFrom(src =>
                     src.Firmness.Name))
                 .ForMember(dest => dest.MaxHarvest, opt => opt.MapFrom(src =>

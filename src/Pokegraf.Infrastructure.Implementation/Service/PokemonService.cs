@@ -11,6 +11,7 @@ using Pokegraf.Common.Result;
 using Pokegraf.Infrastructure.Contract.Dto;
 using Pokegraf.Infrastructure.Contract.Dto.Pokemon;
 using Pokegraf.Infrastructure.Contract.Service;
+using Pokegraf.Infrastructure.Implementation.Mapping.Extension;
 
 namespace Pokegraf.Infrastructure.Implementation.Service
 {
@@ -150,10 +151,13 @@ namespace Pokegraf.Infrastructure.Implementation.Service
             }
 
             Berry berry;
+            PokemonType type;
             
             try
             {
                 berry = await DataFetcher.GetNamedApiObject<Berry>(berryName);
+                //TODO: move type to another method, cache it.
+                type = await DataFetcher.GetNamedApiObject<PokemonType>(berry.NaturalGiftType.Name);
             }
             catch (Exception e)
             {
@@ -166,8 +170,12 @@ namespace Pokegraf.Infrastructure.Implementation.Service
                 
                 return Result<BerryDto>.UnknownError(new List<string> {$"Unhandled error getting berry {berryName}", e.Message});
             }
+
+            var dto = berry.ToBerryDto(type);
             
-            return Result<BerryDto>.Success(new BerryDto());
+            await Cache.SetStringAsync($"berry:{dto.Name.ToLower()}", JsonConvert.SerializeObject(dto));
+
+            return Result<BerryDto>.Success(dto);
         }
 
         protected string GetDescription(PokemonSpecies species)
