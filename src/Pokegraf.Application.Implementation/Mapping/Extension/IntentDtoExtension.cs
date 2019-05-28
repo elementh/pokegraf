@@ -1,5 +1,6 @@
 using AutoMapper;
 using Pokegraf.Application.Contract.Model;
+using Pokegraf.Application.Implementation.Mapping.Profile;
 using Pokegraf.Infrastructure.Contract.Dto;
 
 namespace Pokegraf.Application.Implementation.Mapping.Extension
@@ -10,7 +11,10 @@ namespace Pokegraf.Application.Implementation.Mapping.Extension
         
         static IntentDtoExtension()
         {
-            Mapper = new MapperConfiguration(cfg => { }).CreateMapper();
+            Mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<IntentDtoProfile>();
+            }).CreateMapper();
         }
         
         public static Intent ToIntent(this IntentDto intent)

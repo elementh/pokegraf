@@ -5,7 +5,7 @@ namespace Pokegraf.Application.Implementation.Mapping.Profile
 {
     public class IntentDtoProfile : AutoMapper.Profile
     {
-        IntentDtoProfile()
+        public IntentDtoProfile()
         {
             CreateMap<IntentDto, Intent>();
         }
