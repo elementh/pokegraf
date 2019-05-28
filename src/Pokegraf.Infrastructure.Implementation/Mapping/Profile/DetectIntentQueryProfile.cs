@@ -5,7 +5,7 @@ namespace Pokegraf.Infrastructure.Implementation.Mapping.Profile
 {
     public class DetectIntentQueryProfile : AutoMapper.Profile
     {
-        DetectIntentQueryProfile()
+        public DetectIntentQueryProfile()
         {
             CreateMap<DetectIntentQuery, TextInput>();
         }

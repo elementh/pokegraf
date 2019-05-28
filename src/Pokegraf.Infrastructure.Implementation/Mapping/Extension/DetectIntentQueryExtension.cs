@@ -1,6 +1,7 @@
 using AutoMapper;
 using Google.Cloud.Dialogflow.V2;
 using Pokegraf.Infrastructure.Contract.Model;
+using Pokegraf.Infrastructure.Implementation.Mapping.Profile;
 
 namespace Pokegraf.Infrastructure.Implementation.Mapping.Extension
 {
@@ -10,7 +11,10 @@ namespace Pokegraf.Infrastructure.Implementation.Mapping.Extension
         
         static DetectIntentQueryExtension()
         {
-            Mapper = new MapperConfiguration(cfg => { }).CreateMapper();
+            Mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<DetectIntentQueryProfile>();
+            }).CreateMapper();
         }
 
         public static QueryInput ToQueryInput(this DetectIntentQuery query)
