@@ -5,7 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="AutoMapper" Version="8.0.0" />
+      <PackageReference Include="AutoMapper" Version="8.1.0" />
       <PackageReference Include="Google.Cloud.Dialogflow.V2" Version="1.0.0-beta02" />
       <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="2.2.0" />
       <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="2.2.0" />
