@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Pokegraf.Application.Contract.Common.Client;
@@ -7,6 +8,7 @@ using Pokegraf.Application.Implementation.Mapping.Extension;
 using Pokegraf.Infrastructure.Contract.Model;
 using Pokegraf.Infrastructure.Contract.Service;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
 
 namespace Pokegraf.Application.Implementation.Common.Context
 {
@@ -36,12 +38,15 @@ namespace Pokegraf.Application.Implementation.Common.Context
             Message = message;
             User = message.From;
             Chat = message.Chat;
-            
-            var intentResult = await _intentDetectionService.GetIntent(new DetectIntentQuery(Message.Text, "en-us"));
 
-            if (intentResult.Succeeded)
+            if (Message.Entities == null || Message.Entities.All(entity => entity.Type != MessageEntityType.BotCommand))
             {
-                Intent = intentResult.Value.ToIntent();
+                var intentResult = await _intentDetectionService.GetIntent(new DetectIntentQuery(Message.Text, "en-us"));
+
+                if (intentResult.Succeeded)
+                {
+                    Intent = intentResult.Value.ToIntent();
+                }
             }
             
             Logger.LogTrace("Populated HttpContext with Message.", message);
