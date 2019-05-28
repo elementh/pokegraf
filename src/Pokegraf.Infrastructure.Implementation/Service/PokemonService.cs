@@ -63,8 +63,8 @@ namespace Pokegraf.Infrastructure.Implementation.Service
                 Name = GetName(pokemon),
                 Description = GetDescription(species),
                 Stats = await GetStats(pokeNumber),
-                Image = GetImageUri(pokeNumber),
-                Sprite = new Uri(pokemon.Sprites.FrontMale),
+                Image = await GetImageUri(pokeNumber),
+                Sprite = pokemon.Sprites.FrontMale,
                 Before = await GetPokemonBefore(pokeNumber),
                 Next = await GetPokemonNext(pokeNumber)
             };
@@ -201,16 +201,24 @@ namespace Pokegraf.Infrastructure.Implementation.Service
             };
         }
         
-        protected Uri GetImageUri(int pokeNumber)
+        protected async Task<string> GetImageUri(int pokeNumber)
         {
-            return new Uri($"https://veekun.com/dex/media/pokemon/global-link/{pokeNumber}.png");
+            if (pokeNumber > 721)
+            {
+                var pokemon = await DataFetcher.GetApiObject<Pokemon>(pokeNumber);
+
+                return $"https://img.pokemondb.net/artwork/large/{pokemon.Name}.jpg";
+
+            }
+
+            return $"https://veekun.com/dex/media/pokemon/global-link/{pokeNumber}.png";
         }
 
         protected async Task<Tuple<int, string>> GetPokemonNext(int pokeNumber)
         {
             switch (pokeNumber)
             {
-                case 721:
+                case 807:
                     pokeNumber = 1;
                     break;
                 default:
@@ -228,7 +236,7 @@ namespace Pokegraf.Infrastructure.Implementation.Service
             switch (pokeNumber)
             {
                 case 1:
-                    pokeNumber = 721;
+                    pokeNumber = 807;
                     break;
                 default:
                     --pokeNumber;
