@@ -33,7 +33,7 @@ namespace Pokegraf.Infrastructure.Implementation.Service
             Cache = cache;
 
             //TODO: refactor as custom config
-            var credentialsJson = JsonConvert.SerializeObject(configuration.GetSection("GoogleCredentials").Get<Dictionary<string, string>>());
+            var credentialsJson = JsonConvert.SerializeObject(configuration.GetSection("GOOGLE_CREDENTIALS").Get<Dictionary<string, string>>());
             
             var credential = GoogleCredential.FromJson(credentialsJson);
             
@@ -56,7 +56,7 @@ namespace Pokegraf.Infrastructure.Implementation.Service
             
             try
             {
-                var session = new SessionName(Configuration["GoogleCredentials:project_id"], Guid.NewGuid().ToString());
+                var session = new SessionName(Configuration["GOOGLE_CREDENTIALS:project_id"], Guid.NewGuid().ToString());
                 var response = await Client.DetectIntentAsync(session, query.ToQueryInput(), cancellationToken);
 
                 var intent = response.ToIntentDto();
