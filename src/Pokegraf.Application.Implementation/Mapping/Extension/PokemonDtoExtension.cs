@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Text;
 using Newtonsoft.Json;
-using Pokegraf.Application.Implementation.BotActions.Callbacks.PokemonStats;
 using Pokegraf.Infrastructure.Contract.Dto;
 using Pokegraf.Infrastructure.Contract.Dto.Pokemon;
 using Telegram.Bot.Types.ReplyMarkups;
