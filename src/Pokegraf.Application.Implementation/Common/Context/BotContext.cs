@@ -4,11 +4,7 @@ using Microsoft.Extensions.Logging;
 using Pokegraf.Application.Contract.Common.Client;
 using Pokegraf.Application.Contract.Common.Context;
 using Pokegraf.Application.Contract.Model;
-using Pokegraf.Application.Implementation.Mapping.Extension;
-using Pokegraf.Infrastructure.Contract.Model;
-using Pokegraf.Infrastructure.Contract.Service;
 using Telegram.Bot.Types;
-using Telegram.Bot.Types.Enums;
 
 namespace Pokegraf.Application.Implementation.Common.Context
 {
@@ -16,7 +12,6 @@ namespace Pokegraf.Application.Implementation.Common.Context
     {
         
         protected readonly ILogger<BotContext> Logger;
-        private IIntentDetectionService _intentDetectionService;
         public IBotClient BotClient { get; set; }
 
         public Message Message { get; set; }
@@ -26,11 +21,10 @@ namespace Pokegraf.Application.Implementation.Common.Context
         public User User { get; set; }
         public Chat Chat { get; set; }
 
-        public BotContext(ILogger<BotContext> logger, IBotClient botClient, IIntentDetectionService intentDetectionService)
+        public BotContext(ILogger<BotContext> logger, IBotClient botClient)
         {
             Logger = logger;
             BotClient = botClient;
-            _intentDetectionService = intentDetectionService;
         }
 
         public async Task Populate(Message message)
@@ -39,16 +33,6 @@ namespace Pokegraf.Application.Implementation.Common.Context
             User = message.From;
             Chat = message.Chat;
 
-            if ((Message.Entities == null || Message.Entities.All(entity => entity.Type != MessageEntityType.BotCommand)) && !string.IsNullOrWhiteSpace(Message.Text))
-            {
-                var intentResult = await _intentDetectionService.GetIntent(new DetectIntentQuery(Message.Text, "en-us"));
-
-                if (intentResult.Succeeded)
-                {
-                    Intent = intentResult.Value.ToIntent();
-                }
-            }
-            
             Logger.LogTrace("Populated HttpContext with Message.", message);
         }
 

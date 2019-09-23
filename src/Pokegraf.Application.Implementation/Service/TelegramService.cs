@@ -51,42 +51,23 @@ namespace Pokegraf.Application.Implementation.Service
                     var actionSelector = scope.ServiceProvider.GetRequiredService<IBotActionSelector>();
 
                     var actionResult = actionSelector.GetCommandAction();
-
-                    if (actionResult.Succeeded)
+                    
+                    if (!actionResult.Succeeded && !actionResult.Errors.ContainsKey("not_found"))
                     {
-                        await botContext.BotClient.Client.SendChatActionAsync(e.Message.Chat.Id, ChatAction.Typing);
-                        
-                        var requestResult = await mediatR.Send(actionResult.Value);
+                        Logger.LogError("{BotAction} was not processed correctly: {@Errors}",
+                            actionResult.Value.GetType().Name, actionResult.Errors);
 
-                        if (!requestResult.Succeeded && !requestResult.Errors.ContainsKey("not_found"))
-                        {
-                            Logger.LogError("{BotAction} was not processed correctly: {@Errors}",
-                                actionResult.Value.GetType().Name, requestResult.Errors);
-                        }
+                        return;
                     }
-                    else if (actionResult.Errors.ContainsKey("not_found"))
+                    
+                    await botContext.BotClient.Client.SendChatActionAsync(e.Message.Chat.Id, ChatAction.Typing);
+                    
+                    var requestResult = await mediatR.Send(actionResult.Value);
+
+                    if (!requestResult.Succeeded && !requestResult.Errors.ContainsKey("not_found"))
                     {
-                        await botContext.BotClient.Client.SendChatActionAsync(e.Message.Chat.Id, ChatAction.Typing);
-
-                        var conversationActionResult = actionSelector.GetConversationAction();
-
-                        if (conversationActionResult.Succeeded)
-                        {
-                            await botContext.BotClient.Client.SendChatActionAsync(e.Message.Chat.Id, ChatAction.Typing);
-                         
-                            var requestResult = await mediatR.Send(conversationActionResult.Value);
-                            
-                            if (!requestResult.Succeeded && !requestResult.Errors.ContainsKey("not_found"))
-                            {
-                                Logger.LogError("{BotAction} was not processed correctly: {@Errors}",
-                                    actionResult.Value.GetType().Name, requestResult.Errors);
-                            }
-                        }
-                        if (!conversationActionResult.Succeeded && !conversationActionResult.Errors.ContainsKey("not_found"))
-                        {
-                            Logger.LogError("{BotAction} was not processed correctly: {@Errors}",
-                                actionResult.Value.GetType().Name, conversationActionResult.Errors);
-                        }
+                        Logger.LogError("{BotAction} was not processed correctly: {@Errors}",
+                            actionResult.Value.GetType().Name, requestResult.Errors);
                     }
                 }
             }
