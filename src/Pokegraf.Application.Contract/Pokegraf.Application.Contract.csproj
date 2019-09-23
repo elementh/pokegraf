@@ -6,11 +6,12 @@
 
     <ItemGroup>
       <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="2.2.0" />
-      <PackageReference Include="TelegramBotClients" Version="1.0.6" />
+      <PackageReference Include="TelegramBotClients" Version="1.0.7" />
     </ItemGroup>
     
     <ItemGroup>
       <ProjectReference Include="..\Pokegraf.Common\Pokegraf.Common.csproj" />
+      <ProjectReference Include="..\Pokegraf.Domain.Entity\Pokegraf.Domain.Entity.csproj" />
     </ItemGroup>
 
 </Project>
