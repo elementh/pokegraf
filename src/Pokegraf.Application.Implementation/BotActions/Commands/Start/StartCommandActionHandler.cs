@@ -7,9 +7,9 @@ using Pokegraf.Common.Result;
 
 namespace Pokegraf.Application.Implementation.BotActions.Commands.Start
 {
-    public class StartCommandActionHandler : Pokegraf.Common.Request.RequestHandler<StartCommandAction, Result>
+    public class StartCommandActionHandler : Pokegraf.Common.Request.CommonHandler<StartCommandAction, Result>
     {
-        public StartCommandActionHandler(ILogger<Pokegraf.Common.Request.RequestHandler<StartCommandAction, Result>> logger, IMediator mediatR) : base(logger, mediatR)
+        public StartCommandActionHandler(ILogger<Pokegraf.Common.Request.CommonHandler<StartCommandAction, Result>> logger, IMediator mediatR) : base(logger, mediatR)
         {
             
         }

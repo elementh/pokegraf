@@ -36,17 +36,17 @@ namespace Pokegraf.Common.Result
             return result;
         }
         
-        public static Result NotFound(List<string> errorDescription)
+        public static Result NotFound(List<string> errorDescription = default)
         {
             return Fail("not_found", errorDescription);
         }
         
-        public static Result UnknownError(List<string> errorDescription)
+        public static Result UnknownError(List<string> errorDescription = default)
         {
             return Fail("unknown_error", errorDescription);
         }
         
-        public static Result ValidationFailure(List<string> errorDescription)
+        public static Result ValidationFailure(List<string> errorDescription = default)
         {
             return Fail("validation_failures", errorDescription);
         }
@@ -66,7 +66,7 @@ namespace Pokegraf.Common.Result
     {
         public T Value { get; protected set; }
 
-        public new static Result<T> Fail(string errorKey, List<string> errorDescription)
+        public new static Result<T> Fail(string errorKey, List<string> errorDescription = default)
         {
             return FromResult(Result.Fail(errorKey, errorDescription));
         }
@@ -82,17 +82,17 @@ namespace Pokegraf.Common.Result
             return result;
         }
         
-        public new static Result<T> NotFound(List<string> errorDescription)
+        public new static Result<T> NotFound(List<string> errorDescription = default)
         {
             return FromResult(Result.NotFound(errorDescription));
         }
         
-        public new static Result<T> UnknownError(List<string> errorDescription)
+        public new static Result<T> UnknownError(List<string> errorDescription = default)
         {
             return FromResult(Result.UnknownError(errorDescription));
         }
         
-        public new static Result<T> ValidationFailure(List<string> errorDescription)
+        public new static Result<T> ValidationFailure(List<string> errorDescription = default)
         {
             return FromResult(Result.ValidationFailure(errorDescription));
         }
@@ -107,6 +107,11 @@ namespace Pokegraf.Common.Result
             };
 
             return newResult;
+        }
+
+        public static Result<T> NotFound(string error = "")
+        {
+            return FromResult(Result.NotFound(new List<string> {error}));
         }
     }
 }

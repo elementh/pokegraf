@@ -12,11 +12,11 @@ using Pokegraf.Infrastructure.Contract.Service;
 
 namespace Pokegraf.Application.Implementation.BotActions.Callbacks.PokemonStats
 {
-    public class PokemonStatsCallbackActionHandler : Pokegraf.Common.Request.RequestHandler<PokemonStatsCallbackAction, Result>
+    public class PokemonStatsCallbackActionHandler : Pokegraf.Common.Request.CommonHandler<PokemonStatsCallbackAction, Result>
     {
         private readonly IPokemonService _pokemonService;
 
-        public PokemonStatsCallbackActionHandler(ILogger<Pokegraf.Common.Request.RequestHandler<PokemonStatsCallbackAction, Result>> logger,
+        public PokemonStatsCallbackActionHandler(ILogger<Pokegraf.Common.Request.CommonHandler<PokemonStatsCallbackAction, Result>> logger,
             IMediator mediatR, IPokemonService pokemonService) : base(logger, mediatR)
         {
             _pokemonService = pokemonService;

@@ -13,11 +13,11 @@ using Telegram.Bot.Types.ReplyMarkups;
 
 namespace Pokegraf.Application.Implementation.BotActions.Commands.Fusion
 {
-    public class FusionCommandActionHandler : Pokegraf.Common.Request.RequestHandler<FusionCommandAction, Result>
+    public class FusionCommandActionHandler : Pokegraf.Common.Request.CommonHandler<FusionCommandAction, Result>
     {
         private readonly IPokemonService _pokemonService;
 
-        public FusionCommandActionHandler(ILogger<Pokegraf.Common.Request.RequestHandler<FusionCommandAction, Result>> logger,
+        public FusionCommandActionHandler(ILogger<Pokegraf.Common.Request.CommonHandler<FusionCommandAction, Result>> logger,
             IMediator mediatR, IPokemonService pokemonService) : base(logger, mediatR)
         {
             _pokemonService = pokemonService;

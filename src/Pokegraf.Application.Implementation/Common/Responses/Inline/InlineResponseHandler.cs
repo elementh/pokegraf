@@ -9,11 +9,11 @@ using Pokegraf.Common.Result;
 
 namespace Pokegraf.Application.Implementation.Common.Responses.Inline
 {
-    public class InlineResponseHandler : Pokegraf.Common.Request.RequestHandler<InlineResponse, Result>
+    public class InlineResponseHandler : Pokegraf.Common.Request.CommonHandler<InlineResponse, Result>
     {
         protected readonly IBotContext BotContext;
         
-        public InlineResponseHandler(ILogger<Pokegraf.Common.Request.RequestHandler<InlineResponse, Result>> logger, IMediator mediatR, IBotContext botContext) : base(logger, mediatR)
+        public InlineResponseHandler(ILogger<Pokegraf.Common.Request.CommonHandler<InlineResponse, Result>> logger, IMediator mediatR, IBotContext botContext) : base(logger, mediatR)
         {
             BotContext = botContext;
         }

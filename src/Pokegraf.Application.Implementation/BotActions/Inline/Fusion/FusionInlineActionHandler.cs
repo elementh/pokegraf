@@ -14,11 +14,11 @@ using Telegram.Bot.Types.InlineQueryResults;
 
 namespace Pokegraf.Application.Implementation.BotActions.Inline.Fusion
 {
-    public class FusionInlineActionHandler : Pokegraf.Common.Request.RequestHandler<FusionInlineAction, Result>
+    public class FusionInlineActionHandler : Pokegraf.Common.Request.CommonHandler<FusionInlineAction, Result>
     {
         private readonly IPokemonService _pokemonService;
 
-        public FusionInlineActionHandler(ILogger<Pokegraf.Common.Request.RequestHandler<FusionInlineAction, Result>> logger, IMediator mediatR, IPokemonService pokemonService) : base(logger, mediatR)
+        public FusionInlineActionHandler(ILogger<Pokegraf.Common.Request.CommonHandler<FusionInlineAction, Result>> logger, IMediator mediatR, IPokemonService pokemonService) : base(logger, mediatR)
         {
             _pokemonService = pokemonService;
         }

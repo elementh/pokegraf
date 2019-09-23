@@ -13,11 +13,11 @@ using Pokegraf.Infrastructure.Contract.Service;
 
 namespace Pokegraf.Application.Implementation.BotActions.Commands.Pokemon
 {
-    public class PokemonCommandActionHandler : Pokegraf.Common.Request.RequestHandler<PokemonCommandAction, Result>
+    public class PokemonCommandActionHandler : Pokegraf.Common.Request.CommonHandler<PokemonCommandAction, Result>
     {
         private readonly IPokemonService _pokemonService;
         
-        public PokemonCommandActionHandler(ILogger<Pokegraf.Common.Request.RequestHandler<PokemonCommandAction, Result>> logger, IMediator mediatR, IPokemonService pokemonService) : base(logger, mediatR)
+        public PokemonCommandActionHandler(ILogger<Pokegraf.Common.Request.CommonHandler<PokemonCommandAction, Result>> logger, IMediator mediatR, IPokemonService pokemonService) : base(logger, mediatR)
         {
             _pokemonService = pokemonService;
         }

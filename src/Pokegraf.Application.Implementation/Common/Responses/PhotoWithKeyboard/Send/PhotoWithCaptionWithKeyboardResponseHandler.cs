@@ -10,11 +10,11 @@ using Pokegraf.Common.Result;
 
 namespace Pokegraf.Application.Implementation.Common.Responses.PhotoWithKeyboard.Send
 {
-    public class PhotoWithCaptionWithKeyboardResponseHandler : Pokegraf.Common.Request.RequestHandler<PhotoWithCaptionWithKeyboardResponse, Result>
+    public class PhotoWithCaptionWithKeyboardResponseHandler : Pokegraf.Common.Request.CommonHandler<PhotoWithCaptionWithKeyboardResponse, Result>
     {
         protected readonly IBotContext BotContext;
 
-        public PhotoWithCaptionWithKeyboardResponseHandler(ILogger<Pokegraf.Common.Request.RequestHandler<PhotoWithCaptionWithKeyboardResponse, Result>> logger, 
+        public PhotoWithCaptionWithKeyboardResponseHandler(ILogger<Pokegraf.Common.Request.CommonHandler<PhotoWithCaptionWithKeyboardResponse, Result>> logger, 
             IMediator mediatR, IBotContext botContext) : base(logger, mediatR)
         {
             BotContext = botContext;

@@ -11,11 +11,11 @@ using Pokegraf.Common.Result;
 
 namespace Pokegraf.Application.Implementation.Common.Responses.Text
 {
-    public class TextResponseHandler : Pokegraf.Common.Request.RequestHandler<TextResponse, Result>
+    public class TextResponseHandler : Pokegraf.Common.Request.CommonHandler<TextResponse, Result>
     {
         protected readonly IBotContext BotContext;
 
-        public TextResponseHandler(ILogger<Pokegraf.Common.Request.RequestHandler<TextResponse, Result>> logger, IMediator mediatR, IBotContext botContext) : base(logger, mediatR)
+        public TextResponseHandler(ILogger<Pokegraf.Common.Request.CommonHandler<TextResponse, Result>> logger, IMediator mediatR, IBotContext botContext) : base(logger, mediatR)
         {
             BotContext = botContext;
         }

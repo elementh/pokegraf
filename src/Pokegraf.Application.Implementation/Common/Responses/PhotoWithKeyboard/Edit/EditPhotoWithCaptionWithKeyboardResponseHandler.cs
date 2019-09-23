@@ -11,11 +11,11 @@ using Telegram.Bot.Types;
 
 namespace Pokegraf.Application.Implementation.Common.Responses.PhotoWithKeyboard.Edit
 {
-    public class EditPhotoWithCaptionWithKeyboardResponseHandler : Pokegraf.Common.Request.RequestHandler<EditPhotoWithCaptionWithKeyboardResponse, Result>
+    public class EditPhotoWithCaptionWithKeyboardResponseHandler : Pokegraf.Common.Request.CommonHandler<EditPhotoWithCaptionWithKeyboardResponse, Result>
     {
         protected readonly IBotContext BotContext;
 
-        public EditPhotoWithCaptionWithKeyboardResponseHandler(ILogger<Pokegraf.Common.Request.RequestHandler<EditPhotoWithCaptionWithKeyboardResponse, Result>> logger,
+        public EditPhotoWithCaptionWithKeyboardResponseHandler(ILogger<Pokegraf.Common.Request.CommonHandler<EditPhotoWithCaptionWithKeyboardResponse, Result>> logger,
             IMediator mediatR, IBotContext botContext) : base(logger, mediatR)
         {
             BotContext = botContext;
