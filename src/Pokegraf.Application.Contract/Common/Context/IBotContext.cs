@@ -11,6 +11,7 @@ namespace Pokegraf.Application.Contract.Common.Context
     {
         IBotClient BotClient { get; set; }
         Message Message { get; set; }
+        Update Update { get; set; }
         CallbackQuery CallbackQuery { get; set; }
         InlineQuery InlineQuery { get; set; }
         Intent Intent { get; set; }

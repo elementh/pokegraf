@@ -7,6 +7,7 @@ using Pokegraf.Application.Contract.Common.Context;
 using Pokegraf.Application.Contract.Model;
 using Pokegraf.Application.Implementation.Mapping.Extension;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
 using Chat = Pokegraf.Domain.Entity.Chat;
 using User = Pokegraf.Domain.Entity.User;
 
@@ -20,6 +21,7 @@ namespace Pokegraf.Application.Implementation.Common.Context
         public IBotClient BotClient { get; set; }
 
         public Message Message { get; set; }
+        public Update Update { get; set; }
         public CallbackQuery CallbackQuery { get; set; }
         public InlineQuery InlineQuery { get; set; }
         public Intent Intent { get; set; }
@@ -96,6 +98,26 @@ namespace Pokegraf.Application.Implementation.Common.Context
             BotName = bot.Username;
             
             Logger.LogTrace("Populated HttpContext with InlineQuery.", inlineQuery);
+        }
+        
+        public async Task Populate(Update update)
+        {
+            Update = update;
+
+            if (Update.Type == UpdateType.Message)
+            {
+                await Populate(update.Message);
+            }
+            else if (update.Type == UpdateType.CallbackQuery)
+            {
+                await Populate(update.CallbackQuery);
+            }
+            else if (update.Type == UpdateType.InlineQuery)
+            {
+                await Populate(update.InlineQuery);
+            }
+            
+            Logger.LogTrace("Populated BotContext with Update.", update);
         }
     }
 }
