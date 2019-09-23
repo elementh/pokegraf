@@ -17,6 +17,7 @@
     
     <ItemGroup>
       <ProjectReference Include="..\Pokegraf.Domain.Entity\Pokegraf.Domain.Entity.csproj" />
+      <ProjectReference Include="..\Pokegraf.Persistence.Contract\Pokegraf.Persistence.Contract.csproj" />
     </ItemGroup>
     
 </Project>
