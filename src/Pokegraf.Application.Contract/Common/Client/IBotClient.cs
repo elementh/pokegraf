@@ -4,7 +4,7 @@ namespace Pokegraf.Application.Contract.Common.Client
 {
     public interface IBotClient
     {
-        BlockingTelegramBotClient Client { get; }
+        RateLimitedTelegramBotClient Client { get; }
         void Start();
     }
 }

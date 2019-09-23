@@ -10,7 +10,7 @@ namespace Pokegraf.Application.Implementation.Common.Client
     public class BotClient : IBotClient
     {
         protected readonly ILogger<BotClient> Logger;
-        public BlockingTelegramBotClient Client { get; }
+        public RateLimitedTelegramBotClient Client { get; }
         
         public bool Started { get; set; }
         
@@ -22,8 +22,8 @@ namespace Pokegraf.Application.Implementation.Common.Client
             try
             {
                 Client = string.IsNullOrWhiteSpace(configuration["POKEGRAF_TELEGRAM_TOKEN"]) 
-                    ? new BlockingTelegramBotClient(configuration["Telegram:Token"]) 
-                    : new BlockingTelegramBotClient(configuration["POKEGRAF_TELEGRAM_TOKEN"]);
+                    ? new RateLimitedTelegramBotClient(configuration["Telegram:Token"]) 
+                    : new RateLimitedTelegramBotClient(configuration["POKEGRAF_TELEGRAM_TOKEN"]);
             }
             catch (Exception e)
             {
