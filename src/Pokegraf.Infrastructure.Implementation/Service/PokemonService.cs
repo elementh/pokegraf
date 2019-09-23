@@ -122,11 +122,11 @@ namespace Pokegraf.Infrastructure.Implementation.Service
                 "karp", "dos", "ras", "to", "vee", "eon", "eon", "eon", "gon", "nyte", "star", "to", "tops", "dactyl", "lax", "cuno", "dos", 
                 "tres", "tini", "nair", "nite", "two", "ew"};
             
-            var firstPokemon = new Random().Next(1, 151);
-            var secondPokemon = new Random().Next(1, 151);
+            var firstPokemon =  RandomProvider.GetThreadRandom().Next(1, 151);
+            var secondPokemon =  RandomProvider.GetThreadRandom().Next(1, 151);
             
             while (firstPokemon == secondPokemon) {
-                secondPokemon = new Random().Next(1, 151);
+                secondPokemon =  RandomProvider.GetThreadRandom().Next(1, 151);
             }
 
             var image = new Uri($"http://images.alexonsager.net/pokemon/fused/{firstPokemon}/{firstPokemon}.{secondPokemon}.png");

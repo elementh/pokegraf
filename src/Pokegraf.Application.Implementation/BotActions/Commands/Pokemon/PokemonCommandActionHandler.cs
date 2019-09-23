@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Pokegraf.Application.Implementation.Common.Responses.PhotoWithKeyboard.Send;
 using Pokegraf.Application.Implementation.Common.Responses.Text;
 using Pokegraf.Application.Implementation.Mapping.Extension;
+using Pokegraf.Common.Helper;
 using Pokegraf.Common.Result;
 using Pokegraf.Infrastructure.Contract.Service;
 
@@ -33,7 +34,7 @@ namespace Pokegraf.Application.Implementation.BotActions.Commands.Pokemon
             }
             else
             {
-                requestedPokemon = new Random().Next(1, 721).ToString();
+                requestedPokemon =  RandomProvider.GetThreadRandom().Next(1, 721).ToString();
             }
 
             var result = int.TryParse(requestedPokemon, out var pokeNumber)
