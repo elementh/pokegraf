@@ -1,6 +1,6 @@
 using MediatR;
 using Pokegraf.Common.Result;
-using Telegram.Bot.Types;
+using Pokegraf.Domain.Entity;
 
 namespace Pokegraf.Application.Contract.Model.Action
 {

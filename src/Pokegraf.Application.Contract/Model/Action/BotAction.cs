@@ -1,7 +1,7 @@
 using Pokegraf.Application.Contract.Common.Context;
 using Pokegraf.Common.Request;
 using Pokegraf.Common.Result;
-using Telegram.Bot.Types;
+using Pokegraf.Domain.Entity;
 
 namespace Pokegraf.Application.Contract.Model.Action
 {

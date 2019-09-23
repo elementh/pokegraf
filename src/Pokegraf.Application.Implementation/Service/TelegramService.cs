@@ -84,7 +84,7 @@ namespace Pokegraf.Application.Implementation.Service
                 using (var scope = ServiceScopeFactory.CreateScope())
                 {
                     var botContext = scope.ServiceProvider.GetRequiredService<IBotContext>();
-                    botContext.Populate(e.CallbackQuery);
+                    await botContext.Populate(e.CallbackQuery);
 
                     var mediatR = scope.ServiceProvider.GetRequiredService<IMediator>();
                     var actionSelector = scope.ServiceProvider.GetRequiredService<IBotActionSelector>();
@@ -121,7 +121,7 @@ namespace Pokegraf.Application.Implementation.Service
                 using (var scope = ServiceScopeFactory.CreateScope())
                 {
                     var botContext = scope.ServiceProvider.GetRequiredService<IBotContext>();
-                    botContext.Populate(e.InlineQuery);
+                    await botContext.Populate(e.InlineQuery);
 
                     var mediatR = scope.ServiceProvider.GetRequiredService<IMediator>();
                     var actionSelector = scope.ServiceProvider.GetRequiredService<IBotActionSelector>();
