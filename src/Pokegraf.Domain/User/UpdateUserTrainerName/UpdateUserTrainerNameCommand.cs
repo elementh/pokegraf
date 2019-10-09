@@ -1,9 +1,8 @@
-﻿using Pokegraf.Common.Request;
-using Pokegraf.Common.Result;
+﻿using MediatR;
 
 namespace Pokegraf.Domain.User.UpdateUserTrainerName
 {
-    public class UpdateUserTrainerNameCommand : Request<Result>
+    public class UpdateUserTrainerNameCommand : IRequest
     {
         /// <summary>
         /// Id of the user.

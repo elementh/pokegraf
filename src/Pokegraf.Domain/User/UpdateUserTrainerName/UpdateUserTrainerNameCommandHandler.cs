@@ -4,22 +4,22 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Pokegraf.Common.Request;
-using Pokegraf.Common.Result;
 using Pokegraf.Persistence.Contract;
 
 namespace Pokegraf.Domain.User.UpdateUserTrainerName
 {
-    public class UpdateUserTrainerNameCommandHandler : CommonHandler<UpdateUserTrainerNameCommand, Result>
+    public class UpdateUserTrainerNameCommandHandler : IRequestHandler<UpdateUserTrainerNameCommand>
     {
+        protected readonly ILogger<UpdateUserTrainerNameCommand> Logger;
         protected readonly IUnitOfWork UnitOfWork;
 
-        public UpdateUserTrainerNameCommandHandler(ILogger<CommonHandler<UpdateUserTrainerNameCommand, Result>> logger, IMediator mediatR, IUnitOfWork unitOfWork) : base(logger, mediatR)
+        public UpdateUserTrainerNameCommandHandler(ILogger<UpdateUserTrainerNameCommand> logger, IUnitOfWork unitOfWork)
         {
+            Logger = logger;
             UnitOfWork = unitOfWork;
         }
 
-        public override async Task<Result> Handle(UpdateUserTrainerNameCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateUserTrainerNameCommand request, CancellationToken cancellationToken)
         {
             var user = await UnitOfWork.UserRepository.FindById(request.UserId);
 
@@ -32,11 +32,9 @@ namespace Pokegraf.Domain.User.UpdateUserTrainerName
             catch (Exception e)
             {
                 Logger.LogError(e, "Unhandled error updating user trainer name. UserId: {UserId}", user.Id);
-                
-                return Result.UnknownError(new List<string> {e.Message});
             }
             
-            return Result.Success();
+            return Unit.Value;
         }
     }
 }
