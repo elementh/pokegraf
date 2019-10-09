@@ -1,28 +1,33 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Pokegraf.Domain.Entity;
+using Pokegraf.Persistence.Contract.Context;
 
 namespace Pokegraf.Persistence.Implementation.Context
 {
-    public partial class PokegrafDbContext : DbContext
+    public class PokegrafDbContext : DbContext, IPokegrafDbContext
     {
+        public DbContext Instance => this;
+
+        public virtual DbSet<Chat> Chats { get; set; }
+        
+        public virtual DbSet<Conversation> Conversations { get; set; }
+        
+        public virtual DbSet<User> Users { get; set; }
+
         protected PokegrafDbContext()
         {
         }
 
-        public PokegrafDbContext(DbContextOptions options) : base(options)
+        public PokegrafDbContext(DbContextOptions<PokegrafDbContext> options) : base(options)
         {
         }
-
-        public virtual DbSet<Chat> Chats { get; set; }
         
-        public virtual DbSet<Conversation> ChatUsers { get; set; }
-        
-        public virtual DbSet<User> Users { get; set; }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
+                throw new Exception("Database not properly configured");
             }
         }
         
@@ -52,10 +57,10 @@ namespace Pokegraf.Persistence.Implementation.Context
             {
                 entity.Property(e => e.Id).ValueGeneratedNever();
             });
-
-            OnModelCreatingPartial(modelBuilder);
+            
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(PokegrafDbContext).Assembly);
+            
+            base.OnModelCreating(modelBuilder);
         }
-
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

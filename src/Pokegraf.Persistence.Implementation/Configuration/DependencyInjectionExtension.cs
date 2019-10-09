@@ -29,7 +29,7 @@ namespace Pokegraf.Persistence.Implementation.Configuration
         {
             services.AddDbContext<PokegrafDbContext>(options =>
             {
-                var connectionString = configuration["POKEGRAF_CONNECTION_STRING"] ?? configuration.GetConnectionString("PokegrafDatabase");
+                var connectionString = configuration["POKEGRAF_DB_CONNECTION_STRING"];
                 
                 options.UseNpgsql(connectionString);    
             });
