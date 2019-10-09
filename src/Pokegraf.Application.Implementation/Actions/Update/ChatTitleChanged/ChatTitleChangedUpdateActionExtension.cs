@@ -1,4 +1,4 @@
-﻿﻿using Pokegraf.Domain.Chat.UpdateChatTitle;
+﻿﻿using Pokegraf.Domain.Core.Chat.UpdateChatTitle;
 
  namespace Pokegraf.Application.Implementation.Actions.Update.ChatTitleChanged
 {

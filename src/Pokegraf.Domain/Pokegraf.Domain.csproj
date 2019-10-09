@@ -11,4 +11,8 @@
       <ProjectReference Include="..\Pokegraf.Persistence.Contract\Pokegraf.Persistence.Contract.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Core" />
+    </ItemGroup>
+
 </Project>

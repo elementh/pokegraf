@@ -1,4 +1,4 @@
-﻿using Pokegraf.Domain.User.AddUser;
+﻿using Pokegraf.Domain.Core.User.AddUser;
 using Pokegraf.Domain.User.FindUser;
 using Telegram.Bot.Types;
 

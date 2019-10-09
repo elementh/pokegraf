@@ -1,5 +1,5 @@
-﻿using Pokegraf.Domain.Conversation.AddConversation;
-using Pokegraf.Domain.Conversation.FindConversation;
+﻿using Pokegraf.Domain.Core.Conversation.AddConversation;
+using Pokegraf.Domain.Core.Conversation.FindConversation;
 using Telegram.Bot.Types;
 
 namespace Pokegraf.Application.Implementation.Mapping.Extension

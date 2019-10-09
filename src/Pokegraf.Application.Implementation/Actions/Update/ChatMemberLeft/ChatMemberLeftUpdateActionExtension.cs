@@ -1,4 +1,4 @@
-﻿using Pokegraf.Domain.Conversation.DeleteConversation;
+﻿using Pokegraf.Domain.Core.Conversation.DeleteConversation;
 
 namespace Pokegraf.Application.Implementation.Actions.Update.ChatMemberLeft
 {
