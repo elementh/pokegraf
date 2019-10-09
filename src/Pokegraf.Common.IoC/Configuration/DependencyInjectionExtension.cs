@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Pokegraf.Application.Implementation.Configuration;
 using Pokegraf.Application.Implementation.Service;
-using Pokegraf.Common.Configuration;
 using Pokegraf.Domain.Conversation.FindConversation;
 using Pokegraf.Infrastructure.Implementation.Configuration;
 using Pokegraf.Persistence.Implementation.Configuration;
@@ -16,7 +15,6 @@ namespace Pokegraf.Common.IoC.Configuration
     {
         public static IServiceCollection AddDependencyInjection(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddPipelines(configuration);
             services.AddDistributedCache(configuration);
             services.AddApplicationDependencies(configuration);
             services.AddInfrastructureDependencies(configuration);
