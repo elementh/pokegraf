@@ -13,6 +13,12 @@
 
     <ItemGroup>
       <Folder Include="Core" />
+      <Folder Include="Core\Chat\Command" />
+      <Folder Include="Core\Chat\Query" />
+      <Folder Include="Core\Conversation\Command" />
+      <Folder Include="Core\Conversation\Query" />
+      <Folder Include="Core\User\Command" />
+      <Folder Include="Core\User\Query" />
     </ItemGroup>
 
 </Project>
