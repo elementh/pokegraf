@@ -5,7 +5,7 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using Pokegraf.Persistence.Contract;
 
-namespace Pokegraf.Domain.Core.Chat.FindAllGroupChats
+namespace Pokegraf.Domain.Core.Chat.Query.FindAllGroupChats
 {
     internal class FindAllGroupChatsQueryHandler : CommonHandler<FindAllGroupChatsQuery, Result<IEnumerable<Entity.Chat>>>
     {

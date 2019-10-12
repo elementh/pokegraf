@@ -1,9 +1,9 @@
 using MediatR;
-using Pokegraf.Common.Result;
+using OperationResult;
 
 namespace Pokegraf.Application.Contract.Common.Responses
 {
-    public interface IResponse : IRequest<Result>
+    public interface IResponse : IRequest<Status>
     {
     }
 }

@@ -6,7 +6,7 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using Pokegraf.Persistence.Contract;
 
-namespace Pokegraf.Domain.Core.Conversation.AddConversation
+namespace Pokegraf.Domain.Core.Conversation.Command.AddConversation
 {
     internal class AddConversationCommandHandler : CommonHandler<AddConversationCommand, Result>
     {

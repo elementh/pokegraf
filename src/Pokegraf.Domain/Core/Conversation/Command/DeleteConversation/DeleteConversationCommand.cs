@@ -1,4 +1,4 @@
-﻿namespace Pokegraf.Domain.Core.Conversation.DeleteConversation
+﻿namespace Pokegraf.Domain.Core.Conversation.Command.DeleteConversation
 {
     public class DeleteConversationCommand : Request<Result>
     {

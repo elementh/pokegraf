@@ -1,4 +1,4 @@
-﻿namespace Pokegraf.Domain.Core.Chat.UpdateChatTitle
+﻿namespace Pokegraf.Domain.Core.Chat.Command.UpdateChatTitle
 {
     public class UpdateChatTitleCommand : Request<Result>
     {

@@ -1,4 +1,4 @@
-﻿namespace Pokegraf.Domain.Core.Conversation.AddConversation
+﻿namespace Pokegraf.Domain.Core.Conversation.Command.AddConversation
 {
     public class AddConversationCommand : Request<Result>
     {

@@ -2,25 +2,19 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Microsoft.Extensions.Logging;
+using OperationResult;
+using Pokegraf.Common.ErrorHandling;
 using Pokegraf.Persistence.Contract;
 
-namespace Pokegraf.Domain.Core.User.FindAllUsers
+namespace Pokegraf.Domain.Core.User.Query.FindAllUsers
 {
-    internal class FindAllUsersQueryHandler : CommonHandler<FindAllUsersQuery, Result<IEnumerable<Entity.User>>>
+    internal class FindAllUsersQueryHandler : IRequestHandler<FindAllUsersQuery, Result<IEnumerable<Entity.User>, ResultError>>
     {
         protected readonly IUnitOfWork UnitOfWork;
 
-        public FindAllUsersQueryHandler(ILogger<CommonHandler<FindAllUsersQuery, Result<IEnumerable<Entity.User>>>> logger, IMediator mediatR, IUnitOfWork unitOfWork) : base(logger, mediatR)
+        public Task<Result<IEnumerable<Entity.User>, ResultError>> Handle(FindAllUsersQuery request, CancellationToken cancellationToken)
         {
-            UnitOfWork = unitOfWork;
-        }
-
-        public override async Task<Result<IEnumerable<Entity.User>>> Handle(FindAllUsersQuery request, CancellationToken cancellationToken)
-        {
-            var users = await UnitOfWork.UserRepository.GetAll();
-
-            return Result<IEnumerable<Entity.User>>.Success(users);
+            throw new System.NotImplementedException();
         }
     }
 }

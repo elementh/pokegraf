@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Pokegraf.Domain.Core.Conversation.AddConversation
+namespace Pokegraf.Domain.Core.Conversation.Command.AddConversation
 {
     public static class AddConversationCommandExtension
     {

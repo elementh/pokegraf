@@ -30,7 +30,7 @@ namespace Pokegraf.Application.Implementation.Actions.Inline.Fusion
             {
                 var fusionResult = _pokemonService.GetFusion();
 
-                if (fusionResult.Succeeded) fusions.Add(fusionResult.Value);
+                if (fusionResult.IsSuccess) fusions.Add(fusionResult.Value);
             }
 
             InlineQueryResultBase[] results = fusions.Select(fusion => fusion.ToInlineQueryResultPhoto()).ToArray();

@@ -4,7 +4,7 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using Pokegraf.Persistence.Contract;
 
-namespace Pokegraf.Domain.Core.Conversation.FindConversation
+namespace Pokegraf.Domain.Core.Conversation.Query.FindConversation
 {
     internal class FindConversationQueryHandler : CommonHandler<FindConversationQuery, Result<Entity.Conversation>>
     {

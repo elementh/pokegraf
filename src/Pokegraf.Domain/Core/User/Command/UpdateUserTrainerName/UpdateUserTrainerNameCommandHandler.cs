@@ -4,8 +4,9 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Pokegraf.Persistence.Contract;
+using static OperationResult.Helpers;
 
-namespace Pokegraf.Domain.Core.User.UpdateUserTrainerName
+namespace Pokegraf.Domain.Core.User.Command.UpdateUserTrainerName
 {
     public class UpdateUserTrainerNameCommandHandler : IRequestHandler<UpdateUserTrainerNameCommand>
     {
@@ -33,7 +34,7 @@ namespace Pokegraf.Domain.Core.User.UpdateUserTrainerName
                 Logger.LogError(e, "Unhandled error updating user trainer name. UserId: {UserId}", user.Id);
             }
             
-            return Unit.Value;
+            return Ok();
         }
     }
 }

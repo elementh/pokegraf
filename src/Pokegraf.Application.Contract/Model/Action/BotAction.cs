@@ -1,18 +1,21 @@
+using System;
+using MediatR;
+using OperationResult;
 using Pokegraf.Application.Contract.Common.Context;
-using Pokegraf.Common.Request;
-using Pokegraf.Common.Result;
 using Pokegraf.Domain.Entity;
 
 namespace Pokegraf.Application.Contract.Model.Action
 {
-    public abstract class BotAction : Request<Result>, IBotAction
+    public abstract class BotAction : IRequest<Status>, IBotAction
     {
+        public DateTime Timestamp { get; set; }
         public int MessageId { get; set; }
         public Chat Chat { get; set; }
         public User From { get; set; }
         public string Text { get; set; }
         protected BotAction(int messageId, Chat chat, User from, string text)
         {
+            Timestamp = DateTime.UtcNow;
             MessageId = messageId;
             Chat = chat;
             From = from;

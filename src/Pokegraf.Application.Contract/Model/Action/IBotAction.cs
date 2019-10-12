@@ -1,11 +1,13 @@
+using System;
 using MediatR;
-using Pokegraf.Common.Result;
+using OperationResult;
 using Pokegraf.Domain.Entity;
 
 namespace Pokegraf.Application.Contract.Model.Action
 {
-    public interface IBotAction : IRequest<Result>
+    public interface IBotAction : IRequest<Status>
     {
+        DateTime Timestamp { get; set; }
         int MessageId { get; set; }
         Chat Chat { get; set; }
         User From { get; set; }

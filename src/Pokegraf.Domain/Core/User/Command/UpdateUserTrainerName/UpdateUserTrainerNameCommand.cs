@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Pokegraf.Domain.Core.User.UpdateUserTrainerName
+namespace Pokegraf.Domain.Core.User.Command.UpdateUserTrainerName
 {
     public class UpdateUserTrainerNameCommand : IRequest
     {

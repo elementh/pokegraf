@@ -6,7 +6,7 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using Pokegraf.Persistence.Contract;
 
-namespace Pokegraf.Domain.Core.Conversation.DeleteConversation
+namespace Pokegraf.Domain.Core.Conversation.Command.DeleteConversation
 {
     internal class DeleteConversationCommandHandler : CommonHandler<DeleteConversationCommand, Result>
     {
