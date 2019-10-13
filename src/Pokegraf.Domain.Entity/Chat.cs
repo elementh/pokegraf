@@ -33,7 +33,7 @@ namespace Pokegraf.Domain.Entity
             Private,
             Group,
             Channel,
-            Supergroup,
+            Supergroup
         }
     }
 }
