@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Pokegraf.Persistence.Contract;
-using static OperationResult.Helpers;
 
 namespace Pokegraf.Domain.Core.User.Command.UpdateUserTrainerName
 {
