@@ -1,20 +1,44 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using OperationResult;
 using Pokegraf.Common.ErrorHandling;
-using Pokegraf.Persistence.Contract;
+using Pokegraf.Persistence.Contract.Context;
+using static OperationResult.Helpers;
+using static Pokegraf.Common.ErrorHandling.ResultErrorHelper;
 
 namespace Pokegraf.Domain.Core.User.Query.FindAllUsers
 {
     internal class FindAllUsersQueryHandler : IRequestHandler<FindAllUsersQuery, Result<IEnumerable<Entity.User>, ResultError>>
     {
-        protected readonly IUnitOfWork UnitOfWork;
+        protected readonly ILogger<FindAllUsersQueryHandler> Logger;
+        protected readonly IPokegrafDbContext Context;
 
-        public Task<Result<IEnumerable<Entity.User>, ResultError>> Handle(FindAllUsersQuery request, CancellationToken cancellationToken)
+        public FindAllUsersQueryHandler(ILogger<FindAllUsersQueryHandler> logger, IPokegrafDbContext context)
         {
-            throw new System.NotImplementedException();
+            Logger = logger;
+            Context = context;
+        }
+
+        public async Task<Result<IEnumerable<Entity.User>, ResultError>> Handle(FindAllUsersQuery request, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var users = await Context.Users.AsNoTracking().ToListAsync(cancellationToken);
+
+                return Ok(users.AsEnumerable());
+            }
+            catch (Exception e)
+            {
+                Logger.LogError(e, "Unhandled error reading users from DbContext");
+
+                return Error(UnknownError($"Unhandled error reading users from DbContext: {e.Message}."));
+            }
         }
     }
 }
