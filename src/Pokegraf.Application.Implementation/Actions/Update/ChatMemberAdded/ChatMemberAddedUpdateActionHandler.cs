@@ -3,7 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Pokegraf.Application.Implementation.Common.Responses.Text;
 using Pokegraf.Common.Request;
 using Pokegraf.Common.Result;
 

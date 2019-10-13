@@ -1,7 +1,7 @@
 using System;
 using MediatR;
 using OperationResult;
-using Pokegraf.Application.Contract.Common.Context;
+using Pokegraf.Application.Contract.Core.Context;
 using Pokegraf.Domain.Entity;
 
 namespace Pokegraf.Application.Contract.Model.Action

@@ -2,7 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Pokegraf.Application.Implementation.Common.Responses.Inline;
+using Pokegraf.Application.Implementation.Core.Responses.Inline;
 using Pokegraf.Common.Result;
 using Pokegraf.Infrastructure.Contract.Service;
 using Telegram.Bot.Types.InlineQueryResults;

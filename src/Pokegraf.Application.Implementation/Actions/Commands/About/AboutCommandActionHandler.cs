@@ -2,7 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Pokegraf.Application.Implementation.Common.Responses.Text;
+using Pokegraf.Application.Implementation.Core.Responses.Text;
 using Pokegraf.Common.Result;
 
 namespace Pokegraf.Application.Implementation.Actions.Commands.About

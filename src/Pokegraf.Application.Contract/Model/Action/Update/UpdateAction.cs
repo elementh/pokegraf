@@ -1,4 +1,4 @@
-﻿using Pokegraf.Application.Contract.Common.Context;
+﻿using Pokegraf.Application.Contract.Core.Context;
 
 namespace Pokegraf.Application.Contract.Model.Action.Update
 {

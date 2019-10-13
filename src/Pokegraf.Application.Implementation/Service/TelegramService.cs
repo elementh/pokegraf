@@ -4,9 +4,8 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Pokegraf.Application.Contract.Common.Client;
-using Pokegraf.Application.Contract.Common.Context;
-using Pokegraf.Application.Contract.Common.Strategy;
+using Pokegraf.Application.Contract.Core.Client;
+using Pokegraf.Application.Contract.Core.Context;
 using Pokegraf.Application.Contract.Service;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types.Enums;
@@ -48,7 +47,7 @@ namespace Pokegraf.Application.Implementation.Service
                     await botContext.Populate(e.Message);
 
                     var mediatR = scope.ServiceProvider.GetRequiredService<IMediator>();
-                    var actionSelector = scope.ServiceProvider.GetRequiredService<IBotActionSelector>();
+                    var actionSelector = scope.ServiceProvider.GetRequiredService<IActionClient>();
 
                     var actionResult = actionSelector.GetCommandAction();
                     
@@ -87,7 +86,7 @@ namespace Pokegraf.Application.Implementation.Service
                     await botContext.Populate(e.CallbackQuery);
 
                     var mediatR = scope.ServiceProvider.GetRequiredService<IMediator>();
-                    var actionSelector = scope.ServiceProvider.GetRequiredService<IBotActionSelector>();
+                    var actionSelector = scope.ServiceProvider.GetRequiredService<IActionClient>();
 
                     var callbackActionResult = actionSelector.GetCallbackAction();
 
@@ -124,7 +123,7 @@ namespace Pokegraf.Application.Implementation.Service
                     await botContext.Populate(e.InlineQuery);
 
                     var mediatR = scope.ServiceProvider.GetRequiredService<IMediator>();
-                    var actionSelector = scope.ServiceProvider.GetRequiredService<IBotActionSelector>();
+                    var actionSelector = scope.ServiceProvider.GetRequiredService<IActionClient>();
 
 
                     var inlineActionResult = actionSelector.GetInlineAction();
