@@ -1,26 +1,46 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Pokegraf.Persistence.Contract;
+using OperationResult;
+using Pokegraf.Common.ErrorHandling;
+using Pokegraf.Persistence.Contract.Context;
+using static OperationResult.Helpers;
+using static Pokegraf.Common.ErrorHandling.ResultErrorHelper;
 
 namespace Pokegraf.Domain.Core.Chat.Query.FindAllSuperGroupChats
 {
-    internal class FindAllSuperGroupChatsQueryHandler : CommonHandler<FindAllSuperGroupChatsQuery, Result<IEnumerable<Entity.Chat>>>
+    internal class FindAllSuperGroupChatsQueryHandler : IRequestHandler<FindAllSuperGroupChatsQuery, Result<IEnumerable<Entity.Chat>, ResultError>>
     {
-        protected readonly IUnitOfWork UnitOfWork;
+        protected readonly ILogger<FindAllSuperGroupChatsQueryHandler> Logger;
+        protected readonly IPokegrafDbContext Context;
 
-        public FindAllSuperGroupChatsQueryHandler(ILogger<CommonHandler<FindAllSuperGroupChatsQuery, Result<IEnumerable<Entity.Chat>>>> logger, IMediator mediatR, IUnitOfWork unitOfWork) : base(logger, mediatR)
+        public FindAllSuperGroupChatsQueryHandler(ILogger<FindAllSuperGroupChatsQueryHandler> logger, IPokegrafDbContext context)
         {
-            UnitOfWork = unitOfWork;
+            Logger = logger;
+            Context = context;
         }
 
-        public override async Task<Result<IEnumerable<Entity.Chat>>> Handle(FindAllSuperGroupChatsQuery request, CancellationToken cancellationToken)
+        public async Task<Result<IEnumerable<Entity.Chat>, ResultError>> Handle(FindAllSuperGroupChatsQuery request, CancellationToken cancellationToken)
         {
-            var superGroupChats = await UnitOfWork.ChatRepository.SearchBy(c => c.Type == Entity.Chat.ChatType.Supergroup);
-            
-            return  Result<IEnumerable<Entity.Chat>>.Success(superGroupChats);
+            try
+            {
+                var groupChats = await Context.Chats.AsNoTracking().
+                    Where(c => c.Type == Entity.Chat.ChatType.Supergroup)
+                    .ToListAsync(cancellationToken);
+
+                return Ok(groupChats.AsEnumerable());
+            }
+            catch (Exception e)
+            {
+                Logger.LogError(e, "Unhandled error reading chats from DbContext");
+
+                return Error(UnknownError($"Unhandled error reading chats from DbContext: {e.Message}."));
+            }
         }
     }
 }
