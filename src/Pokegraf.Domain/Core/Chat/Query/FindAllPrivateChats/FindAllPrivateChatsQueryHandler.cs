@@ -1,26 +1,46 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Pokegraf.Persistence.Contract;
+using OperationResult;
+using Pokegraf.Common.ErrorHandling;
+using Pokegraf.Persistence.Contract.Context;
+using static OperationResult.Helpers;
+using static Pokegraf.Common.ErrorHandling.ResultErrorHelper;
 
 namespace Pokegraf.Domain.Core.Chat.Query.FindAllPrivateChats
 {
-    internal class FindAllPrivateChatsQueryHandler : CommonHandler<FindAllPrivateChatsQuery, Result<IEnumerable<Entity.Chat>>>
+    internal class FindAllPrivateChatsQueryHandler : IRequestHandler<FindAllPrivateChatsQuery, Result<IEnumerable<Entity.Chat>, ResultError>>
     {
-        protected readonly IUnitOfWork UnitOfWork;
+        protected readonly ILogger<FindAllPrivateChatsQueryHandler> Logger;
+        protected readonly IPokegrafDbContext Context;
 
-        public FindAllPrivateChatsQueryHandler(ILogger<CommonHandler<FindAllPrivateChatsQuery, Result<IEnumerable<Entity.Chat>>>> logger, IMediator mediatR, IUnitOfWork unitOfWork) : base(logger, mediatR)
+        public FindAllPrivateChatsQueryHandler(ILogger<FindAllPrivateChatsQueryHandler> logger, IPokegrafDbContext context)
         {
-            UnitOfWork = unitOfWork;
+            Logger = logger;
+            Context = context;
         }
 
-        public override async Task<Result<IEnumerable<Entity.Chat>>> Handle(FindAllPrivateChatsQuery request, CancellationToken cancellationToken)
+        public async Task<Result<IEnumerable<Entity.Chat>, ResultError>> Handle(FindAllPrivateChatsQuery request, CancellationToken cancellationToken)
         {
-            var privateChats = await UnitOfWork.ChatRepository.SearchBy(c => c.Type == Entity.Chat.ChatType.Private);
-            
-            return  Result<IEnumerable<Entity.Chat>>.Success(privateChats);
+            try
+            {
+                var groupChats = await Context.Chats.AsNoTracking().
+                    Where(c => c.Type == Entity.Chat.ChatType.Private)
+                    .ToListAsync(cancellationToken);
+
+                return Ok(groupChats.AsEnumerable());
+            }
+            catch (Exception e)
+            {
+                Logger.LogError(e, "Unhandled error reading chats from DbContext");
+
+                return Error(UnknownError($"Unhandled error reading chats from DbContext: {e.Message}."));
+            }
         }
     }
 }
