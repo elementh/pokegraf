@@ -34,7 +34,7 @@ namespace Pokegraf.Domain.Core.User.Command.UpdateUserTrainerName
                 Logger.LogError(e, "Unhandled error updating user trainer name. UserId: {UserId}", user.Id);
             }
             
-            return Ok();
+            return Unit.Value;
         }
     }
 }
