@@ -1,6 +1,8 @@
-﻿namespace Pokegraf.Domain.Core.Chat.Command.UpdateChatTitle
+﻿using MediatR;
+
+namespace Pokegraf.Domain.Core.Chat.Command.UpdateChatTitle
 {
-    public class UpdateChatTitleCommand : Request<Result>
+    public class UpdateChatTitleCommand : IRequest
     {
         /// <summary>
         /// Id of the chat.
