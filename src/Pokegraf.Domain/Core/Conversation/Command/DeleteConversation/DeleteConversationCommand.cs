@@ -1,6 +1,8 @@
-﻿namespace Pokegraf.Domain.Core.Conversation.Command.DeleteConversation
+﻿using MediatR;
+
+namespace Pokegraf.Domain.Core.Conversation.Command.DeleteConversation
 {
-    public class DeleteConversationCommand : Request<Result>
+    public class DeleteConversationCommand : IRequest
     {
         /// <summary>
         /// Id of the chat.

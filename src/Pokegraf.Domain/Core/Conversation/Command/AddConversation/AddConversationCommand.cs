@@ -1,7 +1,17 @@
-﻿namespace Pokegraf.Domain.Core.Conversation.Command.AddConversation
+﻿using System;
+using MediatR;
+
+namespace Pokegraf.Domain.Core.Conversation.Command.AddConversation
 {
-    public class AddConversationCommand : Request<Result>
+    public class AddConversationCommand : IRequest
     {
+        public DateTime Timestamp { get; }
+
+        protected AddConversationCommand()
+        {
+            Timestamp = DateTime.UtcNow;
+        }
+
         /// <summary>
         /// Id of the chat.
         /// </summary>
