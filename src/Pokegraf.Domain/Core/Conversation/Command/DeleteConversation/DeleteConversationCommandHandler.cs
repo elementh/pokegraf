@@ -21,6 +21,11 @@ namespace Pokegraf.Domain.Core.Conversation.Command.DeleteConversation
         public async Task<Unit> Handle(DeleteConversationCommand request, CancellationToken cancellationToken)
         {
             var conversation = await UnitOfWork.ConversationRepository.FindBy(conv => conv.ChatId == request.ChatId && conv.UserId == request.UserId);
+
+            if (conversation == null)
+            {
+                return Unit.Value;
+            }
             
             UnitOfWork.ConversationRepository.Delete(conversation);
             
