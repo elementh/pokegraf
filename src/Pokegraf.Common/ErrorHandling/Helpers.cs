@@ -31,5 +31,14 @@
                 Message = message
             };
         }
+
+        public static ResultError Timeout(string message)
+        {
+            return new ResultError
+            {
+                Type = ResultErrorType.Timeout,
+                Message = message
+            };
+        }
     }
 }

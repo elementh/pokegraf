@@ -22,6 +22,7 @@
     {
         NotFound,
         HttpError,
-        UnknownError
+        UnknownError,
+        Timeout
     }
 }
