@@ -37,7 +37,6 @@ namespace Pokegraf.Application.Implementation.Core.Responses.Text
                 Logger.LogError(e, "Unhandled error sending text response ({@Request}).", request);
                 
                 return Error(UnknownError(e.Message));
-                
             }
         }
     }
