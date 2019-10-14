@@ -6,7 +6,7 @@ using Serilog.Exceptions;
 using Serilog.Formatting.Elasticsearch;
 using Serilog.Sinks.Elasticsearch;
 
-namespace Pokegraf.Common.IoC.Configuration
+namespace Pokegraf.Api.WebApi.Configuration
 {
     public static class ConfigurationExtension
     {
@@ -27,7 +27,7 @@ namespace Pokegraf.Common.IoC.Configuration
                 .Enrich.WithExceptionDetails()
                 .WriteTo.Console();
 
-            var elasticConnectionString = GetElasticsearchConnectionString(configuration);
+            var elasticConnectionString = configuration["POKEGRAF_ELASTICSEARCH_URL"];
             
             if (!string.IsNullOrWhiteSpace(elasticConnectionString))
             {
@@ -54,15 +54,6 @@ namespace Pokegraf.Common.IoC.Configuration
             }
 
             return loggerConf.CreateLogger();
-        }
-
-        private static string GetElasticsearchConnectionString(IConfiguration configuration)
-        {
-            var elasticUri = string.IsNullOrWhiteSpace(configuration["POKEGRAF_ELASTICSEARCH_URL"]) 
-                ? configuration.GetConnectionString("ElasticSearch") 
-                : configuration["POKEGRAF_ELASTICSEARCH_URL"];
-
-            return elasticUri;
         }
     }
 }
