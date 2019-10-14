@@ -4,37 +4,44 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using OperationResult;
 using Pokegraf.Application.Contract.Core.Responses.Inline;
 using Pokegraf.Application.Implementation.Mapping.Extension;
+using Pokegraf.Common.ErrorHandling;
 using Pokegraf.Infrastructure.Contract.Dto.Pokemon;
 using Pokegraf.Infrastructure.Contract.Service;
 using Telegram.Bot.Types.InlineQueryResults;
 
 namespace Pokegraf.Application.Implementation.Core.Actions.Inline.Fusion
 {
-    public class FusionInlineActionHandler : Pokegraf.Common.Request.CommonHandler<FusionInlineAction, Result>
+    public class FusionInlineActionHandler : IRequestHandler<FusionInlineAction, Status<ResultError>>
     {
-        private readonly IPokemonService _pokemonService;
+        protected readonly ILogger<FusionInlineActionHandler> Logger;
+        protected readonly IMediator Mediator;
+        protected readonly IPokemonService PokemonService;
 
-        public FusionInlineActionHandler(ILogger<Pokegraf.Common.Request.CommonHandler<FusionInlineAction, Result>> logger, IMediator mediatR, IPokemonService pokemonService) : base(logger, mediatR)
+        public FusionInlineActionHandler(ILogger<FusionInlineActionHandler> logger, IMediator mediator, IPokemonService pokemonService)
         {
-            _pokemonService = pokemonService;
+            Logger = logger;
+            Mediator = mediator;
+            PokemonService = pokemonService;
         }
 
-        public override async Task<Result> Handle(FusionInlineAction request, CancellationToken cancellationToken)
+
+        public async Task<Status<ResultError>> Handle(FusionInlineAction request, CancellationToken cancellationToken)
         {
             var fusions = new List<PokemonFusionDto>();
 
             for (var i = 0; i < 50; i++)
             {
-                var fusionResult = _pokemonService.GetFusion();
+                var fusionResult = PokemonService.GetFusion();
 
                 if (fusionResult.IsSuccess) fusions.Add(fusionResult.Value);
             }
 
             InlineQueryResultBase[] results = fusions.Select(fusion => fusion.ToInlineQueryResultPhoto()).ToArray();
 
-            return await MediatR.Send(new InlineResponse(results), cancellationToken);
+            return await Mediator.Send(new InlineResponse(results), cancellationToken);
         }
     }
 }

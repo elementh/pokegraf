@@ -2,31 +2,36 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using OperationResult;
 using Pokegraf.Application.Contract.Core.Responses.Inline;
+using Pokegraf.Common.ErrorHandling;
 using Pokegraf.Infrastructure.Contract.Service;
 using Telegram.Bot.Types.InlineQueryResults;
 
 namespace Pokegraf.Application.Implementation.Core.Actions.Inline.Pokemon
 {
-    public class PokemonInlineActionHandler : Pokegraf.Common.Request.CommonHandler<PokemonInlineAction, Result>
+    public class PokemonInlineActionHandler : IRequestHandler<PokemonInlineAction, Status<ResultError>>
     {
-        private readonly IPokemonService _pokemonService;
+        protected readonly ILogger<PokemonInlineActionHandler> Logger;
+        protected readonly IMediator Mediator;
+        protected readonly IPokemonService PokemonService;
 
-        public PokemonInlineActionHandler(ILogger<Pokegraf.Common.Request.CommonHandler<PokemonInlineAction, Result>> logger,
-            IMediator mediatR, IPokemonService pokemonService) : base(logger, mediatR)
+        public PokemonInlineActionHandler(ILogger<PokemonInlineActionHandler> logger, IMediator mediator, IPokemonService pokemonService)
         {
-            _pokemonService = pokemonService;
+            Logger = logger;
+            Mediator = mediator;
+            PokemonService = pokemonService;
         }
 
-        public override async Task<Result> Handle(PokemonInlineAction request, CancellationToken cancellationToken)
+        public async Task<Status<ResultError>> Handle(PokemonInlineAction request, CancellationToken cancellationToken)
         {
             var requestedPokemon = request.Query.ToLower();
 
             var result = int.TryParse(requestedPokemon, out var pokeNumber)
-                ? await _pokemonService.GetPokemon(pokeNumber)
-                : await _pokemonService.GetPokemon(requestedPokemon);
+                ? await PokemonService.GetPokemon(pokeNumber)
+                : await PokemonService.GetPokemon(requestedPokemon);
             
-            if (!result.Succeeded) return await MediatR.Send(new InlineResponse(new InlineQueryResultBase[]{}), cancellationToken);
+            if (result.IsError) return await Mediator.Send(new InlineResponse(new InlineQueryResultBase[]{}), cancellationToken);
 
             var sprite = result.Value.Sprite ?? result.Value.Image;
             
@@ -38,7 +43,7 @@ namespace Pokegraf.Application.Implementation.Core.Actions.Inline.Pokemon
                 }
             };
 
-            return await MediatR.Send(new InlineResponse(results), cancellationToken);
+            return await Mediator.Send(new InlineResponse(results), cancellationToken);
         }
     }
 }
