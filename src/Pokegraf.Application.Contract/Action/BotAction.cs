@@ -2,11 +2,12 @@ using System;
 using MediatR;
 using OperationResult;
 using Pokegraf.Application.Contract.Core.Context;
+using Pokegraf.Common.ErrorHandling;
 using Pokegraf.Domain.Entity;
 
 namespace Pokegraf.Application.Contract.Action
 {
-    public abstract class BotAction : IRequest<Status>, IBotAction
+    public abstract class BotAction : IBotAction
     {
         public DateTime Timestamp { get; set; }
         public int MessageId { get; set; }
