@@ -4,27 +4,28 @@ namespace Pokegraf.Domain.Core.Conversation.Command.AddConversation
 {
     public static class AddConversationCommandExtension
     {
-        public static Entity.Chat ExtractChatModel(this AddConversationCommand addConversationCommand)
+        public static Entity.Chat ExtractChatModel(this AddConversationCommand request)
         {
             return new Entity.Chat
             {
-                Id = addConversationCommand.ChatId,
-                Username = addConversationCommand.ChatUsername,
-                Title = addConversationCommand.ChatTitle,
-                Type = Enum.Parse<Entity.Chat.ChatType>(addConversationCommand.ChatType),
-                FirstSeen = addConversationCommand.Timestamp
+                Id = request.ChatId,
+                Username = request.ChatUsername,
+                Title = request.ChatTitle,
+                Type = Enum.Parse<Entity.Chat.ChatType>(request.ChatType),
+                FirstSeen = request.Timestamp
             };
         }
 
-        public static Entity.User ExtractUserModel(this AddConversationCommand addConversationCommand)
+        public static Entity.User ExtractUserModel(this AddConversationCommand request)
         {
             return new Entity.User
             {
-                Id = addConversationCommand.UserId,
-                IsBot = addConversationCommand.UserIsBot,
-                LanguageCode = addConversationCommand.UserLanguageCode,
-                Username = addConversationCommand.UserUsername,
-                FirstSeen = addConversationCommand.Timestamp
+                Id = request.UserId,
+                IsBot = request.UserIsBot,
+                LanguageCode = request.UserLanguageCode,
+                Username = request.UserUsername,
+                FirstSeen = request.Timestamp,
+                TrainerName = "Trainer"
             };
         }
     }

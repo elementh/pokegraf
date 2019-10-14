@@ -10,7 +10,8 @@
                 IsBot = request.UserIsBot,
                 LanguageCode = request.UserLanguageCode,
                 Username = request.UserUsername,
-                FirstSeen = request.Timestamp
+                FirstSeen = request.Timestamp,
+                TrainerName = "Trainer"
             };
         }
     }
