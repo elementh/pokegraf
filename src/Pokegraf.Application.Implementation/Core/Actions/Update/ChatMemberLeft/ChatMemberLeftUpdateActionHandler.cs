@@ -9,7 +9,7 @@ using static OperationResult.Helpers;
 
 namespace Pokegraf.Application.Implementation.Core.Actions.Update.ChatMemberLeft
 {
-    public class ChatMemberLeftUpdateActionHandler : IRequestHandler<ChatMemberLeftUpdateAction, Status<ResultError>>
+    public class ChatMemberLeftUpdateActionHandler : IRequestHandler<ChatMemberLeftUpdateAction, Status<Error>>
     {
         protected readonly ILogger<ChatMemberAddedUpdateActionHandler> Logger;
         protected readonly IMediator Mediator;
@@ -20,7 +20,7 @@ namespace Pokegraf.Application.Implementation.Core.Actions.Update.ChatMemberLeft
             Mediator = mediator;
         }
 
-        public async Task<Status<ResultError>> Handle(ChatMemberLeftUpdateAction request, CancellationToken cancellationToken)
+        public async Task<Status<Error>> Handle(ChatMemberLeftUpdateAction request, CancellationToken cancellationToken)
         {
             await Mediator.Send(request.MapToDeleteConversationCommand(), cancellationToken);
 

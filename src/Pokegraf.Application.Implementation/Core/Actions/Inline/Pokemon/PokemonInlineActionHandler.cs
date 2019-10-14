@@ -10,7 +10,7 @@ using Telegram.Bot.Types.InlineQueryResults;
 
 namespace Pokegraf.Application.Implementation.Core.Actions.Inline.Pokemon
 {
-    public class PokemonInlineActionHandler : IRequestHandler<PokemonInlineAction, Status<ResultError>>
+    public class PokemonInlineActionHandler : IRequestHandler<PokemonInlineAction, Status<Error>>
     {
         protected readonly ILogger<PokemonInlineActionHandler> Logger;
         protected readonly IMediator Mediator;
@@ -23,7 +23,7 @@ namespace Pokegraf.Application.Implementation.Core.Actions.Inline.Pokemon
             PokemonService = pokemonService;
         }
 
-        public async Task<Status<ResultError>> Handle(PokemonInlineAction request, CancellationToken cancellationToken)
+        public async Task<Status<Error>> Handle(PokemonInlineAction request, CancellationToken cancellationToken)
         {
             var requestedPokemon = request.Query.ToLower();
 

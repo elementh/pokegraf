@@ -6,7 +6,7 @@ using Pokegraf.Domain.Entity;
 
 namespace Pokegraf.Application.Contract.Core.Action
 {
-    public interface IBotAction : IRequest<Status<ResultError>>
+    public interface IBotAction : IRequest<Status<Error>>
     {
         DateTime Timestamp { get; set; }
         int MessageId { get; set; }

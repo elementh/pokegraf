@@ -6,7 +6,7 @@ using Pokegraf.Common.ErrorHandling;
 
 namespace Pokegraf.Domain.User.Query.FindAllUsers
 {
-    public class FindAllUsersQuery : IRequest<Result<IEnumerable<Entity.User>, ResultError>>
+    public class FindAllUsersQuery : IRequest<Result<IEnumerable<Entity.User>, Error>>
     {
         public DateTime Timestamp { get; }
         

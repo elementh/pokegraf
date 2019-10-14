@@ -5,7 +5,7 @@ using Pokegraf.Common.ErrorHandling;
 
 namespace Pokegraf.Domain.Chat.Query.FindAllGroupChats
 {
-    public class FindAllGroupChatsQuery : IRequest<Result<IEnumerable<Entity.Chat>, ResultError>>
+    public class FindAllGroupChatsQuery : IRequest<Result<IEnumerable<Entity.Chat>, Error>>
     {
         
     }

@@ -14,7 +14,7 @@ using static Pokegraf.Common.ErrorHandling.Helpers;
 
 namespace Pokegraf.Domain.Chat.Query.FindAllPrivateChats
 {
-    internal class FindAllPrivateChatsQueryHandler : IRequestHandler<FindAllPrivateChatsQuery, Result<IEnumerable<Entity.Chat>, ResultError>>
+    internal class FindAllPrivateChatsQueryHandler : IRequestHandler<FindAllPrivateChatsQuery, Result<IEnumerable<Entity.Chat>, Error>>
     {
         protected readonly ILogger<FindAllPrivateChatsQueryHandler> Logger;
         protected readonly IPokegrafDbContext Context;
@@ -25,7 +25,7 @@ namespace Pokegraf.Domain.Chat.Query.FindAllPrivateChats
             Context = context;
         }
 
-        public async Task<Result<IEnumerable<Entity.Chat>, ResultError>> Handle(FindAllPrivateChatsQuery request, CancellationToken cancellationToken)
+        public async Task<Result<IEnumerable<Entity.Chat>, Error>> Handle(FindAllPrivateChatsQuery request, CancellationToken cancellationToken)
         {
             try
             {

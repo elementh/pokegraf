@@ -27,7 +27,7 @@ namespace Pokegraf.Infrastructure.Implementation.Service
             Cache = cache;
         }
 
-        public async Task<Result<PokemonDto, ResultError>> GetPokemon(int pokeNumber)
+        public async Task<Result<PokemonDto, Error>> GetPokemon(int pokeNumber)
         {
             var rawCachedPokemon = await Cache.GetStringAsync($"pokemon:{pokeNumber}");
 
@@ -76,7 +76,7 @@ namespace Pokegraf.Infrastructure.Implementation.Service
             return Ok(dto);
         }
 
-        public async Task<Result<PokemonDto, ResultError>> GetPokemon(string pokeName)
+        public async Task<Result<PokemonDto, Error>> GetPokemon(string pokeName)
         {
             Pokemon pokemon;
             
@@ -99,7 +99,7 @@ namespace Pokegraf.Infrastructure.Implementation.Service
             return await GetPokemon(pokemon.ID);
         }
 
-        public Result<PokemonFusionDto, ResultError> GetFusion()
+        public Result<PokemonFusionDto, Error> GetFusion()
         {
             string[] firstHalf = {"Bulb", "Ivy", "Venu", "Char", "Char", "Char", "Squirt", "War", "Blast", "Cater", "Meta", "Butter", 
                 "Wee", "Kak", "Bee", "Pid", "Pidg", "Pidg", "Rat", "Rat", "Spear", "Fear", "Ek", "Arb", "Pika", "Rai", "Sand", "Sand", "Nido", 
@@ -138,7 +138,7 @@ namespace Pokegraf.Infrastructure.Implementation.Service
             return Ok(pokemonFusionDto);
         }
 
-        public async Task<Result<BerryDto, ResultError>> GetBerry(string berryName)
+        public async Task<Result<BerryDto, Error>> GetBerry(string berryName)
         {
             var rawCachedBerry = await Cache.GetStringAsync($"berry:{berryName}");
 

@@ -30,7 +30,7 @@ namespace Pokegraf.Application.Implementation.Core.Client
             BotContext = botContext;
         }
         
-        public Result<ICommandAction, ResultError> GetCommandAction()
+        public Result<ICommandAction, Error> GetCommandAction()
         {
             var command = GetCommand(BotContext.Message);
             if (command == null) return Error(NotFound("No corresponding action found."));
@@ -43,7 +43,7 @@ namespace Pokegraf.Application.Implementation.Core.Client
             return Ok(action);
         }
         
-        public Result<IUpdateAction, ResultError> GetUpdateAction()
+        public Result<IUpdateAction, Error> GetUpdateAction()
         {
             var updateType = GetUpdateType(BotContext.Update);
             if (updateType == null) return Error(NotFound("No corresponding action found."));
@@ -56,7 +56,7 @@ namespace Pokegraf.Application.Implementation.Core.Client
             return Ok(action);
         }
         
-        public Result<ICallbackAction, ResultError> GetCallbackAction()
+        public Result<ICallbackAction, Error> GetCallbackAction()
         {
             var callback = GetCallback(BotContext.CallbackQuery);
             if (callback == null) return Error(NotFound("No corresponding action found."));
@@ -69,7 +69,7 @@ namespace Pokegraf.Application.Implementation.Core.Client
             return Ok(action);
         }
 
-        public Result<IInlineAction, ResultError> GetInlineAction()
+        public Result<IInlineAction, Error> GetInlineAction()
         {
             var inline = BotContext.InlineQuery.Query;
             

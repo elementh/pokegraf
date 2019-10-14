@@ -9,7 +9,7 @@ using static OperationResult.Helpers;
 
 namespace Pokegraf.Application.Implementation.Core.Actions.Update.ChatMemberAdded
 {
-    public class ChatMemberAddedUpdateActionHandler : IRequestHandler<ChatMemberAddedUpdateAction, Status<ResultError>>
+    public class ChatMemberAddedUpdateActionHandler : IRequestHandler<ChatMemberAddedUpdateAction, Status<Error>>
     {
         protected readonly ILogger<ChatMemberAddedUpdateActionHandler> Logger;
         protected readonly IMediator Mediator;
@@ -20,7 +20,7 @@ namespace Pokegraf.Application.Implementation.Core.Actions.Update.ChatMemberAdde
             Mediator = mediator;
         }
 
-        public async Task<Status<ResultError>> Handle(ChatMemberAddedUpdateAction request, CancellationToken cancellationToken)
+        public async Task<Status<Error>> Handle(ChatMemberAddedUpdateAction request, CancellationToken cancellationToken)
         {
             var newUsers = request.Update.Message.NewChatMembers.ToList();
 

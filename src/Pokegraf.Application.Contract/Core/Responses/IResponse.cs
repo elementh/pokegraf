@@ -4,7 +4,7 @@ using Pokegraf.Common.ErrorHandling;
 
 namespace Pokegraf.Application.Contract.Core.Responses
 {
-    public interface IResponse : IRequest<Status<ResultError>>
+    public interface IResponse : IRequest<Status<Error>>
     {
     }
 }

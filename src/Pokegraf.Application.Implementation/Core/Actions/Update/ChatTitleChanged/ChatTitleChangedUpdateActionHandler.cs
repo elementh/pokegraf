@@ -8,7 +8,7 @@ using static OperationResult.Helpers;
 
 namespace Pokegraf.Application.Implementation.Core.Actions.Update.ChatTitleChanged
 {
-    public class ChatTitleChangedUpdateActionHandler : IRequestHandler<ChatTitleChangedUpdateAction, Status<ResultError>>
+    public class ChatTitleChangedUpdateActionHandler : IRequestHandler<ChatTitleChangedUpdateAction, Status<Error>>
     {
         protected readonly ILogger<ChatTitleChangedUpdateActionHandler> Logger;
         protected readonly IMediator Mediator;
@@ -19,7 +19,7 @@ namespace Pokegraf.Application.Implementation.Core.Actions.Update.ChatTitleChang
             Mediator = mediator;
         }
 
-        public async Task<Status<ResultError>> Handle(ChatTitleChangedUpdateAction request, CancellationToken cancellationToken)
+        public async Task<Status<Error>> Handle(ChatTitleChangedUpdateAction request, CancellationToken cancellationToken)
         {
             await Mediator.Send(request.MapToUpdateChatTitleCommand(), cancellationToken);
 

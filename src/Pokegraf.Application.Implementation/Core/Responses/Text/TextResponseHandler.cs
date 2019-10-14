@@ -13,7 +13,7 @@ using static Pokegraf.Common.ErrorHandling.Helpers;
 
 namespace Pokegraf.Application.Implementation.Core.Responses.Text
 {
-    public class TextResponseHandler : IRequestHandler<TextResponse, Status<ResultError>>
+    public class TextResponseHandler : IRequestHandler<TextResponse, Status<Error>>
     {
         protected readonly ILogger<TextResponseHandler> Logger;
         protected readonly IBotContext BotContext;
@@ -24,7 +24,7 @@ namespace Pokegraf.Application.Implementation.Core.Responses.Text
             BotContext = botContext;
         }
 
-        public async Task<Status<ResultError>> Handle(TextResponse request, CancellationToken cancellationToken)
+        public async Task<Status<Error>> Handle(TextResponse request, CancellationToken cancellationToken)
         {
             try
             {

@@ -14,7 +14,7 @@ using Telegram.Bot.Types.InlineQueryResults;
 
 namespace Pokegraf.Application.Implementation.Core.Actions.Inline.Fusion
 {
-    public class FusionInlineActionHandler : IRequestHandler<FusionInlineAction, Status<ResultError>>
+    public class FusionInlineActionHandler : IRequestHandler<FusionInlineAction, Status<Error>>
     {
         protected readonly ILogger<FusionInlineActionHandler> Logger;
         protected readonly IMediator Mediator;
@@ -28,7 +28,7 @@ namespace Pokegraf.Application.Implementation.Core.Actions.Inline.Fusion
         }
 
 
-        public async Task<Status<ResultError>> Handle(FusionInlineAction request, CancellationToken cancellationToken)
+        public async Task<Status<Error>> Handle(FusionInlineAction request, CancellationToken cancellationToken)
         {
             var fusions = new List<PokemonFusionDto>();
 

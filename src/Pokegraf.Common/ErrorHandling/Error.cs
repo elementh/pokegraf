@@ -2,12 +2,12 @@
 
  namespace Pokegraf.Common.ErrorHandling
 {
-    public class ResultError
+    public class Error
     {
         /// <summary>
         /// Error type.
         /// </summary>
-        public ResultErrorType Type { get; set; }
+        public ErrorType Type { get; set; }
         /// <summary>
         /// Message describing the error.
         /// </summary>
@@ -18,7 +18,7 @@
         public HttpStatusCode Code { get; set; }
     }
 
-    public enum ResultErrorType
+    public enum ErrorType
     {
         NotFound,
         HttpError,

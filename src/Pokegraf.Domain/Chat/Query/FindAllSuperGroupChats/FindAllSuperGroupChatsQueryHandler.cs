@@ -14,7 +14,7 @@ using static Pokegraf.Common.ErrorHandling.Helpers;
 
 namespace Pokegraf.Domain.Chat.Query.FindAllSuperGroupChats
 {
-    internal class FindAllSuperGroupChatsQueryHandler : IRequestHandler<FindAllSuperGroupChatsQuery, Result<IEnumerable<Entity.Chat>, ResultError>>
+    internal class FindAllSuperGroupChatsQueryHandler : IRequestHandler<FindAllSuperGroupChatsQuery, Result<IEnumerable<Entity.Chat>, Error>>
     {
         protected readonly ILogger<FindAllSuperGroupChatsQueryHandler> Logger;
         protected readonly IPokegrafDbContext Context;
@@ -25,7 +25,7 @@ namespace Pokegraf.Domain.Chat.Query.FindAllSuperGroupChats
             Context = context;
         }
 
-        public async Task<Result<IEnumerable<Entity.Chat>, ResultError>> Handle(FindAllSuperGroupChatsQuery request, CancellationToken cancellationToken)
+        public async Task<Result<IEnumerable<Entity.Chat>, Error>> Handle(FindAllSuperGroupChatsQuery request, CancellationToken cancellationToken)
         {
             try
             {

@@ -13,13 +13,13 @@ using static Pokegraf.Common.ErrorHandling.Helpers;
 
 namespace Pokegraf.Application.Implementation.Core.Responses.Inline
 {
-    public class InlineResponseHandler : IRequestHandler<InlineResponse, Status<ResultError>>
+    public class InlineResponseHandler : IRequestHandler<InlineResponse, Status<Error>>
     {
         protected readonly ILogger<InlineResponseHandler> Logger;
         protected readonly IBotContext BotContext;
 
 
-        public async Task<Status<ResultError>> Handle(InlineResponse request, CancellationToken cancellationToken)
+        public async Task<Status<Error>> Handle(InlineResponse request, CancellationToken cancellationToken)
         {
             try
             {

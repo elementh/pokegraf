@@ -7,9 +7,9 @@ namespace Pokegraf.Infrastructure.Contract.Service
 {
     public interface IPokemonService
     {
-        Task<Result<PokemonDto, ResultError>> GetPokemon(int pokeNumber);
-        Task<Result<PokemonDto, ResultError>> GetPokemon(string pokeName);
-        Result<PokemonFusionDto, ResultError> GetFusion();
-        Task<Result<BerryDto, ResultError>> GetBerry(string berryName);
+        Task<Result<PokemonDto, Error>> GetPokemon(int pokeNumber);
+        Task<Result<PokemonDto, Error>> GetPokemon(string pokeName);
+        Result<PokemonFusionDto, Error> GetFusion();
+        Task<Result<BerryDto, Error>> GetBerry(string berryName);
     }
 }

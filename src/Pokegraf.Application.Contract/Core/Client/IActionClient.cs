@@ -9,10 +9,10 @@ namespace Pokegraf.Application.Contract.Core.Client
 {
     public interface IActionClient
     {
-        Result<ICommandAction, ResultError> GetCommandAction();
-        Result<ICallbackAction, ResultError> GetCallbackAction();
-        Result<IInlineAction, ResultError> GetInlineAction();
-        Result<IUpdateAction, ResultError> GetUpdateAction();
+        Result<ICommandAction, Error> GetCommandAction();
+        Result<ICallbackAction, Error> GetCallbackAction();
+        Result<IInlineAction, Error> GetInlineAction();
+        Result<IUpdateAction, Error> GetUpdateAction();
 
     }
 }

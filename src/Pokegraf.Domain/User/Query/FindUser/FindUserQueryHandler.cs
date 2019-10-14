@@ -12,7 +12,7 @@ using static Pokegraf.Common.ErrorHandling.Helpers;
 
 namespace Pokegraf.Domain.User.Query.FindUser
 {
-    public class FindUserQueryHandler : IRequestHandler<FindUserQuery, Result<Entity.User, ResultError>>
+    public class FindUserQueryHandler : IRequestHandler<FindUserQuery, Result<Entity.User, Error>>
     {
         protected readonly ILogger<FindUserQueryHandler> Logger;
         protected readonly IPokegrafDbContext Context;
@@ -23,7 +23,7 @@ namespace Pokegraf.Domain.User.Query.FindUser
             Context = context;
         }
 
-        public async Task<Result<Entity.User, ResultError>> Handle(FindUserQuery request, CancellationToken cancellationToken)
+        public async Task<Result<Entity.User, Error>> Handle(FindUserQuery request, CancellationToken cancellationToken)
         {
             try
             {

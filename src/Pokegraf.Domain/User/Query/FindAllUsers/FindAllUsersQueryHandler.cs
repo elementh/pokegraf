@@ -14,7 +14,7 @@ using static Pokegraf.Common.ErrorHandling.Helpers;
 
 namespace Pokegraf.Domain.User.Query.FindAllUsers
 {
-    internal class FindAllUsersQueryHandler : IRequestHandler<FindAllUsersQuery, Result<IEnumerable<Entity.User>, ResultError>>
+    internal class FindAllUsersQueryHandler : IRequestHandler<FindAllUsersQuery, Result<IEnumerable<Entity.User>, Error>>
     {
         protected readonly ILogger<FindAllUsersQueryHandler> Logger;
         protected readonly IPokegrafDbContext Context;
@@ -25,7 +25,7 @@ namespace Pokegraf.Domain.User.Query.FindAllUsers
             Context = context;
         }
 
-        public async Task<Result<IEnumerable<Entity.User>, ResultError>> Handle(FindAllUsersQuery request, CancellationToken cancellationToken)
+        public async Task<Result<IEnumerable<Entity.User>, Error>> Handle(FindAllUsersQuery request, CancellationToken cancellationToken)
         {
             try
             {

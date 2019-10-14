@@ -12,12 +12,12 @@ using static Pokegraf.Common.ErrorHandling.Helpers;
 
 namespace Pokegraf.Domain.Conversation.Query.FindConversation
 {
-    internal class FindConversationQueryHandler : IRequestHandler<FindConversationQuery, Result<Entity.Conversation, ResultError>>
+    internal class FindConversationQueryHandler : IRequestHandler<FindConversationQuery, Result<Entity.Conversation, Error>>
     {
         protected readonly ILogger<FindConversationQueryHandler> Logger;
         protected readonly IPokegrafDbContext Context;
         
-        public async Task<Result<Entity.Conversation, ResultError>> Handle(FindConversationQuery request, CancellationToken cancellationToken)
+        public async Task<Result<Entity.Conversation, Error>> Handle(FindConversationQuery request, CancellationToken cancellationToken)
         {
             try
             {

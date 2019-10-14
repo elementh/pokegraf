@@ -4,39 +4,39 @@
 {
     public static class Helpers
     {
-        public static ResultError NotFound(string message)
+        public static Error NotFound(string message)
         {
-            return new ResultError
+            return new Error
             {
-                Type = ResultErrorType.NotFound,
+                Type = ErrorType.NotFound,
                 Message = message
             };
         }
 
-        public static ResultError HttpError(string message, HttpStatusCode statusCode)
+        public static Error HttpError(string message, HttpStatusCode statusCode)
         {
-            return new ResultError
+            return new Error
             {
-                Type = ResultErrorType.HttpError,
+                Type = ErrorType.HttpError,
                 Message = message,
                 Code = statusCode
             };
         }
 
-        public static ResultError UnknownError(string message)
+        public static Error UnknownError(string message)
         {
-            return new ResultError
+            return new Error
             {
-                Type = ResultErrorType.UnknownError,
+                Type = ErrorType.UnknownError,
                 Message = message
             };
         }
 
-        public static ResultError Timeout(string message)
+        public static Error Timeout(string message)
         {
-            return new ResultError
+            return new Error
             {
-                Type = ResultErrorType.Timeout,
+                Type = ErrorType.Timeout,
                 Message = message
             };
         }

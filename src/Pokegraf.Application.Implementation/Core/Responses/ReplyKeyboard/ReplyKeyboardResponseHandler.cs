@@ -14,7 +14,7 @@ using static Pokegraf.Common.ErrorHandling.Helpers;
 
 namespace Pokegraf.Application.Implementation.Core.Responses.ReplyKeyboard
 {
-    public class ReplyKeyboardResponseHandler : IRequestHandler<ReplyKeyboardResponse, Status<ResultError>>
+    public class ReplyKeyboardResponseHandler : IRequestHandler<ReplyKeyboardResponse, Status<Error>>
     {
         protected readonly ILogger<InlineResponseHandler> Logger;
         protected readonly IBotContext BotContext;
@@ -25,7 +25,7 @@ namespace Pokegraf.Application.Implementation.Core.Responses.ReplyKeyboard
             BotContext = botContext;
         }
 
-        public async Task<Status<ResultError>> Handle(ReplyKeyboardResponse request, CancellationToken cancellationToken)
+        public async Task<Status<Error>> Handle(ReplyKeyboardResponse request, CancellationToken cancellationToken)
         {
             try
             {

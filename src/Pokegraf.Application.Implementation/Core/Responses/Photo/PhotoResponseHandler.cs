@@ -12,7 +12,7 @@ using static Pokegraf.Common.ErrorHandling.Helpers;
 
 namespace Pokegraf.Application.Implementation.Core.Responses.Photo
 {
-    public class PhotoResponseHandler : IRequestHandler<PhotoResponse, Status<ResultError>>
+    public class PhotoResponseHandler : IRequestHandler<PhotoResponse, Status<Error>>
     {
         protected readonly ILogger<PhotoResponseHandler> Logger;
         protected readonly IBotContext BotContext;
@@ -23,7 +23,7 @@ namespace Pokegraf.Application.Implementation.Core.Responses.Photo
             BotContext = botContext;
         }
 
-        public async Task<Status<ResultError>> Handle(PhotoResponse request, CancellationToken cancellationToken)
+        public async Task<Status<Error>> Handle(PhotoResponse request, CancellationToken cancellationToken)
         {
             try
             {

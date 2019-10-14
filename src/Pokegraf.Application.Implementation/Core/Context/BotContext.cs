@@ -43,7 +43,7 @@ namespace Pokegraf.Application.Implementation.Core.Context
 
             if (conversationResult.IsError)
             {
-                if (conversationResult.Error.Type != ResultErrorType.NotFound)
+                if (conversationResult.Error.Type != ErrorType.NotFound)
                 {
                     var id = Guid.NewGuid();
                     Logger.LogError("Could not populate context with message. ( @Id ). @Error", id, conversationResult.Error.Message);
@@ -81,7 +81,7 @@ namespace Pokegraf.Application.Implementation.Core.Context
 
             if (userResult.IsError)
             {
-                if (userResult.Error.Type != ResultErrorType.NotFound)
+                if (userResult.Error.Type != ErrorType.NotFound)
                 {
                     var id = Guid.NewGuid();
                     Logger.LogError("Could not populate context with message. ( @Id ). @Error", id, userResult.Error.Message);

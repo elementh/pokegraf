@@ -13,7 +13,7 @@ using static Pokegraf.Common.ErrorHandling.Helpers;
 
 namespace Pokegraf.Application.Implementation.Core.Responses.Photo.WithKeyboard
 {
-    public class PhotoWithKeyboardResponseHandler : IRequestHandler<PhotoWithKeyboardResponse, Status<ResultError>>
+    public class PhotoWithKeyboardResponseHandler : IRequestHandler<PhotoWithKeyboardResponse, Status<Error>>
     {
         protected readonly ILogger<PhotoWithKeyboardResponseHandler> Logger;
         protected readonly IBotContext BotContext;
@@ -24,7 +24,7 @@ namespace Pokegraf.Application.Implementation.Core.Responses.Photo.WithKeyboard
             BotContext = botContext;
         }
 
-        public async Task<Status<ResultError>> Handle(PhotoWithKeyboardResponse request, CancellationToken cancellationToken)
+        public async Task<Status<Error>> Handle(PhotoWithKeyboardResponse request, CancellationToken cancellationToken)
         {
             try
             {
