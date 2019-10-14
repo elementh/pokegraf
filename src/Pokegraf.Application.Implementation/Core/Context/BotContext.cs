@@ -4,8 +4,8 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using Pokegraf.Application.Contract.Core.Client;
 using Pokegraf.Application.Contract.Core.Context;
-using Pokegraf.Application.Contract.Model;
 using Pokegraf.Application.Implementation.Mapping.Extension;
+using Pokegraf.Common.ErrorHandling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Chat = Pokegraf.Domain.Entity.Chat;
@@ -24,7 +24,6 @@ namespace Pokegraf.Application.Implementation.Core.Context
         public Update Update { get; set; }
         public CallbackQuery CallbackQuery { get; set; }
         public InlineQuery InlineQuery { get; set; }
-        public Intent Intent { get; set; }
         public User User { get; set; }
         public Chat Chat { get; set; }
         public string BotName { get; set; }
@@ -42,12 +41,13 @@ namespace Pokegraf.Application.Implementation.Core.Context
             
             var conversationResult = await Mediator.Send(message.MapToFindConversationQuery());
 
-            if (!conversationResult.Succeeded)
+            if (conversationResult.IsError)
             {
-                if (!conversationResult.Errors.ContainsKey("not_found"))
+                if (conversationResult.Error.Type != ResultErrorType.NotFound)
                 {
-                    Logger.LogError("Could not populate context with message. @Errors", conversationResult.Errors);
-                    throw new Exception("Error populating context");
+                    var id = Guid.NewGuid();
+                    Logger.LogError("Could not populate context with message. ( @Id ). @Error", id, conversationResult.Error.Message);
+                    throw new Exception($"Error populating context {id}");
                 }
 
                 await Mediator.Send(message.MapToAddConversationCommand());
@@ -70,7 +70,7 @@ namespace Pokegraf.Application.Implementation.Core.Context
 
             await Populate(callbackQuery.Message);
 
-            Logger.LogTrace("Populated HttpContext with CallbackQuery.", callbackQuery);
+            Logger.LogTrace("Populated BotContext with CallbackQuery.", callbackQuery);
         }
 
         public async Task Populate(InlineQuery inlineQuery)
@@ -79,12 +79,13 @@ namespace Pokegraf.Application.Implementation.Core.Context
             
             var userResult = await Mediator.Send(inlineQuery.MapToFindUserQuery());
 
-            if (!userResult.Succeeded)
+            if (userResult.IsError)
             {
-                if (!userResult.Errors.ContainsKey("not_found"))
+                if (userResult.Error.Type != ResultErrorType.NotFound)
                 {
-                    Logger.LogError("Could not populate context with InlineQuery. @Errors", userResult.Errors);
-                    throw new Exception("Error populating context");
+                    var id = Guid.NewGuid();
+                    Logger.LogError("Could not populate context with message. ( @Id ). @Error", id, userResult.Error.Message);
+                    throw new Exception($"Error populating context {id}");
                 }
 
                 await Mediator.Send(inlineQuery.MapToAddUserCommand());
@@ -97,7 +98,7 @@ namespace Pokegraf.Application.Implementation.Core.Context
 
             BotName = bot.Username;
             
-            Logger.LogTrace("Populated HttpContext with InlineQuery.", inlineQuery);
+            Logger.LogTrace("Populated BotContext with InlineQuery.", inlineQuery);
         }
         
         public async Task Populate(Update update)

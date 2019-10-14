@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using Pokegraf.Application.Contract.Core.Client;
-using Pokegraf.Application.Contract.Model;
 using Telegram.Bot.Types;
 using Chat = Pokegraf.Domain.Entity.Chat;
 using User = Pokegraf.Domain.Entity.User;
@@ -14,7 +13,6 @@ namespace Pokegraf.Application.Contract.Core.Context
         Update Update { get; set; }
         CallbackQuery CallbackQuery { get; set; }
         InlineQuery InlineQuery { get; set; }
-        Intent Intent { get; set; }
         User User { get; set; }
         Chat Chat { get; set; }
         string BotName { get; set; }
