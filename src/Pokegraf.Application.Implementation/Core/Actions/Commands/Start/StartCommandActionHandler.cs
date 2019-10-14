@@ -2,22 +2,29 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using OperationResult;
+using Pokegraf.Application.Contract.Core.Responses.Text;
 using Pokegraf.Application.Implementation.Core.Responses.Text;
+using Pokegraf.Common.ErrorHandling;
 
 namespace Pokegraf.Application.Implementation.Core.Actions.Commands.Start
 {
-    public class StartCommandActionHandler : Pokegraf.Common.Request.CommonHandler<StartCommandAction, Result>
+    public class StartCommandActionHandler : IRequestHandler<StartCommandAction, Status<Error>>
     {
-        public StartCommandActionHandler(ILogger<Pokegraf.Common.Request.CommonHandler<StartCommandAction, Result>> logger, IMediator mediatR) : base(logger, mediatR)
+        protected readonly ILogger<StartCommandActionHandler> Logger;
+        protected readonly IMediator Mediator;
+
+        public StartCommandActionHandler(ILogger<StartCommandActionHandler> logger, IMediator mediator)
         {
-            
+            Logger = logger;
+            Mediator = mediator;
         }
 
-        public override async Task<Result> Handle(StartCommandAction request, CancellationToken cancellationToken)
+        public async Task<Status<Error>> Handle(StartCommandAction request, CancellationToken cancellationToken)
         {
             var startText = "Hello there Pokémon Trainer! Welcome to *pokegraf*!\n\nWhy don't you try doing /pokemon ?";
 
-            return await MediatR.Send(new TextResponse(startText));
+            return await Mediator.Send(new TextResponse(startText));
         }
     }
 }

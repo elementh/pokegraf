@@ -2,24 +2,32 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using OperationResult;
+using Pokegraf.Application.Contract.Core.Responses.Text;
 using Pokegraf.Application.Implementation.Core.Responses.Text;
+using Pokegraf.Common.ErrorHandling;
 
 namespace Pokegraf.Application.Implementation.Core.Actions.Commands.About
 {
-    public class AboutCommandActionHandler : Pokegraf.Common.Request.CommonHandler<AboutCommandAction, Result>
+    public class AboutCommandActionHandler : IRequestHandler<AboutCommandAction, Status<Error>>
     {
-        public AboutCommandActionHandler(ILogger<Pokegraf.Common.Request.CommonHandler<AboutCommandAction, Result>> logger, IMediator mediatR) : base(logger, mediatR)
+        protected readonly ILogger<AboutCommandActionHandler> Logger;
+        protected readonly IMediator Mediator;
+
+        public AboutCommandActionHandler(ILogger<AboutCommandActionHandler> logger, IMediator mediator)
         {
+            Logger = logger;
+            Mediator = mediator;
         }
 
-        public override async Task<Result> Handle(AboutCommandAction request, CancellationToken cancellationToken)
+        public async Task<Status<Error>> Handle(AboutCommandAction request, CancellationToken cancellationToken)
         {
             var aboutText =
                 @"[pokegraf](https://github.com/elementh/pokegraf) is a bot made with ❤️ by [Lucas Maximiliano Marino](http://lucasmarino.me/) with the help of [contributors](https://github.com/elementh/pokegraf/blob/master/CONTRIBUTORS.md)!.  
 It uses the [PokeAPI](https://github.com/PokeAPI/pokeapi) and [Pokemon Fusion](http://pokemon.alexonsager.net/).  
 Pokémon ©1995 [pokémon](http://www.pokemon.com/), [nintendo](http://www.nintendo.com/), [game freak](http://www.gamefreak.co.jp/), [creatures](http://www.creatures.co.jp/html/en/).";
 
-            return await MediatR.Send(new TextResponse(aboutText));
+            return await Mediator.Send(new TextResponse(aboutText));
         }
     }
 }

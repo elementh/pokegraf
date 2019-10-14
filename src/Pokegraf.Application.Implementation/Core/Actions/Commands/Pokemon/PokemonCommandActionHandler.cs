@@ -2,24 +2,31 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Pokegraf.Application.Implementation.Core.Responses.PhotoWithKeyboard.Send;
-using Pokegraf.Application.Implementation.Core.Responses.Text;
+using OperationResult;
+using Pokegraf.Application.Contract.Core.Responses.Photo.WithKeyboard;
+using Pokegraf.Application.Contract.Core.Responses.Text;
 using Pokegraf.Application.Implementation.Mapping.Extension;
+using Pokegraf.Common.ErrorHandling;
 using Pokegraf.Common.Helper;
 using Pokegraf.Infrastructure.Contract.Service;
+using static OperationResult.Helpers;
 
 namespace Pokegraf.Application.Implementation.Core.Actions.Commands.Pokemon
 {
-    public class PokemonCommandActionHandler : Pokegraf.Common.Request.CommonHandler<PokemonCommandAction, Result>
+    public class PokemonCommandActionHandler : IRequestHandler<PokemonCommandAction, Status<Error>>
     {
-        private readonly IPokemonService _pokemonService;
-        
-        public PokemonCommandActionHandler(ILogger<Pokegraf.Common.Request.CommonHandler<PokemonCommandAction, Result>> logger, IMediator mediatR, IPokemonService pokemonService) : base(logger, mediatR)
-        {
-            _pokemonService = pokemonService;
-        }
+        protected readonly ILogger<PokemonCommandActionHandler> Logger;
+        protected readonly IMediator Mediator;
+        protected readonly IPokemonService PokemonService;
 
-        public override async Task<Result> Handle(PokemonCommandAction request, CancellationToken cancellationToken)
+        public PokemonCommandActionHandler(ILogger<PokemonCommandActionHandler> logger, IMediator mediator, IPokemonService pokemonService)
+        {
+            Logger = logger;
+            Mediator = mediator;
+            PokemonService = pokemonService;
+        }
+        
+        public async Task<Status<Error>> Handle(PokemonCommandAction request, CancellationToken cancellationToken)
         {
             var commandArgs = request.Text?.Split(" ");
 
@@ -35,22 +42,22 @@ namespace Pokegraf.Application.Implementation.Core.Actions.Commands.Pokemon
             }
 
             var result = int.TryParse(requestedPokemon, out var pokeNumber)
-                ? await _pokemonService.GetPokemon(pokeNumber)
-                : await _pokemonService.GetPokemon(requestedPokemon);
+                ? await PokemonService.GetPokemon(pokeNumber)
+                : await PokemonService.GetPokemon(requestedPokemon);
 
-            if (!result.Succeeded)
+            if (result.IsError)
             {
-                if (result.Errors.ContainsKey("not_found"))
+                if (result.Error.Type == ErrorType.NotFound)
                 {
-                    return await MediatR.Send(new TextResponse(result.Errors["not_found"].First() ?? "Ups, there was an error! Try again later!"));
+                    return await Mediator.Send(new TextResponse(result.Error.Message ?? "Ups, there was an error! Try again later!"));
                 }
 
-                return result;
+                return Error(result.Error);
             }
 
             var keyboard = result.Value.ToDescriptionKeyboard();
 
-            return await MediatR.Send(new PhotoWithCaptionWithKeyboardResponse(result.Value.Image.ToString(), $"{result.Value.Description}", keyboard));
+            return await Mediator.Send(new PhotoWithKeyboardResponse(result.Value.Image.ToString(), $"{result.Value.Description}", keyboard));
         }
     }
 }
