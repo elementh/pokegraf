@@ -7,7 +7,7 @@ namespace Pokegraf.Domain.Core.Conversation.Command.AddConversation
     {
         public DateTime Timestamp { get; }
 
-        protected AddConversationCommand()
+        public AddConversationCommand()
         {
             Timestamp = DateTime.UtcNow;
         }
