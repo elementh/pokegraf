@@ -33,12 +33,11 @@ namespace Pokegraf.Application.Implementation.Core.Service
             Bot.Client.OnInlineQuery += HandleOnInlineQuery;
 
             Bot.Start();
-
-            Thread.Sleep(int.MaxValue);
         }
         
         private async void HandleOnUpdate(object sender, UpdateEventArgs e)
         {
+            Logger.LogDebug("HandleOnUpdate was triggered");
             try
             {
                 using var scope = ServiceScopeFactory.CreateScope();
@@ -73,6 +72,7 @@ namespace Pokegraf.Application.Implementation.Core.Service
 
         private async void HandleOnMessage(object sender, MessageEventArgs e)
         {
+            Logger.LogDebug("HandleOnMessage was triggered");
             try
             {
                 using var scope = ServiceScopeFactory.CreateScope();
@@ -109,6 +109,7 @@ namespace Pokegraf.Application.Implementation.Core.Service
 
         private async void HandleOnCallbackQuery(object sender, CallbackQueryEventArgs e)
         {
+            Logger.LogDebug("HandleOnCallbackQuery was triggered");
             try
             {
                 using var scope = ServiceScopeFactory.CreateScope();

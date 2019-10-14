@@ -4,14 +4,14 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Pokegraf.Persistence.Contract;
+using Pokegraf.Persistence.Contract.Context;
 using Pokegraf.Persistence.Contract.Repository;
-using Pokegraf.Persistence.Implementation.Context;
 
 namespace Pokegraf.Persistence.Implementation
 {
     public class UnitOfWork : IUnitOfWork
     {
-        protected readonly PokegrafDbContext Context;
+        protected readonly IPokegrafDbContext Context;
         protected readonly ILogger<UnitOfWork> Logger;
         private bool _disposed;
 
@@ -19,7 +19,7 @@ namespace Pokegraf.Persistence.Implementation
         public IConversationRepository ConversationRepository { get; set; }
         public IUserRepository UserRepository { get; set; }
 
-        public UnitOfWork(PokegrafDbContext context, ILogger<UnitOfWork> logger, IChatRepository chatRepository, IConversationRepository conversationRepository, IUserRepository userRepository)
+        public UnitOfWork(IPokegrafDbContext context, ILogger<UnitOfWork> logger, IChatRepository chatRepository, IConversationRepository conversationRepository, IUserRepository userRepository)
         {
             Context = context;
             Logger = logger;
@@ -32,7 +32,7 @@ namespace Pokegraf.Persistence.Implementation
         {
             try
             {
-                await Context.SaveChangesAsync(cancellationToken);
+                await Context.Instance.SaveChangesAsync(cancellationToken);
                 
                 Logger.LogInformation("Database save operation finished correctly.");
             }
@@ -56,7 +56,7 @@ namespace Pokegraf.Persistence.Implementation
             {
                 if (disposing)
                 {
-                    Context.Dispose();
+                    Context.Instance.Dispose();
                 }
             }
             

@@ -4,19 +4,20 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Pokegraf.Persistence.Contract.Context;
 using Pokegraf.Persistence.Contract.Repository;
 
 namespace Pokegraf.Persistence.Implementation.Repository
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        internal readonly DbContext Context;
+        internal readonly IDbContext Context;
         internal readonly DbSet<T> DbSet;
 
-        public GenericRepository(DbContext dbContext)
+        public GenericRepository(IDbContext dbContext)
         {
             Context = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
-            DbSet = dbContext.Set<T>();
+            DbSet = dbContext.Instance.Set<T>();
         }
 
         public async Task<T> FindById(object id)
@@ -67,7 +68,7 @@ namespace Pokegraf.Persistence.Implementation.Repository
         {
             var entry = DbSet.Attach(entityToUpdate);
             
-            Context.Entry(entityToUpdate).State = EntityState.Modified;
+            Context.Instance.Entry(entityToUpdate).State = EntityState.Modified;
 
             return entry.Entity;
         }
@@ -81,7 +82,7 @@ namespace Pokegraf.Persistence.Implementation.Repository
 
         public virtual T Delete(T entityToDelete)
         {
-            if (Context.Entry(entityToDelete).State == EntityState.Detached)
+            if (Context.Instance.Entry(entityToDelete).State == EntityState.Detached)
             {
                 DbSet.Attach(entityToDelete);
             }

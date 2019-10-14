@@ -15,8 +15,8 @@ namespace Pokegraf.Application.Implementation.Configuration
     {
         public static IServiceCollection AddApplicationDependencies(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddServices(configuration);
             services.AddBackgroundServices(configuration);
+            services.AddServices(configuration);
             services.AddRequests(configuration);
             services.AddBotContext(configuration);
             
@@ -38,20 +38,11 @@ namespace Pokegraf.Application.Implementation.Configuration
             services.Scan(scan => scan
                 .FromAssemblyOf<TelegramService>()
                 .AddClasses(classes =>
-                    classes.Where(c => c.Name.EndsWith("Service") 
-                                       && c.Name != "TelegramBackgroundService"))
+                    classes.Where(c => c.Name.EndsWith("Service") && c.Name != "TelegramBackgroundService"))
                 .UsingRegistrationStrategy(RegistrationStrategy.Skip)
                 .AsImplementedInterfaces()
                 .WithScopedLifetime());
 
-            services.Scan(scan => scan
-                .FromAssemblyOf<TelegramService>()
-                .AddClasses(classes =>
-                    classes.Where(c => c.Name.EndsWith("Factory")))
-                .UsingRegistrationStrategy(RegistrationStrategy.Skip)
-                .AsImplementedInterfaces()
-                .WithScopedLifetime());
-            
             return services;
         }
 

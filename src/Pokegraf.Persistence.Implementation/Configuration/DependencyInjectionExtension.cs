@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Pokegraf.Persistence.Contract;
+using Pokegraf.Persistence.Contract.Context;
 using Pokegraf.Persistence.Implementation.Context;
 using Scrutor;
 
@@ -27,7 +28,7 @@ namespace Pokegraf.Persistence.Implementation.Configuration
 
         private static IServiceCollection AddDatabaseContext(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<PokegrafDbContext>(options =>
+            services.AddDbContext<IPokegrafDbContext, PokegrafDbContext>(options =>
             {
                 var connectionString = configuration["POKEGRAF_DB_CONNECTION_STRING"];
                 

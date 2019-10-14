@@ -46,7 +46,7 @@ namespace Pokegraf.Api.WebApi.Configuration
 
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
             {
-                loggerConf.MinimumLevel.Information();
+                loggerConf.MinimumLevel.Debug();
             }
             else
             {
