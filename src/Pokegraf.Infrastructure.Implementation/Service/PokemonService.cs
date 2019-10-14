@@ -12,7 +12,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using static OperationResult.Helpers;
-using static Pokegraf.Common.ErrorHandling.ResultErrorHelper;
+using static Pokegraf.Common.ErrorHandling.Helpers;
 
 namespace Pokegraf.Infrastructure.Implementation.Service
 {

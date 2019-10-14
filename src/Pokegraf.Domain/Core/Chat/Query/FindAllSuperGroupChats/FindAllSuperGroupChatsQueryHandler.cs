@@ -10,7 +10,7 @@ using OperationResult;
 using Pokegraf.Common.ErrorHandling;
 using Pokegraf.Persistence.Contract.Context;
 using static OperationResult.Helpers;
-using static Pokegraf.Common.ErrorHandling.ResultErrorHelper;
+using static Pokegraf.Common.ErrorHandling.Helpers;
 
 namespace Pokegraf.Domain.Core.Chat.Query.FindAllSuperGroupChats
 {

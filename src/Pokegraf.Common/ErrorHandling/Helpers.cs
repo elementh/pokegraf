@@ -2,7 +2,7 @@
 
  namespace Pokegraf.Common.ErrorHandling
 {
-    public static class ResultErrorHelper
+    public static class Helpers
     {
         public static ResultError NotFound(string message)
         {
