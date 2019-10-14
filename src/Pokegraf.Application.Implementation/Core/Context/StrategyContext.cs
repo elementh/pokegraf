@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Pokegraf.Application.Contract.Action.Callback;
 using Pokegraf.Application.Contract.Action.Command;
 using Pokegraf.Application.Contract.Action.Inline;
+using Pokegraf.Application.Contract.Action.Update;
 using Pokegraf.Application.Contract.Core.Context;
 
 namespace Pokegraf.Application.Implementation.Core.Context
@@ -11,12 +12,14 @@ namespace Pokegraf.Application.Implementation.Core.Context
         protected IEnumerable<ICallbackAction> CallbackActions;
         protected IEnumerable<ICommandAction> CommandActions;
         protected IEnumerable<IInlineAction> InlineActions;
+        protected IEnumerable<IUpdateAction> UpdateActions;
 
-        public StrategyContext(IEnumerable<ICallbackAction> callbackActions, IEnumerable<ICommandAction> commandActions, IEnumerable<IInlineAction> inlineActions)
+        public StrategyContext(IEnumerable<ICallbackAction> callbackActions, IEnumerable<ICommandAction> commandActions, IEnumerable<IInlineAction> inlineActions, IEnumerable<IUpdateAction> updateActions)
         {
             CallbackActions = callbackActions;
             CommandActions = commandActions;
             InlineActions = inlineActions;
+            UpdateActions = updateActions;
         }
         
         public IEnumerable<ICallbackAction> GetCallbackStrategyContext()
@@ -32,6 +35,11 @@ namespace Pokegraf.Application.Implementation.Core.Context
         public IEnumerable<IInlineAction> GetInlineStrategyContext()
         {
             return InlineActions;
+        }
+
+        public IEnumerable<IUpdateAction> GetUpdateStrategyContext()
+        {
+            return UpdateActions;
         }
     }
 }
