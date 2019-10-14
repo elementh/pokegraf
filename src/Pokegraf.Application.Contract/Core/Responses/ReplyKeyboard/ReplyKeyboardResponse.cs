@@ -1,9 +1,8 @@
-using Pokegraf.Application.Contract.Core.Responses;
 using Telegram.Bot.Types.ReplyMarkups;
 
-namespace Pokegraf.Application.Implementation.Core.Responses.Keyboard.ReplyKeyboard
+namespace Pokegraf.Application.Contract.Core.Responses.ReplyKeyboard
 {
-    public class ReplyKeyboardResponse : Request<Result>, IResponse
+    public class ReplyKeyboardResponse : IResponse
     {
         public string Text { get; set; }
         public ReplyKeyboardMarkup Keyboard { get; set; }
