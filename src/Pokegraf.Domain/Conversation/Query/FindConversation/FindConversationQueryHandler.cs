@@ -16,7 +16,13 @@ namespace Pokegraf.Domain.Conversation.Query.FindConversation
     {
         protected readonly ILogger<FindConversationQueryHandler> Logger;
         protected readonly IPokegrafDbContext Context;
-        
+
+        public FindConversationQueryHandler(ILogger<FindConversationQueryHandler> logger, IPokegrafDbContext context)
+        {
+            Logger = logger;
+            Context = context;
+        }
+
         public async Task<Result<Entity.Conversation, Error>> Handle(FindConversationQuery request, CancellationToken cancellationToken)
         {
             try
