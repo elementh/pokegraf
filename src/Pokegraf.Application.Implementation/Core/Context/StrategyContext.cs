@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using Pokegraf.Application.Contract.Action.Callback;
-using Pokegraf.Application.Contract.Action.Command;
-using Pokegraf.Application.Contract.Action.Inline;
-using Pokegraf.Application.Contract.Action.Update;
+using Pokegraf.Application.Contract.Core.Action.Callback;
+using Pokegraf.Application.Contract.Core.Action.Command;
+using Pokegraf.Application.Contract.Core.Action.Inline;
+using Pokegraf.Application.Contract.Core.Action.Update;
 using Pokegraf.Application.Contract.Core.Context;
 
 namespace Pokegraf.Application.Implementation.Core.Context
