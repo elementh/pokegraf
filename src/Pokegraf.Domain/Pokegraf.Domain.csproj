@@ -18,7 +18,6 @@
       <Folder Include="Core\Conversation\Command" />
       <Folder Include="Core\Conversation\Query" />
       <Folder Include="Core\User\Command" />
-      <Folder Include="Core\User\Query" />
     </ItemGroup>
 
 </Project>
