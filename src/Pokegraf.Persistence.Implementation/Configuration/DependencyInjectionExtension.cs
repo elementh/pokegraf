@@ -15,7 +15,7 @@ namespace Pokegraf.Persistence.Implementation.Configuration
         {
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
-                serviceScope.ServiceProvider.GetRequiredService<PokegrafDbContext>().Database.Migrate();
+                serviceScope.ServiceProvider.GetRequiredService<IPokegrafDbContext>().Instance.Database.Migrate();
             }
         }
         public static IServiceCollection AddPersistenceDependencies(this IServiceCollection services, IConfiguration configuration)
