@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using Pokegraf.Application.Contract.Core.Responses.Inline;
 using Pokegraf.Application.Implementation.Core.Responses.Inline;
 using Pokegraf.Application.Implementation.Mapping.Extension;
 using Pokegraf.Common.Result;

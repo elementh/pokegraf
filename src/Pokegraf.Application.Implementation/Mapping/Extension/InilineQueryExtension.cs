@@ -1,5 +1,5 @@
-﻿using Pokegraf.Domain.Core.User.Command.AddUserCommand;
-using Pokegraf.Domain.Core.User.Query.FindUser;
+﻿using Pokegraf.Domain.User.Command.AddUserCommand;
+using Pokegraf.Domain.User.Query.FindUser;
 using Telegram.Bot.Types;
 
 namespace Pokegraf.Application.Implementation.Mapping.Extension

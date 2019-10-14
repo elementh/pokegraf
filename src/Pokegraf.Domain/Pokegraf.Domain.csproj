@@ -12,12 +12,4 @@
       <ProjectReference Include="..\Pokegraf.Persistence.Contract\Pokegraf.Persistence.Contract.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Core" />
-      <Folder Include="Core\Chat\Command" />
-      <Folder Include="Core\Chat\Query" />
-      <Folder Include="Core\Conversation\Command" />
-      <Folder Include="Core\Conversation\Query" />
-    </ItemGroup>
-
 </Project>
