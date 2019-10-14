@@ -31,6 +31,8 @@ namespace Pokegraf.Api.WebApi
                 app.UseDeveloperExceptionPage();
             }
 
+            app.InitializeDatabases(Configuration);
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();
