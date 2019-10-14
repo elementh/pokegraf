@@ -4,36 +4,42 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Pokegraf.Application.Implementation.Core.Responses.PhotoWithKeyboard.Edit;
+using OperationResult;
+using Pokegraf.Application.Contract.Core.Responses.Photo.WithKeyboard;
+using Pokegraf.Common.ErrorHandling;
 using Pokegraf.Infrastructure.Contract.Service;
 using Telegram.Bot.Types.ReplyMarkups;
+using static OperationResult.Helpers;
 
 namespace Pokegraf.Application.Implementation.Core.Actions.Callbacks.Fusion
 {
-    public class FusionCallbackActionHandler : Pokegraf.Common.Request.CommonHandler<FusionCallbackAction, Result>
+    public class FusionCallbackActionHandler : IRequestHandler<FusionCallbackAction, Status<Error>>
     {
-        private readonly IPokemonService _pokemonService;
+        protected readonly ILogger<FusionCallbackActionHandler> Logger;
+        protected readonly IMediator Mediator;
+        protected readonly IPokemonService PokemonService;
 
-        public FusionCallbackActionHandler(ILogger<Pokegraf.Common.Request.CommonHandler<FusionCallbackAction, Result>> logger,
-            IMediator mediatR, IPokemonService pokemonService) : base(logger, mediatR)
+        public FusionCallbackActionHandler(ILogger<FusionCallbackActionHandler> logger, IMediator mediator, IPokemonService pokemonService)
         {
-            _pokemonService = pokemonService;
+            Logger = logger;
+            Mediator = mediator;
+            PokemonService = pokemonService;
         }
 
-        public override async Task<Result> Handle(FusionCallbackAction request, CancellationToken cancellationToken)
+        public async Task<Status<Error>> Handle(FusionCallbackAction request, CancellationToken cancellationToken)
         {
-            var fusionResult = _pokemonService.GetFusion();
+            var fusionResult = PokemonService.GetFusion();
 
-            if (!fusionResult.Succeeded) return fusionResult;
+            if (fusionResult.IsError) return Error(fusionResult.Error);
 
             var fusionCallback = new Dictionary<string, string>
             {
                 {"action", "fusion"}
             };
 
-            return await MediatR.Send(new EditPhotoWithCaptionWithKeyboardResponse(fusionResult.Value.Image.ToString(),
+            return await Mediator.Send(new PhotoWithKeyboardResponse(fusionResult.Value.Image.ToString(),
                 fusionResult.Value.Name, new InlineKeyboardMarkup(InlineKeyboardButton.WithCallbackData("More fusion!",
-                    JsonConvert.SerializeObject(fusionCallback))), request.MessageId));
+                    JsonConvert.SerializeObject(fusionCallback)))), cancellationToken);
         }
     }
 }

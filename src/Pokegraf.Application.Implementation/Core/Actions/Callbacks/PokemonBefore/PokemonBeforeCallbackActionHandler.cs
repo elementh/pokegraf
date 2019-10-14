@@ -2,45 +2,50 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Pokegraf.Application.Implementation.Core.Responses.PhotoWithKeyboard.Edit;
-using Pokegraf.Application.Implementation.Core.Responses.Text;
+using OperationResult;
+using Pokegraf.Application.Contract.Core.Responses.Photo.WithKeyboard.Edit;
+using Pokegraf.Application.Contract.Core.Responses.Text;
 using Pokegraf.Application.Implementation.Mapping.Extension;
+using Pokegraf.Common.ErrorHandling;
 using Pokegraf.Infrastructure.Contract.Service;
+using static OperationResult.Helpers;
 
 namespace Pokegraf.Application.Implementation.Core.Actions.Callbacks.PokemonBefore
 {
-    public class PokemonBeforeCallbackActionHandler : Pokegraf.Common.Request.CommonHandler<PokemonBeforeCallbackAction, Result>
+    public class PokemonBeforeCallbackActionHandler : IRequestHandler<PokemonBeforeCallbackAction, Status<Error>>
     {
-        private readonly IPokemonService _pokemonService;
+        protected readonly ILogger<PokemonBeforeCallbackActionHandler> Logger;
+        protected readonly IMediator Mediator;
+        protected readonly IPokemonService PokemonService;
 
-        public PokemonBeforeCallbackActionHandler(
-            ILogger<Pokegraf.Common.Request.CommonHandler<PokemonBeforeCallbackAction, Result>> logger, IMediator mediatR,
-            IPokemonService pokemonService) : base(logger, mediatR)
+        public PokemonBeforeCallbackActionHandler(ILogger<PokemonBeforeCallbackActionHandler> logger, IMediator mediator, IPokemonService pokemonService)
         {
-            _pokemonService = pokemonService;
+            Logger = logger;
+            Mediator = mediator;
+            PokemonService = pokemonService;
         }
 
-        public override async Task<Result> Handle(PokemonBeforeCallbackAction request, CancellationToken cancellationToken)
+        public async Task<Status<Error>> Handle(PokemonBeforeCallbackAction request, CancellationToken cancellationToken)
         {
-            if (!request.Data.ContainsKey("requested_pokemon")) return Result.Success();
+            if (!request.Data.ContainsKey("requested_pokemon")) return Ok();
 
             var requestedPokemon = int.Parse(request.Data["requested_pokemon"]);
             
-            var result = await _pokemonService.GetPokemon(requestedPokemon);
+            var result = await PokemonService.GetPokemon(requestedPokemon);
 
-            if (!result.Succeeded)
+            if (result.IsError)
             {
-                if (result.Errors.ContainsKey("not_found"))
+                if (result.Error.Type == ErrorType.NotFound)
                 {
-                    return await MediatR.Send(new TextResponse(result.Errors["not_found"].First() ?? "Ups, there was an error! Try again later!"));
+                    return await Mediator.Send(new TextResponse(result.Error.Message ?? "Ups, there was an error! Try again later!"));
                 }
 
-                return result;
+                return Error(result.Error);
             }
             
             var keyboard = result.Value.ToDescriptionKeyboard();
 
-            return await MediatR.Send(new EditPhotoWithCaptionWithKeyboardResponse(result.Value.Image.ToString(), result.Value.Description, keyboard, request.MessageId));
+            return await Mediator.Send(new PhotoWithKeyboardEditResponse(result.Value.Image.ToString(), result.Value.Description, keyboard, request.MessageId), cancellationToken);
         }
     }
 }
