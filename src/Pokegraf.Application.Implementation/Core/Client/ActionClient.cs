@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Pokegraf.Application.Contract.Action.Callback;
+using Pokegraf.Application.Contract.Action.Command;
+using Pokegraf.Application.Contract.Action.Inline;
 using Pokegraf.Application.Contract.Core.Client;
 using Pokegraf.Application.Contract.Core.Context;
-using Pokegraf.Application.Contract.Model.Action.Callback;
-using Pokegraf.Application.Contract.Model.Action.Command;
-using Pokegraf.Application.Contract.Model.Action.Inline;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 

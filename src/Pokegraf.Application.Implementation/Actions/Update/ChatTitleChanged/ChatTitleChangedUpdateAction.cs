@@ -1,5 +1,5 @@
-﻿using Pokegraf.Application.Contract.Core.Context;
-using Pokegraf.Application.Contract.Model.Action.Update;
+﻿using Pokegraf.Application.Contract.Action.Update;
+using Pokegraf.Application.Contract.Core.Context;
 
 namespace Pokegraf.Application.Implementation.Actions.Update.ChatTitleChanged
 {

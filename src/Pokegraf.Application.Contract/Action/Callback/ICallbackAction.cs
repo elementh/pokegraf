@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Pokegraf.Application.Contract.Model.Action.Callback
+namespace Pokegraf.Application.Contract.Action.Callback
 {
     public interface ICallbackAction : IBotAction
     {

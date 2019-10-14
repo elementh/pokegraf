@@ -1,6 +1,6 @@
 using Pokegraf.Application.Contract.Core.Context;
 
-namespace Pokegraf.Application.Contract.Model.Action.Inline
+namespace Pokegraf.Application.Contract.Action.Inline
 {
     public abstract class InlineAction : BotAction, IInlineAction
     {

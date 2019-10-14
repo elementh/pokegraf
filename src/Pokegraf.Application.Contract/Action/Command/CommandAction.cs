@@ -1,6 +1,6 @@
 using Pokegraf.Application.Contract.Core.Context;
 
-namespace Pokegraf.Application.Contract.Model.Action.Command
+namespace Pokegraf.Application.Contract.Action.Command
 {
     public abstract class CommandAction : BotAction, ICommandAction
     {

@@ -1,4 +1,4 @@
-﻿﻿namespace Pokegraf.Application.Contract.Model.Action.Update
+﻿﻿namespace Pokegraf.Application.Contract.Action.Update
 {
     public interface IUpdateAction : IBotAction
     {

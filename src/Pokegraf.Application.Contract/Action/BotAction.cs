@@ -4,7 +4,7 @@ using OperationResult;
 using Pokegraf.Application.Contract.Core.Context;
 using Pokegraf.Domain.Entity;
 
-namespace Pokegraf.Application.Contract.Model.Action
+namespace Pokegraf.Application.Contract.Action
 {
     public abstract class BotAction : IRequest<Status>, IBotAction
     {

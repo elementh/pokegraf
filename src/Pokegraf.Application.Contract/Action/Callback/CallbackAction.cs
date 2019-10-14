@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Pokegraf.Application.Contract.Core.Context;
 
-namespace Pokegraf.Application.Contract.Model.Action.Callback
+namespace Pokegraf.Application.Contract.Action.Callback
 {
     public abstract class CallbackAction : BotAction, ICallbackAction
     {

@@ -1,4 +1,4 @@
-namespace Pokegraf.Application.Contract.Model.Action.Command
+namespace Pokegraf.Application.Contract.Action.Command
 {
     public interface ICommandAction : IBotAction
     {

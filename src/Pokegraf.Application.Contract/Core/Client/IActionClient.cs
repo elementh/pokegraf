@@ -1,7 +1,7 @@
 using OperationResult;
-using Pokegraf.Application.Contract.Model.Action.Callback;
-using Pokegraf.Application.Contract.Model.Action.Command;
-using Pokegraf.Application.Contract.Model.Action.Inline;
+using Pokegraf.Application.Contract.Action.Callback;
+using Pokegraf.Application.Contract.Action.Command;
+using Pokegraf.Application.Contract.Action.Inline;
 using Pokegraf.Common.ErrorHandling;
 
 namespace Pokegraf.Application.Contract.Core.Client

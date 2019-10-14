@@ -3,7 +3,7 @@ using MediatR;
 using OperationResult;
 using Pokegraf.Domain.Entity;
 
-namespace Pokegraf.Application.Contract.Model.Action
+namespace Pokegraf.Application.Contract.Action
 {
     public interface IBotAction : IRequest<Status>
     {

@@ -1,5 +1,5 @@
+using Pokegraf.Application.Contract.Action.Callback;
 using Pokegraf.Application.Contract.Core.Context;
-using Pokegraf.Application.Contract.Model.Action.Callback;
 
 namespace Pokegraf.Application.Implementation.Actions.Callbacks.PokemonNext
 {

@@ -1,6 +1,6 @@
 ﻿using Pokegraf.Application.Contract.Core.Context;
 
-namespace Pokegraf.Application.Contract.Model.Action.Update
+namespace Pokegraf.Application.Contract.Action.Update
 {
     public abstract class UpdateAction : BotAction, IUpdateAction
     {
