@@ -1,35 +1,48 @@
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using OperationResult;
 using Pokegraf.Application.Contract.Core.Context;
+using Pokegraf.Application.Contract.Core.Responses.Photo;
+using Pokegraf.Common.ErrorHandling;
+using static OperationResult.Helpers;
+using static Pokegraf.Common.ErrorHandling.Helpers;
 
 namespace Pokegraf.Application.Implementation.Core.Responses.Photo
 {
-    public class PhotoResponseHandler : Pokegraf.Common.Request.CommonHandler<PhotoResponse, Result>
+    public class PhotoResponseHandler : IRequestHandler<PhotoResponse, Status<ResultError>>
     {
+        protected readonly ILogger<PhotoResponseHandler> Logger;
         protected readonly IBotContext BotContext;
 
-        public PhotoResponseHandler(ILogger<Pokegraf.Common.Request.CommonHandler<PhotoResponse, Result>> logger, IMediator mediatR, IBotContext botContext) : base(logger, mediatR)
+        public PhotoResponseHandler(ILogger<PhotoResponseHandler> logger, IBotContext botContext)
         {
+            Logger = logger;
             BotContext = botContext;
         }
 
-        public override async Task<Result> Handle(PhotoResponse request, CancellationToken cancellationToken)
+        public async Task<Status<ResultError>> Handle(PhotoResponse request, CancellationToken cancellationToken)
         {
             try
             {
-                await BotContext.BotClient.Client.SendPhotoAsync(BotContext.Chat.Id, request.Photo, cancellationToken: cancellationToken);
+                if (string.IsNullOrWhiteSpace(request.Caption))
+                {
+                    await BotContext.BotClient.Client.SendPhotoAsync(BotContext.Chat.Id, request.Photo, cancellationToken: cancellationToken);
+                }
+                else
+                {
+                    await BotContext.BotClient.Client.SendPhotoAsync(BotContext.Chat.Id, request.Photo, request.Caption, cancellationToken: cancellationToken);
+                }
 
-                return Result.Success();
+                return Ok();
             }
             catch (Exception e)
             {
                 Logger.LogError(e, "Unhandled error sending photo ({@Request}).", request);
-                
-                return Result.UnknownError(new List<string> {e.Message});
+
+                return Error(UnknownError(e.Message));
             }
         }
     }
