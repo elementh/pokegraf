@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Pokegraf.Application.Contract.Core.Client;
 using Pokegraf.Application.Contract.Core.Context;
 using Pokegraf.Application.Contract.Service;
+using Pokegraf.Common.ErrorHandling;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.InlineQueryResults;
@@ -28,6 +29,7 @@ namespace Pokegraf.Application.Implementation.Service
 
         public void StartPokegrafBot()
         {
+            Bot.Client.OnUpdate += HandleOnUpdate;
             Bot.Client.OnMessage += HandleOnMessage;
             Bot.Client.OnCallbackQuery += HandleOnCallbackQuery;
             Bot.Client.OnInlineQuery += HandleOnInlineQuery;
@@ -35,6 +37,42 @@ namespace Pokegraf.Application.Implementation.Service
             Bot.Start();
 
             Thread.Sleep(int.MaxValue);
+        }
+        
+        private async void HandleOnUpdate(object sender, UpdateEventArgs e)
+        {
+            try
+            {
+                using (var scope = ServiceScopeFactory.CreateScope())
+                {
+                    var botContext = scope.ServiceProvider.GetRequiredService<IBotContext>();
+                    await botContext.Populate(e.Update);
+
+                    var mediatR = scope.ServiceProvider.GetRequiredService<IMediator>();
+                    var actionSelector = scope.ServiceProvider.GetRequiredService<IActionClient>();
+
+                    var matchedActionResult = actionSelector.GetUpdateAction();
+
+                    if (!matchedActionResult.IsError && matchedActionResult.Error.Type != ResultErrorType.NotFound)
+                    {
+                        Logger.LogError("Unknown error getting update action ({@Error}).", matchedActionResult.Error);
+                    }
+                    else if (matchedActionResult.IsSuccess)
+                    {
+                        var actionResult = await mediatR.Send(matchedActionResult.Value);
+
+                        if (actionResult.IsError)
+                        {
+                            Logger.LogError("{BotAction} was not processed correctly: {@Error}",
+                                matchedActionResult.Value.GetType().Name, actionResult.Error);
+                        }
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                Logger.LogError(exception, "Unhandled error processing update ({@Update}).", e.Update);
+            }
         }
 
         private async void HandleOnMessage(object sender, MessageEventArgs e)

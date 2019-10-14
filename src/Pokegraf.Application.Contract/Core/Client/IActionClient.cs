@@ -2,6 +2,7 @@ using OperationResult;
 using Pokegraf.Application.Contract.Action.Callback;
 using Pokegraf.Application.Contract.Action.Command;
 using Pokegraf.Application.Contract.Action.Inline;
+using Pokegraf.Application.Contract.Action.Update;
 using Pokegraf.Common.ErrorHandling;
 
 namespace Pokegraf.Application.Contract.Core.Client
@@ -11,5 +12,7 @@ namespace Pokegraf.Application.Contract.Core.Client
         Result<ICommandAction, ResultError> GetCommandAction();
         Result<ICallbackAction, ResultError> GetCallbackAction();
         Result<IInlineAction, ResultError> GetInlineAction();
+        Result<IUpdateAction, ResultError> GetUpdateAction();
+
     }
 }
