@@ -2,26 +2,29 @@
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Pokegraf.Persistence.Contract;
+using OperationResult;
+using Pokegraf.Application.Implementation.Core.Actions.Update.ChatMemberAdded;
+using Pokegraf.Common.ErrorHandling;
+using static OperationResult.Helpers;
 
 namespace Pokegraf.Application.Implementation.Core.Actions.Update.ChatMemberLeft
 {
-    public class ChatMemberLeftUpdateActionHandler : CommonHandler<ChatMemberLeftUpdateAction, Result>
+    public class ChatMemberLeftUpdateActionHandler : IRequestHandler<ChatMemberLeftUpdateAction, Status<ResultError>>
     {
-        protected readonly IUnitOfWork UnitOfWork;
+        protected readonly ILogger<ChatMemberAddedUpdateActionHandler> Logger;
+        protected readonly IMediator Mediator;
 
-        public ChatMemberLeftUpdateActionHandler(ILogger<CommonHandler<ChatMemberLeftUpdateAction, Result>> logger, IMediator mediatR, IUnitOfWork unitOfWork) : base(logger, mediatR)
+        public ChatMemberLeftUpdateActionHandler(ILogger<ChatMemberAddedUpdateActionHandler> logger, IMediator mediator)
         {
-            UnitOfWork = unitOfWork;
+            Logger = logger;
+            Mediator = mediator;
         }
 
-        public override async Task<Result> Handle(ChatMemberLeftUpdateAction request, CancellationToken cancellationToken)
+        public async Task<Status<ResultError>> Handle(ChatMemberLeftUpdateAction request, CancellationToken cancellationToken)
         {
-            return await MediatR.Send(request.MapToDeleteConversationCommand(), cancellationToken);
+            await Mediator.Send(request.MapToDeleteConversationCommand(), cancellationToken);
 
-//            var message = $"@{request.Update.Message.LeftChatMember.Username} left";
-            
-//            return await MediatR.Send(new TextResponse(message), cancellationToken);
+            return Ok();
         }
     }
 }

@@ -1,35 +1,35 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using OperationResult;
+using Pokegraf.Common.ErrorHandling;
+using static OperationResult.Helpers;
 
 namespace Pokegraf.Application.Implementation.Core.Actions.Update.ChatMemberAdded
 {
-    public class ChatMemberAddedUpdateActionHandler : CommonHandler<ChatMemberAddedUpdateAction, Result>
+    public class ChatMemberAddedUpdateActionHandler : IRequestHandler<ChatMemberAddedUpdateAction, Status<ResultError>>
     {
-        public ChatMemberAddedUpdateActionHandler(ILogger<CommonHandler<ChatMemberAddedUpdateAction, Result>> logger, IMediator mediatR) : base(logger, mediatR)
+        protected readonly ILogger<ChatMemberAddedUpdateActionHandler> Logger;
+        protected readonly IMediator Mediator;
+
+        public ChatMemberAddedUpdateActionHandler(ILogger<ChatMemberAddedUpdateActionHandler> logger, IMediator mediator)
         {
+            Logger = logger;
+            Mediator = mediator;
         }
 
-        public override async Task<Result> Handle(ChatMemberAddedUpdateAction request, CancellationToken cancellationToken)
+        public async Task<Status<ResultError>> Handle(ChatMemberAddedUpdateAction request, CancellationToken cancellationToken)
         {
-            return Result.Success();
-            
-//            var newUsers = request.Update.Message.NewChatMembers.ToList();
-//
-//            var message = "Bienvenido a la noble causa del bolivarismo.";
-//
-//            if (newUsers.Count == 1)
-//            {
-//                message = $"Bienvenido @{newUsers.First().Username} a la noble causa del bolivarismo.";
-//            }
-//            else if (newUsers.Count > 1)
-//            {
-//                //TODO: get all usernames
-//                message = $"Bienvenidos todos a la noble causa del bolivarismo.";
-//            }
-//
-//            return await MediatR.Send(new TextResponse(message));
+            var newUsers = request.Update.Message.NewChatMembers.ToList();
+
+            foreach (var user in newUsers)
+            {
+                await Mediator.Send(user.MapToAddConversationCommand(request.Chat), cancellationToken);
+            }
+
+            return Ok();
         }
     }
 }
