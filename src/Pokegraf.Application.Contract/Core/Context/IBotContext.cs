@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using Pokegraf.Application.Contract.Core.Client;
+using Pokegraf.Application.Contract.Client;
 using Telegram.Bot.Types;
 using Chat = Pokegraf.Domain.Entity.Chat;
 using User = Pokegraf.Domain.Entity.User;

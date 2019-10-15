@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Pokegraf.Application.Implementation.Configuration;
-using Pokegraf.Application.Implementation.Core.Service;
+using Pokegraf.Application.Implementation.Service;
 using Pokegraf.Domain.Conversation.Query.FindConversation;
 using Pokegraf.Infrastructure.Implementation.Configuration;
 using Pokegraf.Persistence.Implementation.Configuration;

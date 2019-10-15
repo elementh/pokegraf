@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Pokegraf.Application.Contract.Core.Client;
+using Pokegraf.Application.Contract.Client;
 using Pokegraf.Application.Contract.Core.Context;
 using Pokegraf.Application.Implementation.Mapping.Extension;
 using Pokegraf.Common.ErrorHandling;

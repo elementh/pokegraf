@@ -1,12 +1,12 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Pokegraf.Application.Contract.Core.Client;
+using Pokegraf.Application.Contract.Client;
 using Pokegraf.Application.Contract.Core.Context;
-using Pokegraf.Application.Implementation.Core.Client;
+using Pokegraf.Application.Implementation.Client;
 using Pokegraf.Application.Implementation.Core.Context;
-using Pokegraf.Application.Implementation.Core.Service;
-using Pokegraf.Application.Implementation.Core.Service.Background;
+using Pokegraf.Application.Implementation.Service;
+using Pokegraf.Application.Implementation.Service.Background;
 using Scrutor;
 
 namespace Pokegraf.Application.Implementation.Configuration
