@@ -9,7 +9,8 @@ namespace Pokegraf.Persistence.Contract
         IChatRepository ChatRepository { get; set; }
         IConversationRepository ConversationRepository { get; set; }
         IUserRepository UserRepository { get; set; }
-
+        IStatsRepository StatsRepository { get; set; }
+        
         Task SaveAsync(CancellationToken cancellationToken = default);
     }
 }

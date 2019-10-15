@@ -18,14 +18,16 @@ namespace Pokegraf.Persistence.Implementation
         public IChatRepository ChatRepository { get; set; }
         public IConversationRepository ConversationRepository { get; set; }
         public IUserRepository UserRepository { get; set; }
+        public IStatsRepository StatsRepository { get; set; }
 
-        public UnitOfWork(IPokegrafDbContext context, ILogger<UnitOfWork> logger, IChatRepository chatRepository, IConversationRepository conversationRepository, IUserRepository userRepository)
+        public UnitOfWork(IPokegrafDbContext context, ILogger<UnitOfWork> logger, IChatRepository chatRepository, IConversationRepository conversationRepository, IUserRepository userRepository, IStatsRepository statsRepository)
         {
             Context = context;
             Logger = logger;
             ChatRepository = chatRepository;
             ConversationRepository = conversationRepository;
             UserRepository = userRepository;
+            StatsRepository = statsRepository;
         }
 
         public async Task SaveAsync(CancellationToken cancellationToken = default)
