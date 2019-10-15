@@ -1,16 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp3.0</TargetFramework>
+        <TargetFramework>netcoreapp2.2</TargetFramework>
         <LangVersion>8</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="CSharp.OperationResult" Version="0.1.6" />
         <PackageReference Include="MediatR" Version="7.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.0.0" />
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="2.2.0" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.2.0" />
     </ItemGroup>
 
 </Project>
