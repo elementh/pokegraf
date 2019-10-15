@@ -27,26 +27,26 @@ namespace Pokegraf.Api.WebApi.Configuration
                 .Enrich.WithExceptionDetails()
                 .WriteTo.Console();
 
-            var elasticConnectionString = configuration["POKEGRAF_ELASTICSEARCH_URL"];
-            
-            if (!string.IsNullOrWhiteSpace(elasticConnectionString))
-            {
-                var username = configuration["POKEGRAF_ELASTICSEARCH_USERNAME"];
-                var password = configuration["POKEGRAF_ELASTICSEARCH_PASSWORD"];
-                
-                loggerConf.WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(elasticConnectionString))
-                {
-                    ModifyConnectionSettings = (conn) => conn.BasicAuthentication(username, password),
-                    AutoRegisterTemplate = true,
-                    AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv6,
-                    IndexFormat = "log-pokegraf-{0:yyyy.MM.dd}",
-                    CustomFormatter = new ExceptionAsObjectJsonFormatter(renderMessage:true)
-                });
-            }
+//            var elasticConnectionString = configuration["POKEGRAF_ELASTICSEARCH_URL"];
+//            
+//            if (!string.IsNullOrWhiteSpace(elasticConnectionString))
+//            {
+//                var username = configuration["POKEGRAF_ELASTICSEARCH_USERNAME"];
+//                var password = configuration["POKEGRAF_ELASTICSEARCH_PASSWORD"];
+//                
+//                loggerConf.WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(elasticConnectionString))
+//                {
+//                    ModifyConnectionSettings = (conn) => conn.BasicAuthentication(username, password),
+//                    AutoRegisterTemplate = true,
+//                    AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv6,
+//                    IndexFormat = "log-pokegraf-{0:yyyy.MM.dd}",
+//                    CustomFormatter = new ExceptionAsObjectJsonFormatter(renderMessage:true)
+//                });
+//            }
 
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
             {
-                loggerConf.MinimumLevel.Debug();
+                loggerConf.MinimumLevel.Verbose();
             }
             else
             {

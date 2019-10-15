@@ -1,5 +1,6 @@
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -12,7 +13,7 @@ using Telegram.Bot.Types.Enums;
 
 namespace Pokegraf.Application.Implementation.Core.Service
 {
-    public class TelegramService : ITelegramService
+    public class TelegramService : ITelegramService, IDisposable
     {
         protected readonly ILogger<TelegramService> Logger;
         protected readonly IBotClient Bot;
@@ -25,14 +26,16 @@ namespace Pokegraf.Application.Implementation.Core.Service
             ServiceScopeFactory = serviceScopeFactory;
         }
 
-        public void StartPokegrafBot()
+        public async Task StartPokegrafBot(CancellationToken stoppingToken = default)
         {
+            Logger.LogDebug("Starting TelegramService");
+            
             Bot.Client.OnUpdate += HandleOnUpdate;
             Bot.Client.OnMessage += HandleOnMessage;
             Bot.Client.OnCallbackQuery += HandleOnCallbackQuery;
             Bot.Client.OnInlineQuery += HandleOnInlineQuery;
 
-            Bot.Start();
+            await Bot.Start(stoppingToken);
         }
         
         private async void HandleOnUpdate(object sender, UpdateEventArgs e)
@@ -181,5 +184,11 @@ namespace Pokegraf.Application.Implementation.Core.Service
                 Logger.LogError(exception, "Unhandled error processing inline query ({@InlineQuery}).", e.InlineQuery);
             }
         }
+        
+        public void Dispose()
+        {
+            Logger.LogDebug("Disposing TelegramService");
+        }
+
     }
 }

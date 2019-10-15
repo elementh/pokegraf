@@ -37,6 +37,7 @@ namespace Pokegraf.Api.WebApi
                 app.UseHsts();
             }
 
+            app.InitializeDatabases(Configuration);
             app.UseHttpsRedirection();
             app.UseMvc();
         }

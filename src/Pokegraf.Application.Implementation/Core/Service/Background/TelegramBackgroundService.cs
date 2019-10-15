@@ -1,6 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Pokegraf.Application.Contract.Core.Service;
 
 namespace Pokegraf.Application.Implementation.Core.Service.Background
@@ -9,21 +10,17 @@ namespace Pokegraf.Application.Implementation.Core.Service.Background
     {
         private readonly IServiceScopeFactory _serviceScopeFactory;
 
-        public TelegramBackgroundService(IServiceScopeFactory serviceScopeFactory)
+        public TelegramBackgroundService(ILogger<BackgroundService> logger, IServiceScopeFactory serviceScopeFactory) : base(logger)
         {
             _serviceScopeFactory = serviceScopeFactory;
         }
 
-        protected override Task ExecuteAsync(CancellationToken stoppingToken)
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            using (var scope = _serviceScopeFactory.CreateScope())
-            {
-                var botService = scope.ServiceProvider.GetRequiredService<ITelegramService>();
+            using var scope = _serviceScopeFactory.CreateScope();
+            var botService = scope.ServiceProvider.GetRequiredService<ITelegramService>();
                 
-                botService.StartPokegrafBot();
-            }
-
-            return Task.CompletedTask;
+            await botService.StartPokegrafBot(stoppingToken);
         }
     }
 }

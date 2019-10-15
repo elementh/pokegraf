@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,10 +14,10 @@ namespace Pokegraf.Persistence.Implementation.Configuration
     {
         public static void InitializePersistenceDatabases(this IApplicationBuilder app, IConfiguration configuration)
         {
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            {
-                serviceScope.ServiceProvider.GetRequiredService<IPokegrafDbContext>().Instance.Database.Migrate();
-            }
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development") return;
+            
+            using var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope();
+            serviceScope.ServiceProvider.GetRequiredService<IPokegrafDbContext>().Instance.Database.Migrate();
         }
         public static IServiceCollection AddPersistenceDependencies(this IServiceCollection services, IConfiguration configuration)
         {
@@ -28,12 +29,25 @@ namespace Pokegraf.Persistence.Implementation.Configuration
 
         private static IServiceCollection AddDatabaseContext(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<IPokegrafDbContext, PokegrafDbContext>(options =>
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
             {
-                var connectionString = configuration["POKEGRAF_DB_CONNECTION_STRING"];
+                services.AddDbContext<IPokegrafDbContext, PokegrafDbContext>(options =>
+                {
+                    var connectionString = configuration["POKEGRAF_DB_CONNECTION_STRING"];
                 
-                options.UseNpgsql(connectionString);    
-            });
+                    options.UseInMemoryDatabase(connectionString);    
+                });
+            }
+            else
+            {
+                services.AddDbContext<IPokegrafDbContext, PokegrafDbContext>(options =>
+                {
+                    var connectionString = configuration["POKEGRAF_DB_CONNECTION_STRING"];
+                
+                    options.UseNpgsql(connectionString);    
+                });
+            }
+
 
             return services;
         }

@@ -1,4 +1,6 @@
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MihaZupan.TelegramBotClients;
@@ -33,20 +35,25 @@ namespace Pokegraf.Application.Implementation.Core.Client
             }
         }
 
-        public void Start()
+        public async Task Start(CancellationToken cancellationToken = default)
         {
             if (Started == false)
             {
-                var me = Client.GetMeAsync().Result;
+                var me = await Client.GetMeAsync(cancellationToken);
 
-                Client.StartReceiving(Array.Empty<UpdateType>());
+                Client.StartReceiving(Array.Empty<UpdateType>(), cancellationToken);
                 
                 Logger.LogInformation($"Telegram Bot Client is receiving updates for bot: @{me.Username}");
 
-                return;
+                var tcs = new TaskCompletionSource<bool>();
+                cancellationToken.Register(s => ((TaskCompletionSource<bool>)s).SetResult(true), tcs);
+                
+                await tcs.Task;
             }
-            
-            Logger.LogWarning("Tried to start Telegram Bot Client update receiving when it's already running");
+            else
+            {
+                Logger.LogWarning("Tried to start Telegram Bot Client update receiving when it's already running");
+            }
         }
     }
 }

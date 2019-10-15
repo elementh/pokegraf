@@ -29,7 +29,7 @@ namespace Pokegraf.Api.WebApi.Configuration
         
         public static void InitializeDatabases(this IApplicationBuilder app, IConfiguration configuration)
         {
-//            app.InitializePersistenceDatabases(configuration);
+            app.InitializePersistenceDatabases(configuration);
         }
     }
 }

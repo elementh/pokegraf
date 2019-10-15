@@ -17,6 +17,7 @@
     
     <ItemGroup>
       <ProjectReference Include="..\Pokegraf.Application.Contract\Pokegraf.Application.Contract.csproj" />
+      <ProjectReference Include="..\Pokegraf.Common\Pokegraf.Common.csproj" />
       <ProjectReference Include="..\Pokegraf.Domain\Pokegraf.Domain.csproj" />
       <ProjectReference Include="..\Pokegraf.Infrastructure.Contract\Pokegraf.Infrastructure.Contract.csproj" />
     </ItemGroup>

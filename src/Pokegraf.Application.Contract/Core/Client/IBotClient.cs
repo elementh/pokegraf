@@ -1,3 +1,5 @@
+using System.Threading;
+using System.Threading.Tasks;
 using MihaZupan.TelegramBotClients;
 
 namespace Pokegraf.Application.Contract.Core.Client
@@ -5,6 +7,6 @@ namespace Pokegraf.Application.Contract.Core.Client
     public interface IBotClient
     {
         RateLimitedTelegramBotClient Client { get; }
-        void Start();
+        Task Start(CancellationToken cancellationToken = default);
     }
 }
