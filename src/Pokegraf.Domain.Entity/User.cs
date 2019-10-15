@@ -30,6 +30,10 @@ namespace Pokegraf.Domain.Entity
         /// </summary>
         public string TrainerName { get; set; }
         
+        /// <summary>
+        /// Usage stats of the user.
+        /// </summary>
+        public Stats Stats { get; set; }
         public List<Conversation> Conversations { get; set; }
     }
 }
