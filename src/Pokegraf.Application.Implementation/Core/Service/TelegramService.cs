@@ -52,7 +52,7 @@ namespace Pokegraf.Application.Implementation.Core.Service
 
                 var actionMatch = actionClient.GetUpdateAction();
 
-                if (!actionMatch.IsError && actionMatch.Error.Type != ErrorType.NotFound)
+                if (actionMatch.IsError && actionMatch.Error?.Type != ErrorType.NotFound)
                 {
                     Logger.LogError("Unknown error getting update action ({@Error}).", actionMatch.Error);
                 }
@@ -87,7 +87,7 @@ namespace Pokegraf.Application.Implementation.Core.Service
 
                 var actionMatch = actionClient.GetCommandAction();
 
-                if (!actionMatch.IsError && actionMatch.Error.Type != ErrorType.NotFound)
+                if (actionMatch.IsError && actionMatch.Error?.Type != ErrorType.NotFound)
                 {
                     Logger.LogError("Unknown error getting command action ({@Error}).", actionMatch.Error);
                 }
@@ -124,7 +124,7 @@ namespace Pokegraf.Application.Implementation.Core.Service
 
                 var actionMatch = actionClient.GetCallbackAction();
 
-                if (!actionMatch.IsError && actionMatch.Error.Type != ErrorType.NotFound)
+                if (actionMatch.IsError && actionMatch.Error?.Type != ErrorType.NotFound)
                 {
                     Logger.LogError("Unknown error getting callback query action ({@Error}).", actionMatch.Error);
                 }
@@ -164,7 +164,7 @@ namespace Pokegraf.Application.Implementation.Core.Service
                 
                 var actionMatch = actionClient.GetInlineAction();
 
-                if (!actionMatch.IsError && actionMatch.Error.Type != ErrorType.NotFound)
+                if (actionMatch.IsError && actionMatch.Error?.Type != ErrorType.NotFound)
                 {
                     Logger.LogError("Unknown error getting inline query action ({@Error}).", actionMatch.Error);
                 }
