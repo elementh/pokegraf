@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Pokegraf.Persistence.Implementation.Context;
@@ -9,9 +10,10 @@ using Pokegraf.Persistence.Implementation.Context;
 namespace Pokegraf.Persistence.Implementation.Migrations
 {
     [DbContext(typeof(PokegrafDbContext))]
-    partial class PokegrafDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191015145644_AddedUserStats")]
+    partial class AddedUserStats
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
