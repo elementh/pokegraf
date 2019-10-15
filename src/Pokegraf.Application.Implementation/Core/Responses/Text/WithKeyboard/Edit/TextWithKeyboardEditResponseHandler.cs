@@ -29,12 +29,14 @@ namespace Pokegraf.Application.Implementation.Core.Responses.Text.WithKeyboard.E
             {
                 if (request.Keyboard == null)
                 {
-                    await BotContext.BotClient.Client.EditMessageTextAsync(BotContext.Chat.Id, request.MessageId, request.Text, cancellationToken: cancellationToken);
+                    await BotContext.BotClient.Client.EditMessageTextAsync(BotContext.Chat.Id, request.MessageId, request.Text, 
+                        request.ParseMode, cancellationToken: cancellationToken);
 
                 }
                 else
                 {
-                    await BotContext.BotClient.Client.EditMessageTextAsync(BotContext.Chat.Id, request.MessageId, request.Text, replyMarkup: request.Keyboard, cancellationToken: cancellationToken);
+                    await BotContext.BotClient.Client.EditMessageTextAsync(BotContext.Chat.Id, request.MessageId, request.Text, request.ParseMode, 
+                        replyMarkup: request.Keyboard, cancellationToken: cancellationToken);
                 }
 
                 return Ok();
