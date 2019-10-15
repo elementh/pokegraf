@@ -10,12 +10,10 @@ namespace Pokegraf.Persistence.Implementation.Context.Configuration
         {
             builder.Property(e => e.Id).ValueGeneratedNever();
 
-            builder.OwnsOne(e => e.Requests);
-            
-            builder.HasOne(d => d.User)
-                .WithOne(p => p.Stats)
-                .OnDelete(DeleteBehavior.Cascade);
-
+            builder.OwnsOne(e => e.Requests, od =>
+            {
+                od.ToTable("StatsRequests");
+            });
         }
     }
 }
