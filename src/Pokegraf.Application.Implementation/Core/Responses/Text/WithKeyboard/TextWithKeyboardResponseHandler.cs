@@ -28,7 +28,8 @@ namespace Pokegraf.Application.Implementation.Core.Responses.Text.WithKeyboard
         {
             try
             {
-                await BotContext.BotClient.Client.SendTextMessageAsync(BotContext.Chat.Id, request.Text, replyMarkup: request.Keyboard, cancellationToken: cancellationToken);
+                await BotContext.BotClient.Client.SendTextMessageAsync(BotContext.Chat.Id, request.Text, replyMarkup: request.Keyboard, 
+                    parseMode: request.ParseMode, cancellationToken: cancellationToken);
 
                 return Ok();
             }
