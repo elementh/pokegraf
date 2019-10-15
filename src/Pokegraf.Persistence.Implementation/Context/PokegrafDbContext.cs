@@ -32,11 +32,6 @@ namespace Pokegraf.Persistence.Implementation.Context
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Chat>(entity =>
-            {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-            });
-
             modelBuilder.Entity<Conversation>(entity =>
             {
                 entity.HasKey(e => new { e.ChatId, e.UserId });
