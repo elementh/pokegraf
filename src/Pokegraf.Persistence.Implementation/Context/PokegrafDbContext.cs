@@ -32,21 +32,6 @@ namespace Pokegraf.Persistence.Implementation.Context
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Conversation>(entity =>
-            {
-                entity.HasKey(e => new { e.ChatId, e.UserId });
-
-                entity.HasOne(d => d.Chat)
-                    .WithMany(p => p.Conversations)
-                    .HasForeignKey(d => d.ChatId)
-                    .OnDelete(DeleteBehavior.Cascade);
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.Conversations)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.Cascade);
-            });
-
             modelBuilder.Entity<User>(entity =>
             {
                 entity.Property(e => e.Id).ValueGeneratedNever();
