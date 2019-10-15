@@ -29,7 +29,11 @@ namespace Pokegraf.Domain.Entity
         /// Custom name for the user.
         /// </summary>
         public string TrainerName { get; set; }
-        
+        /// <summary>
+        /// Id of the stats of the user.
+        /// </summary>
+        public Guid StatsId { get; set; }
+ 
         /// <summary>
         /// Usage stats of the user.
         /// </summary>

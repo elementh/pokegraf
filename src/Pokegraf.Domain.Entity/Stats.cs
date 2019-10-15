@@ -22,6 +22,10 @@ namespace Pokegraf.Domain.Entity
         public class RequestStats
         {
             /// <summary>
+            /// Id of the request stats.
+            /// </summary>
+            public Guid Id { get; set; }
+            /// <summary>
             /// Number of times a pokemon request has been made.
             /// </summary>
             public int Pokemon { get; set; }
