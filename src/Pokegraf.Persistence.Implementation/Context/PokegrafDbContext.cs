@@ -10,11 +10,10 @@ namespace Pokegraf.Persistence.Implementation.Context
         public DbContext Instance => this;
 
         public virtual DbSet<Chat> Chats { get; set; }
-        
         public virtual DbSet<Conversation> Conversations { get; set; }
-        
         public virtual DbSet<User> Users { get; set; }
-
+        public virtual DbSet<Stats> Stats { get; set; }
+        
         protected PokegrafDbContext()
         {
         }
