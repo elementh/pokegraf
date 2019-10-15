@@ -32,11 +32,6 @@ namespace Pokegraf.Persistence.Implementation.Context
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>(entity =>
-            {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-            });
-            
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(PokegrafDbContext).Assembly);
             
             base.OnModelCreating(modelBuilder);
