@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using OperationResult;
 using Pokegraf.Application.Contract.Core.Responses.Inline;
 using Pokegraf.Common.ErrorHandling;
+using Pokegraf.Domain.Stats.Command.AddOneToPokemonRequests;
 using Pokegraf.Infrastructure.Contract.Service;
 using Telegram.Bot.Types.InlineQueryResults;
 
@@ -42,6 +43,8 @@ namespace Pokegraf.Application.Implementation.Core.Actions.Inline.Pokemon
                     Caption = $"{result.Value.Description}"
                 }
             };
+            
+            await Mediator.Send(new AddOneToPokemonRequestsCommand {UserId = request.From.Id}, cancellationToken);
 
             return await Mediator.Send(new InlineResponse(results), cancellationToken);
         }

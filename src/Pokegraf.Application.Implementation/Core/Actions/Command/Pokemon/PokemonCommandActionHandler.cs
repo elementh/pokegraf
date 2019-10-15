@@ -8,6 +8,7 @@ using Pokegraf.Application.Contract.Core.Responses.Text;
 using Pokegraf.Application.Implementation.Mapping.Extension;
 using Pokegraf.Common.ErrorHandling;
 using Pokegraf.Common.Helper;
+using Pokegraf.Domain.Stats.Command.AddOneToPokemonRequests;
 using Pokegraf.Infrastructure.Contract.Service;
 using static OperationResult.Helpers;
 
@@ -57,6 +58,8 @@ namespace Pokegraf.Application.Implementation.Core.Actions.Command.Pokemon
 
             var keyboard = result.Value.ToDescriptionKeyboard();
 
+            await Mediator.Send(new AddOneToPokemonRequestsCommand {UserId = request.From.Id}, cancellationToken);
+            
             return await Mediator.Send(new PhotoWithKeyboardResponse(result.Value.Image.ToString(), $"{result.Value.Description}", keyboard));
         }
     }

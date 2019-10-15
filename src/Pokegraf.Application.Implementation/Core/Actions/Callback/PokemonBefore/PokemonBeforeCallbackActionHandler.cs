@@ -7,6 +7,7 @@ using Pokegraf.Application.Contract.Core.Responses.Photo.WithKeyboard.Edit;
 using Pokegraf.Application.Contract.Core.Responses.Text;
 using Pokegraf.Application.Implementation.Mapping.Extension;
 using Pokegraf.Common.ErrorHandling;
+using Pokegraf.Domain.Stats.Command.AddOneToPokemonRequests;
 using Pokegraf.Infrastructure.Contract.Service;
 using static OperationResult.Helpers;
 
@@ -44,6 +45,8 @@ namespace Pokegraf.Application.Implementation.Core.Actions.Callback.PokemonBefor
             }
             
             var keyboard = result.Value.ToDescriptionKeyboard();
+
+            await Mediator.Send(new AddOneToPokemonRequestsCommand {UserId = request.From.Id}, cancellationToken);
 
             return await Mediator.Send(new PhotoWithKeyboardEditResponse(result.Value.Image.ToString(), result.Value.Description, keyboard, request.MessageId), cancellationToken);
         }
