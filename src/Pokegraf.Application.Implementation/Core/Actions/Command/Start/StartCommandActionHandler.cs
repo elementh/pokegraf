@@ -5,7 +5,7 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using OperationResult;
-using Pokegraf.Application.Contract.Core.Responses.Text.WithKeyboard;
+using Pokegraf.Application.Implementation.Core.Responses.Text.WithKeyboard;
 using Pokegraf.Common.ErrorHandling;
 using Pokegraf.Common.Helper;
 using Telegram.Bot.Types.Enums;

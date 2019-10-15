@@ -1,7 +1,7 @@
-using OperationResult;
+using Pokegraf.Application.Contract.Core.Responses;
 using Telegram.Bot.Types.InlineQueryResults;
 
-namespace Pokegraf.Application.Contract.Core.Responses.Inline
+namespace Pokegraf.Application.Implementation.Core.Responses.Inline
 {
     public class InlineResponse : IResponse
     {

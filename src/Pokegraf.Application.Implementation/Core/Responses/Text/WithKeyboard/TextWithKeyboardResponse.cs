@@ -1,7 +1,7 @@
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 
-namespace Pokegraf.Application.Contract.Core.Responses.Text.WithKeyboard
+namespace Pokegraf.Application.Implementation.Core.Responses.Text.WithKeyboard
 {
     public class TextWithKeyboardResponse : TextResponse
     {

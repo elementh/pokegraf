@@ -5,7 +5,6 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using OperationResult;
 using Pokegraf.Application.Contract.Core.Context;
-using Pokegraf.Application.Contract.Core.Responses.Photo.WithKeyboard.Edit;
 using Pokegraf.Common.ErrorHandling;
 using Telegram.Bot.Types;
 using static OperationResult.Helpers;

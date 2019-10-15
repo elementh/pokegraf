@@ -1,7 +1,7 @@
 using Pokegraf.Application.Contract.Core.Responses;
 using Telegram.Bot.Types.Enums;
 
-namespace Pokegraf.Application.Contract.Core.Responses.Text
+namespace Pokegraf.Application.Implementation.Core.Responses.Text
 {
     public class TextResponse : IResponse
     {

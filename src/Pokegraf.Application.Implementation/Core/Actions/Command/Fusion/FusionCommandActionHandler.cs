@@ -5,7 +5,7 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using OperationResult;
-using Pokegraf.Application.Contract.Core.Responses.Photo.WithKeyboard;
+using Pokegraf.Application.Implementation.Core.Responses.Photo.WithKeyboard;
 using Pokegraf.Common.ErrorHandling;
 using Pokegraf.Domain.Stats.Command.AddOneToFusionRequests;
 using Pokegraf.Infrastructure.Contract.Service;

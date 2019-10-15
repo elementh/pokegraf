@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using OperationResult;
-using Pokegraf.Application.Contract.Core.Responses.Text;
+using Pokegraf.Application.Implementation.Core.Responses.Text;
 using Pokegraf.Common.ErrorHandling;
 using Pokegraf.Domain.User.Query.FindUser;
 

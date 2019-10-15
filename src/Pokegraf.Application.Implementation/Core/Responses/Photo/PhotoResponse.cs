@@ -1,4 +1,6 @@
-namespace Pokegraf.Application.Contract.Core.Responses.Photo
+using Pokegraf.Application.Contract.Core.Responses;
+
+namespace Pokegraf.Application.Implementation.Core.Responses.Photo
 {
     public class PhotoResponse : IResponse
     {

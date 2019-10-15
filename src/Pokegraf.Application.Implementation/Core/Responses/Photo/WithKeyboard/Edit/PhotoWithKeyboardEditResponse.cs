@@ -1,6 +1,6 @@
 ﻿﻿using Telegram.Bot.Types.ReplyMarkups;
 
-namespace Pokegraf.Application.Contract.Core.Responses.Photo.WithKeyboard.Edit
+ namespace Pokegraf.Application.Implementation.Core.Responses.Photo.WithKeyboard.Edit
 {
     public class PhotoWithKeyboardEditResponse : PhotoWithKeyboardResponse
     {

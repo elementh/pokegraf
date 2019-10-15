@@ -6,7 +6,6 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using OperationResult;
 using Pokegraf.Application.Contract.Core.Context;
-using Pokegraf.Application.Contract.Core.Responses.Text;
 using Pokegraf.Common.ErrorHandling;
 using static OperationResult.Helpers;
 using static Pokegraf.Common.ErrorHandling.Helpers;
