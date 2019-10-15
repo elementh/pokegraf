@@ -8,7 +8,7 @@ namespace Pokegraf.Application.Contract.Core.Action
 {
     public interface IBotAction : IRequest<Status<Error>>
     {
-        DateTime Timestamp { get; set; }
+        DateTime RequestTimestamp { get; set; }
         int MessageId { get; set; }
         Chat Chat { get; set; }
         User From { get; set; }
