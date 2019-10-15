@@ -12,6 +12,7 @@ namespace Pokegraf.Persistence.Implementation.Context.Configuration
             
             builder.HasOne(d => d.Stats)
                 .WithOne(p => p.User)
+                .HasForeignKey<User>(d => d.StatsId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }
