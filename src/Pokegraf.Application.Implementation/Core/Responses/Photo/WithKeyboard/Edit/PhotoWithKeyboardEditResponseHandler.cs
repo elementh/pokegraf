@@ -16,7 +16,13 @@ namespace Pokegraf.Application.Implementation.Core.Responses.Photo.WithKeyboard.
     {
         protected readonly ILogger<PhotoWithKeyboardEditResponseHandler> Logger;
         protected readonly IBotContext BotContext;
-        
+
+        public PhotoWithKeyboardEditResponseHandler(ILogger<PhotoWithKeyboardEditResponseHandler> logger, IBotContext botContext)
+        {
+            Logger = logger;
+            BotContext = botContext;
+        }
+
         public async Task<Status<Error>> Handle(PhotoWithKeyboardEditResponse request, CancellationToken cancellationToken)
         {
             try
