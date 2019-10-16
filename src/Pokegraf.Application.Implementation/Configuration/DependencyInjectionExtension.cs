@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Pokegraf.Application.Contract.Client;
 using Pokegraf.Application.Contract.Core.Context;
+using Pokegraf.Application.Contract.Service;
 using Pokegraf.Application.Implementation.Client;
 using Pokegraf.Application.Implementation.Core.Context;
 using Pokegraf.Application.Implementation.Service;
@@ -34,14 +35,9 @@ namespace Pokegraf.Application.Implementation.Configuration
         private static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IActionClient, ActionClient>();
-            
-            services.Scan(scan => scan
-                .FromAssemblyOf<TelegramService>()
-                .AddClasses(classes =>
-                    classes.Where(c => c.Name.EndsWith("Service") && c.Name != "TelegramBackgroundService"))
-                .UsingRegistrationStrategy(RegistrationStrategy.Skip)
-                .AsImplementedInterfaces()
-                .WithScopedLifetime());
+
+            services.AddScoped<ITelegramService, TelegramService>();
+            services.AddSingleton<IGlobalStatsService, GlobalStatsService>();
 
             return services;
         }
