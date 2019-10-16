@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using OperationResult;
 using Pokegraf.Common.ErrorHandling;
 using Pokegraf.Domain.Stats.Model;
@@ -10,6 +11,6 @@ namespace Pokegraf.Application.Contract.Service
     /// </summary>
     public interface IGlobalStatsService
     {
-        Task<Result<GlobalStats, Error>> Get();
+        Task<Result<GlobalStats, Error>> Get(CancellationToken cancellationToken = default);
     }
 }
