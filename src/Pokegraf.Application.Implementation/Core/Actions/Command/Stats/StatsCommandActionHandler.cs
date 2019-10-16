@@ -34,13 +34,13 @@ namespace Pokegraf.Application.Implementation.Core.Actions.Command.Stats
             }
 
             var messageBuilder = new StringBuilder();
-            messageBuilder.AppendLine($"There are a total of {globalStats.Value.Users} trainers and {globalStats.Value.Chats} parties in @pokegraf_bot !");
-            messageBuilder.AppendLine($"Trainers have requested pokemons a total of {globalStats.Value.PokemonRequests} times and fusions {globalStats.Value.FusionRequests} times!");
+            messageBuilder.Append($"There are a total of *{globalStats.Value.Users} trainers* and *{globalStats.Value.Chats} parties* in *pokegraf*!");
+            messageBuilder.Append($"\\nTrainers have requested a total of *{globalStats.Value.PokemonRequests} pokemons* and *{globalStats.Value.FusionRequests} fusions*!");
             
             var userStatsResult = await Mediator.Send(new FindUserStatsQuery {UserId = request.From.Id}, cancellationToken);
             if (userStatsResult.IsSuccess)
             {
-                messageBuilder.AppendLine($"You have requested pokemons {userStatsResult.Value.Requests.Pokemon} times {userStatsResult.Value.Requests.Fusion} times. Great work {request.From.TrainerName}!");
+                messageBuilder.Append($"\n\nYou have requested *{userStatsResult.Value.Requests.Pokemon} pokemons* and *{userStatsResult.Value.Requests.Fusion} fusions*!\nGreat work *{request.From.TrainerName}*!");
             }
             
             return await Mediator.Send(new TextResponse(messageBuilder.ToString()));
