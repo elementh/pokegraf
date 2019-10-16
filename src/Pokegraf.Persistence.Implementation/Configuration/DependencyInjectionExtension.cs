@@ -34,8 +34,10 @@ namespace Pokegraf.Persistence.Implementation.Configuration
                 services.AddDbContext<IPokegrafDbContext, PokegrafDbContext>(options =>
                 {
                     var connectionString = configuration["POKEGRAF_DB_CONNECTION_STRING"];
-                
-                    options.UseInMemoryDatabase(connectionString);    
+                    options.UseInMemoryDatabase(connectionString);
+                    
+                    options.EnableSensitiveDataLogging();
+                    options.EnableDetailedErrors();
                 });
             }
             else
@@ -43,8 +45,7 @@ namespace Pokegraf.Persistence.Implementation.Configuration
                 services.AddDbContext<IPokegrafDbContext, PokegrafDbContext>(options =>
                 {
                     var connectionString = configuration["POKEGRAF_DB_CONNECTION_STRING"];
-                
-                    options.UseNpgsql(connectionString);    
+                    options.UseNpgsql(connectionString);
                 });
             }
 
