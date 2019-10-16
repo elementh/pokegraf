@@ -10,6 +10,7 @@ using Pokegraf.Common.ErrorHandling;
 using Pokegraf.Common.Helper;
 using Pokegraf.Domain.Stats.Model;
 using Pokegraf.Domain.Stats.Query.FindGlobalStats;
+using static OperationResult.Helpers;
 
 namespace Pokegraf.Application.Implementation.Service
 {
@@ -35,6 +36,13 @@ namespace Pokegraf.Application.Implementation.Service
                 // Key not in cache, so get data.
                 var result = await Mediator.Send(new FindGlobalStatsQuery(), cancellationToken);
 
+                if (result.IsError)
+                {
+                    return Error(result.Error);
+                }
+
+                cacheEntry = result.Value;
+                
                 // Set cache options.
                 var cacheEntryOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromHours(1));
 
