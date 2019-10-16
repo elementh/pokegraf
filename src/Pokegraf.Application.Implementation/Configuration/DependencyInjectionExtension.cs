@@ -37,7 +37,18 @@ namespace Pokegraf.Application.Implementation.Configuration
             services.AddScoped<IActionClient, ActionClient>();
 
             services.AddScoped<ITelegramService, TelegramService>();
-            services.AddSingleton<IGlobalStatsService, GlobalStatsService>();
+            
+            var redisUrl = configuration["POKEGRAF_REDIS_CACHE_URL"];
+
+            if (string.IsNullOrWhiteSpace(redisUrl))
+            {
+                services.AddScoped<IGlobalStatsService, GlobalStatsService>();
+            }
+            else
+            {
+                services.AddScoped<IGlobalStatsService, GlobalStatsServiceWithRedisCache>();
+            }
+
 
             return services;
         }
