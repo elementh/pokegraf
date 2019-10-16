@@ -22,7 +22,7 @@ namespace Pokegraf.Domain.User.Command.AddUserCommand
         {
             var user = await UnitOfWork.UserRepository.FindBy(u => u.Id == request.UserId) ??
                        await UnitOfWork.UserRepository.Insert(request.ExtractUserModel());
-
+            
             try
             {
                 await UnitOfWork.SaveAsync(cancellationToken);
