@@ -29,13 +29,14 @@ namespace Pokegraf.Domain.Stats.Query.FindGlobalStats
         {
             try
             {
-                var pokemonRequests = await Context.Stats.AsNoTracking().SumAsync(st => st.Requests.Pokemon, cancellationToken: cancellationToken);
-                var fusionRequests = await Context.Stats.AsNoTracking().SumAsync(st => st.Requests.Fusion, cancellationToken: cancellationToken);
+                var pokemonRequests = await Context.Stats.AsNoTracking().SumAsync(st => st.Requests.Pokemon, cancellationToken);
+                var fusionRequests = await Context.Stats.AsNoTracking().SumAsync(st => st.Requests.Fusion, cancellationToken);
                 var usersCount = await Context.Users.AsNoTracking().CountAsync(cancellationToken);
-                var chatsCount = await Context.Chats.AsNoTracking().CountAsync(ch => ch.Type == Entity.Chat.ChatType.Group || ch.Type == Entity.Chat.ChatType.Supergroup, cancellationToken: cancellationToken);
+                var chatsCount = await Context.Chats.AsNoTracking().CountAsync(ch => ch.Type == Entity.Chat.ChatType.Group || ch.Type == Entity.Chat.ChatType.Supergroup, cancellationToken);
 
                 var stats = new GlobalStats
                 {
+                    Timestamp = DateTime.UtcNow,
                     PokemonRequests = pokemonRequests,
                     FusionRequests = fusionRequests,
                     Users = usersCount,
