@@ -16,41 +16,25 @@ namespace Pokegraf.Application.Implementation.Service
 {
     public class GlobalStatsService : IGlobalStatsService
     {
-        protected readonly ILogger<GlobalStatsService> Logger;
+        protected readonly ILogger<GlobalStatsServiceWithRedisCache> Logger;
         protected readonly IMediator Mediator;
-        protected readonly IMemoryCache Cache;
 
-        public GlobalStatsService(ILogger<GlobalStatsService> logger, IMediator mediator, IMemoryCache cache)
+        public GlobalStatsService(ILogger<GlobalStatsServiceWithRedisCache> logger, IMediator mediator)
         {
             Logger = logger;
             Mediator = mediator;
-            Cache = cache;
         }
 
         public async Task<Result<GlobalStats, Error>> Get(CancellationToken cancellationToken = default)
         {
-            GlobalStats cacheEntry;
-            
-            if (!Cache.TryGetValue(CacheKeys.GlobalStats, out cacheEntry))
+            var result = await Mediator.Send(new FindGlobalStatsQuery(), cancellationToken);
+
+            if (result.IsError)
             {
-                // Key not in cache, so get data.
-                var result = await Mediator.Send(new FindGlobalStatsQuery(), cancellationToken);
-
-                if (result.IsError)
-                {
-                    return Error(result.Error);
-                }
-
-                cacheEntry = result.Value;
-                
-                // Set cache options.
-                var cacheEntryOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromHours(1));
-
-                // Save data in cache.
-                Cache.Set(CacheKeys.GlobalStats, cacheEntry, cacheEntryOptions);
+                return Error(result.Error);
             }
 
-            return cacheEntry;
+            return Ok(result.Value);
         }
     }
 }
