@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using OperationResult;
 using Pokegraf.Common.ErrorHandling;
-using Pokegraf.Domain.Entity;
+using Pokegraf.Domain.Stats.Model;
 
 namespace Pokegraf.Application.Contract.Service
 {
@@ -10,6 +10,6 @@ namespace Pokegraf.Application.Contract.Service
     /// </summary>
     public interface IGlobalStatsService
     {
-        Task<Result<Stats, Error>> Get();
+        Task<Result<GlobalStats, Error>> Get();
     }
 }

@@ -13,6 +13,7 @@
     <ItemGroup>
       <ProjectReference Include="..\Pokegraf.Common\Pokegraf.Common.csproj" />
       <ProjectReference Include="..\Pokegraf.Domain.Entity\Pokegraf.Domain.Entity.csproj" />
+      <ProjectReference Include="..\Pokegraf.Domain\Pokegraf.Domain.csproj" />
     </ItemGroup>
 
 </Project>
