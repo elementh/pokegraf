@@ -46,9 +46,9 @@ namespace Pokegraf.Domain.Stats.Query.FindGlobalStats
             }
             catch (Exception e)
             {
-                Logger.LogError(e, "Unhandled error finding conversations from DbContext");
+                Logger.LogError(e, "Unhandled error calculating global stats from DbContext");
 
-                return Error(UnknownError($"Unhandled error finding conversations from DbContext: {e.Message}."));
+                return Error(UnknownError($"Unhandled error calculating global stats from DbContext: {e.Message}."));
             }
         }
     }
