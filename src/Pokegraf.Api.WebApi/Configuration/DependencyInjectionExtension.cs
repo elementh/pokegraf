@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Pokegraf.Application.Implementation.Configuration;
 using Pokegraf.Application.Implementation.Service;
+using Pokegraf.Common.Pipeline;
 using Pokegraf.Domain.Conversation.Query.FindConversation;
 using Pokegraf.Infrastructure.Implementation.Configuration;
 using Pokegraf.Persistence.Implementation.Configuration;
@@ -22,7 +23,8 @@ namespace Pokegraf.Api.WebApi.Configuration
             
             services.AddMediatR(
                 typeof(TelegramService).Assembly, 
-                typeof(FindConversationQuery).GetTypeInfo().Assembly);
+                typeof(FindConversationQuery).GetTypeInfo().Assembly,
+                typeof(RequestLogger<>).GetTypeInfo().Assembly);
             
             return services;
         }
