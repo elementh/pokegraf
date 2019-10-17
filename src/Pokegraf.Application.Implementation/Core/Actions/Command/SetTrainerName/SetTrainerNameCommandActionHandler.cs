@@ -27,13 +27,17 @@ namespace Pokegraf.Application.Implementation.Core.Actions.Command.SetTrainerNam
             if (commandArgs != null && commandArgs.Length > 1)
             {
                 var newName = commandArgs[1];
-                await Mediator.Send(request.MapToUpdateUserTrainerNameCommand(newName), cancellationToken);
 
-                var user = await Mediator.Send(new FindUserQuery{ UserId = request.From.Id}, cancellationToken);
-
-                if (user.IsSuccess && user.Value?.TrainerName == newName)
+                if (newName.Length <= 25)
                 {
-                    return await Mediator.Send(new TextResponse($"Alright *{user.Value.TrainerName}*, your new name has been set!"), cancellationToken);
+                    await Mediator.Send(request.MapToUpdateUserTrainerNameCommand(newName), cancellationToken);
+
+                    var user = await Mediator.Send(new FindUserQuery{ UserId = request.From.Id}, cancellationToken);
+
+                    if (user.IsSuccess && user.Value?.TrainerName == newName)
+                    {
+                        return await Mediator.Send(new TextResponse($"Alright *{user.Value.TrainerName}*, your new name has been set!"), cancellationToken);
+                    }
                 }
             }
             
