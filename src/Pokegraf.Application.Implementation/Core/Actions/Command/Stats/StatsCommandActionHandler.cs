@@ -35,7 +35,7 @@ namespace Pokegraf.Application.Implementation.Core.Actions.Command.Stats
 
             var messageBuilder = new StringBuilder();
             messageBuilder.Append($"There are a total of *{globalStats.Value.Users} trainers* and *{globalStats.Value.Chats} parties* in *pokegraf*!");
-            messageBuilder.Append($"\\nTrainers have requested a total of *{globalStats.Value.PokemonRequests} pokemons* and *{globalStats.Value.FusionRequests} fusions*!");
+            messageBuilder.Append($"\n\nTrainers have requested a total of *{globalStats.Value.PokemonRequests} pokemons* and *{globalStats.Value.FusionRequests} fusions*!");
             
             var userStatsResult = await Mediator.Send(new FindUserStatsQuery {UserId = request.From.Id}, cancellationToken);
             if (userStatsResult.IsSuccess)
