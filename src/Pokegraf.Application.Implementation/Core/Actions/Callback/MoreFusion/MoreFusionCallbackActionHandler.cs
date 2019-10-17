@@ -12,9 +12,9 @@ using Pokegraf.Infrastructure.Contract.Service;
 using Telegram.Bot.Types.ReplyMarkups;
 using static OperationResult.Helpers;
 
-namespace Pokegraf.Application.Implementation.Core.Actions.Callback.Fusion
+namespace Pokegraf.Application.Implementation.Core.Actions.Callback.MoreFusion
 {
-    public class FusionCallbackActionHandler : IRequestHandler<FusionCallbackAction, Status<Error>>
+    public class FusionCallbackActionHandler : IRequestHandler<MoreFusionCallbackAction, Status<Error>>
     {
         protected readonly ILogger<FusionCallbackActionHandler> Logger;
         protected readonly IMediator Mediator;
@@ -27,7 +27,7 @@ namespace Pokegraf.Application.Implementation.Core.Actions.Callback.Fusion
             PokemonService = pokemonService;
         }
 
-        public async Task<Status<Error>> Handle(FusionCallbackAction request, CancellationToken cancellationToken)
+        public async Task<Status<Error>> Handle(MoreFusionCallbackAction request, CancellationToken cancellationToken)
         {
             var fusionResult = PokemonService.GetFusion();
 

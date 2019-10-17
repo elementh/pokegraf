@@ -1,11 +1,11 @@
 using Pokegraf.Application.Contract.Core.Action.Callback;
 using Pokegraf.Application.Contract.Core.Context;
 
-namespace Pokegraf.Application.Implementation.Core.Actions.Callback.Fusion
+namespace Pokegraf.Application.Implementation.Core.Actions.Callback.MoreFusion
 {
-    public class FusionCallbackAction : CallbackAction
+    public class MoreFusionCallbackAction : CallbackAction
     {
-        public FusionCallbackAction(IBotContext botContext) : base(botContext)
+        public MoreFusionCallbackAction(IBotContext botContext) : base(botContext)
         {
         }
         
