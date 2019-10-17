@@ -43,8 +43,6 @@ namespace Pokegraf.Application.Implementation.Core.Actions.Inline.Pokemon
                     Caption = $"{result.Value.Description}"
                 }
             };
-            
-            await Mediator.Send(new AddOneToPokemonRequestsCommand {UserId = request.From.Id}, cancellationToken);
 
             return await Mediator.Send(new InlineResponse(results), cancellationToken);
         }

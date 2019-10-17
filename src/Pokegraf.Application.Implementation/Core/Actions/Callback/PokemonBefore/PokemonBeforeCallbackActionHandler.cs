@@ -46,8 +46,6 @@ namespace Pokegraf.Application.Implementation.Core.Actions.Callback.PokemonBefor
             
             var keyboard = result.Value.ToDescriptionKeyboard();
 
-            await Mediator.Send(new AddOneToPokemonRequestsCommand {UserId = request.From.Id}, cancellationToken);
-
             return await Mediator.Send(new PhotoWithKeyboardEditResponse(result.Value.Image.ToString(), result.Value.Description, keyboard, request.MessageId), cancellationToken);
         }
     }

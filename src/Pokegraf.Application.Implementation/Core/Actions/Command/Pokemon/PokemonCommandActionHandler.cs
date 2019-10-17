@@ -57,8 +57,6 @@ namespace Pokegraf.Application.Implementation.Core.Actions.Command.Pokemon
             }
 
             var keyboard = result.Value.ToDescriptionKeyboard();
-
-            await Mediator.Send(new AddOneToPokemonRequestsCommand {UserId = request.From.Id}, cancellationToken);
             
             return await Mediator.Send(new PhotoWithKeyboardResponse(result.Value.Image.ToString(), $"{result.Value.Description}", keyboard));
         }
