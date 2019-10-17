@@ -39,8 +39,6 @@ namespace Pokegraf.Application.Implementation.Core.Actions.Callback.MoreFusion
                 {"action", "fusion"}
             };
 
-            await Mediator.Send(new AddOneToFusionRequestsCommand {UserId = request.From.Id}, cancellationToken);
-
             return await Mediator.Send(new PhotoWithKeyboardEditResponse(fusionResult.Value.Image.ToString(),
                 fusionResult.Value.Name, new InlineKeyboardMarkup(InlineKeyboardButton.WithCallbackData("More fusion!",
                     JsonConvert.SerializeObject(fusionCallback))), request.MessageId), cancellationToken);
