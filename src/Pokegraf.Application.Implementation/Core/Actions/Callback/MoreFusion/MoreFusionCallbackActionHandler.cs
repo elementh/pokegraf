@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using OperationResult;
 using Pokegraf.Application.Implementation.Core.Responses.Photo.WithKeyboard;
+using Pokegraf.Application.Implementation.Core.Responses.Photo.WithKeyboard.Edit;
 using Pokegraf.Common.ErrorHandling;
 using Pokegraf.Domain.Stats.Command.AddOneToFusionRequests;
 using Pokegraf.Infrastructure.Contract.Service;
@@ -40,9 +41,9 @@ namespace Pokegraf.Application.Implementation.Core.Actions.Callback.MoreFusion
 
             await Mediator.Send(new AddOneToFusionRequestsCommand {UserId = request.From.Id}, cancellationToken);
 
-            return await Mediator.Send(new PhotoWithKeyboardResponse(fusionResult.Value.Image.ToString(),
+            return await Mediator.Send(new PhotoWithKeyboardEditResponse(fusionResult.Value.Image.ToString(),
                 fusionResult.Value.Name, new InlineKeyboardMarkup(InlineKeyboardButton.WithCallbackData("More fusion!",
-                    JsonConvert.SerializeObject(fusionCallback)))), cancellationToken);
+                    JsonConvert.SerializeObject(fusionCallback))), request.MessageId), cancellationToken);
         }
     }
 }
