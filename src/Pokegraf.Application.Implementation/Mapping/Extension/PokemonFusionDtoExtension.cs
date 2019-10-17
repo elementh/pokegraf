@@ -1,4 +1,5 @@
 using Pokegraf.Infrastructure.Contract.Dto;
+using Pokegraf.Infrastructure.Contract.Dto.Pokemon;
 using Telegram.Bot.Types.InlineQueryResults;
 
 namespace Pokegraf.Application.Implementation.Mapping.Extension

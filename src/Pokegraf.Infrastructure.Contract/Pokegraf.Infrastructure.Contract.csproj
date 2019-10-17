@@ -2,10 +2,15 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp2.2</TargetFramework>
+        <LangVersion>8</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Pokegraf.Common\Pokegraf.Common.csproj" />
+        <PackageReference Include="CSharp.OperationResult" Version="0.1.6" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <ProjectReference Include="..\Pokegraf.Common\Pokegraf.Common.csproj" />
     </ItemGroup>
 
 </Project>

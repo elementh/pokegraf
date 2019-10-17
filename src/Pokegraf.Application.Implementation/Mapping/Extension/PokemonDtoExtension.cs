@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Text;
 using Newtonsoft.Json;
-using Pokegraf.Application.Implementation.BotActions.Callbacks.PokemonStats;
 using Pokegraf.Infrastructure.Contract.Dto;
+using Pokegraf.Infrastructure.Contract.Dto.Pokemon;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace Pokegraf.Application.Implementation.Mapping.Extension
@@ -33,7 +34,7 @@ namespace Pokegraf.Application.Implementation.Mapping.Extension
             {
                 new[]
                 {
-                    InlineKeyboardButton.WithCallbackData($"Show stats", JsonConvert.SerializeObject(pokemonStatsCallback)),
+                    InlineKeyboardButton.WithCallbackData($"Show stats", JsonConvert.SerializeObject(pokemonStatsCallback))
                 },
                 new[]
                 {
@@ -68,7 +69,7 @@ namespace Pokegraf.Application.Implementation.Mapping.Extension
             {
                 new[]
                 {
-                    InlineKeyboardButton.WithCallbackData($"Show description", JsonConvert.SerializeObject(pokemonDescriptionCallback)),
+                    InlineKeyboardButton.WithCallbackData($"Show description", JsonConvert.SerializeObject(pokemonDescriptionCallback))
                 },
                 new[]
                 {
@@ -77,6 +78,20 @@ namespace Pokegraf.Application.Implementation.Mapping.Extension
                     InlineKeyboardButton.WithCallbackData($"{pokemonDto.Next.Item2} ➡", JsonConvert.SerializeObject(pokemonNextCallback))
                 }
             });
+        }
+
+        public static string ToStatsCaption(this PokemonDto pokemonDto)
+        {
+            var sb = new StringBuilder();
+            
+            sb.AppendLine($"HP 💗 {pokemonDto.Stats.Health}");
+            sb.AppendLine($"Attack 💥 {pokemonDto.Stats.Attack}");
+            sb.AppendLine($"Defense 🛡 {pokemonDto.Stats.Defense}");
+            sb.AppendLine($"Special Attack 🌟 {pokemonDto.Stats.SpecialAttack}");
+            sb.AppendLine($"Special Defense 🔰 {pokemonDto.Stats.SpecialDefense}");
+            sb.AppendLine($"Speed 👟 {pokemonDto.Stats.Speed}");
+
+            return sb.ToString();
         }
     }
 }

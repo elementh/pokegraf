@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Pokegraf.Common.IoC.Configuration;
+using Pokegraf.Api.WebApi.Configuration;
 using Serilog;
 
 namespace Pokegraf.Api.WebApi

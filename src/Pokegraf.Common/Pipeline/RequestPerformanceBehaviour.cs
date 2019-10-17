@@ -33,7 +33,7 @@ namespace Pokegraf.Common.Pipeline
 
             var name = typeof(TRequest).Name;
 
-            _logger.LogWarning("Pokegraf long running request: {Name} ({ElapsedMilliseconds} milliseconds) {@Request}", name, _timer.ElapsedMilliseconds, request);
+            _logger.LogWarning("Pokegraf long running request: {@Name} ({@ElapsedMilliseconds} milliseconds) {@Request}", name, _timer.ElapsedMilliseconds, request);
 
             return response;
         }

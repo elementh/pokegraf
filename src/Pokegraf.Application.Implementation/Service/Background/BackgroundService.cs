@@ -1,31 +1,44 @@
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using Pokegraf.Application.Contract.Service.Background;
 
 namespace Pokegraf.Application.Implementation.Service.Background
 {
     public abstract class BackgroundService : IBackgroundService
     {
+        protected readonly ILogger<BackgroundService> Logger;
         private Task _executingTask;
-
         private readonly CancellationTokenSource _stoppingCts = new CancellationTokenSource();
+
+        protected BackgroundService(ILogger<BackgroundService> logger)
+        {
+            Logger = logger;
+        }
+
 
         protected abstract Task ExecuteAsync(CancellationToken stoppingToken);
 
         public virtual Task StartAsync(CancellationToken cancellationToken)
         {
+            Logger.LogDebug("Starting background task: {@TaskName}", this.GetType().Name);
             // Store the task we're executing
             _executingTask = ExecuteAsync(_stoppingCts.Token);
 
-            // If the task is completed then return it,
-            // this will bubble cancellation and failure to the caller
-            return _executingTask.IsCompleted ? _executingTask : Task.CompletedTask;
+            // If the task is completed then return it, this will bubble cancellation and failure to the caller
+            if (_executingTask.IsCompleted)
+            {
+                return _executingTask;
+            }
 
             // Otherwise it's running
+            return Task.CompletedTask;
         }
 
         public virtual async Task StopAsync(CancellationToken cancellationToken)
         {
+            Logger.LogDebug("Stopping background task: {@TaskName}", this.GetType().Name);
+
             // Stop called without start
             if (_executingTask == null)
             {
@@ -47,6 +60,7 @@ namespace Pokegraf.Application.Implementation.Service.Background
         
         public virtual void Dispose()
         {
+            Logger.LogDebug("Disposing background task: {@TaskName}", this.GetType().Name);
             _stoppingCts.Cancel();
         }
     }

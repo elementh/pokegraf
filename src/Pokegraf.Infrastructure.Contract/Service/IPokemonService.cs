@@ -1,15 +1,15 @@
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Pokegraf.Common.Result;
-using Pokegraf.Infrastructure.Contract.Dto;
+using OperationResult;
+using Pokegraf.Common.ErrorHandling;
+using Pokegraf.Infrastructure.Contract.Dto.Pokemon;
 
 namespace Pokegraf.Infrastructure.Contract.Service
 {
     public interface IPokemonService
     {
-        Task<Result<PokemonDto>> GetPokemon(int pokeNumber);
-        Task<Result<PokemonDto>> GetPokemon(string pokeName);
-        Result<PokemonFusionDto> GetFusion();
+        Task<Result<PokemonDto, Error>> GetPokemon(int pokeNumber);
+        Task<Result<PokemonDto, Error>> GetPokemon(string pokeName);
+        Result<PokemonFusionDto, Error> GetFusion();
+        Task<Result<BerryDto, Error>> GetBerry(string berryName);
     }
 }
