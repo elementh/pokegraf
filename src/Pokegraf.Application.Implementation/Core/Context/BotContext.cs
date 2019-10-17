@@ -67,8 +67,30 @@ namespace Pokegraf.Application.Implementation.Core.Context
         public async Task Populate(CallbackQuery callbackQuery)
         {
             CallbackQuery = callbackQuery;
+            Message = callbackQuery.Message;
+            
+            var conversationResult = await Mediator.Send(callbackQuery.MapToFindConversationQuery());
 
-            await Populate(callbackQuery.Message);
+            if (conversationResult.IsError)
+            {
+                if (conversationResult.Error.Type != ErrorType.NotFound)
+                {
+                    var id = Guid.NewGuid();
+                    Logger.LogError("Could not populate context with message. ( @Id ). @Error", id, conversationResult.Error.Message);
+                    throw new Exception($"Error populating context {id}");
+                }
+
+                await Mediator.Send(callbackQuery.MapToAddConversationCommand());
+                conversationResult = await Mediator.Send(callbackQuery.MapToFindConversationQuery());
+            }
+            
+            User = conversationResult.Value.User;
+            Chat = conversationResult.Value.Chat;
+
+            var bot  = await BotClient.Client.GetMeAsync();
+
+            BotName = bot.Username;
+            
 
             Logger.LogTrace("Populated BotContext with CallbackQuery.", callbackQuery);
         }
