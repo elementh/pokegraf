@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MihaZupan.TelegramBotClients;
+using MihaZupan.TelegramBotClients.RateLimitedClient;
 using Pokegraf.Application.Contract.Client;
 using Telegram.Bot.Types.Enums;
 
@@ -23,9 +24,10 @@ namespace Pokegraf.Application.Implementation.Client
             
             try
             {
-                Client = string.IsNullOrWhiteSpace(configuration["POKEGRAF_TELEGRAM_TOKEN"]) 
-                    ? new RateLimitedTelegramBotClient(configuration["Telegram:Token"]) 
-                    : new RateLimitedTelegramBotClient(configuration["POKEGRAF_TELEGRAM_TOKEN"]);
+                Client = new RateLimitedTelegramBotClient(
+                    token: configuration["POKEGRAF_TELEGRAM_TOKEN"],
+                    httpClient: null,
+                    schedulerSettings: new SchedulerSettings(34, 500, 1500));
             }
             catch (Exception e)
             {
