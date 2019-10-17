@@ -17,6 +17,11 @@ namespace Pokegraf.Application.Implementation.Core.Responses.Inline
         protected readonly ILogger<InlineResponseHandler> Logger;
         protected readonly IBotContext BotContext;
 
+        public InlineResponseHandler(ILogger<InlineResponseHandler> logger, IBotContext botContext)
+        {
+            Logger = logger;
+            BotContext = botContext;
+        }
 
         public async Task<Status<Error>> Handle(InlineResponse request, CancellationToken cancellationToken)
         {

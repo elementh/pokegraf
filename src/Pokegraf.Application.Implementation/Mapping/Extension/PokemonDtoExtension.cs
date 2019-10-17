@@ -34,7 +34,7 @@ namespace Pokegraf.Application.Implementation.Mapping.Extension
             {
                 new[]
                 {
-                    InlineKeyboardButton.WithCallbackData($"Show stats", JsonConvert.SerializeObject(pokemonStatsCallback)),
+                    InlineKeyboardButton.WithCallbackData($"Show stats", JsonConvert.SerializeObject(pokemonStatsCallback))
                 },
                 new[]
                 {
@@ -69,7 +69,7 @@ namespace Pokegraf.Application.Implementation.Mapping.Extension
             {
                 new[]
                 {
-                    InlineKeyboardButton.WithCallbackData($"Show description", JsonConvert.SerializeObject(pokemonDescriptionCallback)),
+                    InlineKeyboardButton.WithCallbackData($"Show description", JsonConvert.SerializeObject(pokemonDescriptionCallback))
                 },
                 new[]
                 {

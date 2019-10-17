@@ -8,7 +8,6 @@ using Pokegraf.Application.Contract.Service;
 using Pokegraf.Application.Implementation.Core.Responses.Text;
 using Pokegraf.Common.ErrorHandling;
 using Pokegraf.Domain.Stats.Query.FindUserStats;
-using Telegram.Bot.Types;
 
 namespace Pokegraf.Application.Implementation.Core.Actions.Command.Stats
 {
@@ -30,7 +29,7 @@ namespace Pokegraf.Application.Implementation.Core.Actions.Command.Stats
             var globalStats = await GlobalStatsService.Get(cancellationToken);
             if (globalStats.IsError)
             {
-                return await Mediator.Send(new TextResponse($"Sorry {request.From.TrainerName}, seems like I can't get you this data right now! Try again later!"));
+                return await Mediator.Send(new TextResponse($"Sorry {request.From.TrainerName}, seems like I can't get you this data right now! Try again later!"), cancellationToken);
             }
 
             var messageBuilder = new StringBuilder();
@@ -43,7 +42,7 @@ namespace Pokegraf.Application.Implementation.Core.Actions.Command.Stats
                 messageBuilder.Append($"\n\nYou have requested *{userStatsResult.Value.Requests.Pokemon} pokemons* and *{userStatsResult.Value.Requests.Fusion} fusions*!\nGreat work *{request.From.TrainerName}*!");
             }
             
-            return await Mediator.Send(new TextResponse(messageBuilder.ToString()));
+            return await Mediator.Send(new TextResponse(messageBuilder.ToString()), cancellationToken);
         }
     }
 }

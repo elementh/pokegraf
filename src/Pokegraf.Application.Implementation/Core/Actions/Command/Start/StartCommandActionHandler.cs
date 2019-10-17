@@ -26,14 +26,14 @@ namespace Pokegraf.Application.Implementation.Core.Actions.Command.Start
 
         public async Task<Status<Error>> Handle(StartCommandAction request, CancellationToken cancellationToken)
         {
-            var startText = "Hello there Pokémon Trainer! Welcome to *pokegraf*!\n\nWhat's your name?";
+            const string startText = "Hello there Pokémon Trainer! Welcome to *pokegraf*!\n\nWhat's your name?";
 
             // As listed in https://en.wikipedia.org/wiki/List_of_Pok%C3%A9mon_characters#Trainers
 
             return await Mediator.Send(new TextWithKeyboardResponse(GetKeyboard(), startText, ParseMode.Markdown));
         }
 
-        protected InlineKeyboardMarkup GetKeyboard()
+        protected static InlineKeyboardMarkup GetKeyboard()
         {
             var defaultNames = new[]
             {
@@ -77,7 +77,7 @@ namespace Pokegraf.Application.Implementation.Core.Actions.Command.Start
                 },
                 new[]
                 {
-                    InlineKeyboardButton.WithCallbackData($"I want a custom name!", JsonConvert.SerializeObject(customNameCallbackData)),
+                    InlineKeyboardButton.WithCallbackData($"I want a custom name!", JsonConvert.SerializeObject(customNameCallbackData))
                 }
             });
             

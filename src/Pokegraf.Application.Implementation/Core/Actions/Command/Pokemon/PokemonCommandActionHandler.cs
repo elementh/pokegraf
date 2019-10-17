@@ -58,7 +58,7 @@ namespace Pokegraf.Application.Implementation.Core.Actions.Command.Pokemon
 
             var keyboard = result.Value.ToDescriptionKeyboard();
             
-            return await Mediator.Send(new PhotoWithKeyboardResponse(result.Value.Image.ToString(), $"{result.Value.Description}", keyboard));
+            return await Mediator.Send(new PhotoWithKeyboardResponse(result.Value.Image, $"{result.Value.Description}", keyboard));
         }
     }
 }

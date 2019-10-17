@@ -43,7 +43,7 @@ namespace Pokegraf.Infrastructure.Implementation.Service
                 return Error(UnknownError($"Unhandled error getting pokemon number {pokeNumber}"));
             }
             
-            var dto = new PokemonDto()
+            var dto = new PokemonDto
             {
                 Id = pokeNumber,
                 Name = PokeHelper.GetName(pokemon),

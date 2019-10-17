@@ -39,7 +39,7 @@ namespace Pokegraf.Infrastructure.Implementation.Helper
                 Defense = pokemon.Stats[4].BaseValue,
                 SpecialAttack = pokemon.Stats[2].BaseValue,
                 SpecialDefense = pokemon.Stats[1].BaseValue,
-                Speed = pokemon.Stats[0].BaseValue,
+                Speed = pokemon.Stats[0].BaseValue
             };
         }
         
