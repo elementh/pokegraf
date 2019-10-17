@@ -35,7 +35,7 @@ namespace Pokegraf.Domain.Chat.Command.UpdateChatTitle
             }
             catch (Exception e)
             {
-                Logger.LogError(e, "Unhandled error updating chat title. ChatId: {ChatId}", chat.Id);
+                Logger.LogError(e, "Unhandled error updating chat title. ChatId: {@ChatId}", chat.Id);
             }
 
             return Unit.Value;

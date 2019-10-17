@@ -38,7 +38,7 @@ namespace Pokegraf.Infrastructure.Implementation.Service
                     return Error(NotFound($"The requested pokemon ({pokeNumber}) does not exist."));
                 }
                 
-                Logger.LogError(e, "Unhandled error getting pokemon number {PokeNumber}", pokeNumber);
+                Logger.LogError(e, "Unhandled error getting pokemon number {@PokeNumber}", pokeNumber);
                 
                 return Error(UnknownError($"Unhandled error getting pokemon number {pokeNumber}"));
             }
@@ -73,7 +73,7 @@ namespace Pokegraf.Infrastructure.Implementation.Service
                     return Error(NotFound($"The requested pokemon ({pokeName}) does not exist."));
                 }
                 
-                Logger.LogError(e, "Unhandled error getting pokemon named {PokeName}", pokeName);
+                Logger.LogError(e, "Unhandled error getting pokemon named {@PokeName}", pokeName);
                 
                 return Error(UnknownError($"Unhandled error getting pokemon number {pokeName}"));
             }
@@ -104,7 +104,7 @@ namespace Pokegraf.Infrastructure.Implementation.Service
                     return Error(NotFound($"The requested berry ({berryName}) does not exist."));
                 }
                 
-                Logger.LogError(e, "Unhandled error getting berry {BerryName}", berryName);
+                Logger.LogError(e, "Unhandled error getting berry {@BerryName}", berryName);
                 
                 return Error(UnknownError($"Unhandled error getting berry {berryName}"));
             }

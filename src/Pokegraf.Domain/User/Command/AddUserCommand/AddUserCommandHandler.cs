@@ -29,7 +29,7 @@ namespace Pokegraf.Domain.User.Command.AddUserCommand
             }
             catch (Exception e)
             {
-                Logger.LogError(e, "Unhandled error adding a new user: @UserId", user.Id);
+                Logger.LogError(e, "Unhandled error adding a new user: {@UserId}", user.Id);
             }
 
             return Unit.Value;

@@ -42,7 +42,7 @@ namespace Pokegraf.Domain.Conversation.Command.AddConversation
             }
             catch (Exception e)
             {
-                Logger.LogError(e, "Unhandled error adding a new conversation. ChatId: {ChatId} UserId: {UserId}", chat.Id, user.Id);
+                Logger.LogError(e, "Unhandled error adding a new conversation. ChatId: {@ChatId} UserId: {@UserId}", chat.Id, user.Id);
             }
 
             return Unit.Value;

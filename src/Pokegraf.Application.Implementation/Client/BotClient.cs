@@ -51,7 +51,7 @@ namespace Pokegraf.Application.Implementation.Client
                     UpdateType.ChosenInlineResult
                 }, cancellationToken);
                 
-                Logger.LogInformation($"Telegram Bot Client is receiving updates for bot: @{me.Username}");
+                Logger.LogInformation("Telegram Bot Client is receiving updates for bot: {@BotName}", me.Username);
 
                 var tcs = new TaskCompletionSource<bool>();
                 cancellationToken.Register(s => ((TaskCompletionSource<bool>)s).SetResult(true), tcs);
@@ -60,7 +60,9 @@ namespace Pokegraf.Application.Implementation.Client
             }
             else
             {
-                Logger.LogWarning("Tried to start Telegram Bot Client update receiving when it's already running");
+                var me = await Client.GetMeAsync(cancellationToken);
+
+                Logger.LogWarning("Tried to start Telegram Bot Client update receiving when it's already running for bot: {@BotName}", me.Username);
             }
         }
     }

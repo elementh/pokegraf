@@ -18,7 +18,7 @@ namespace Pokegraf.Common.Pipeline
         {
             var name = typeof(TRequest).Name;
             
-            _logger.LogInformation("Executing request: {Name}", name);
+            _logger.LogInformation("Executing request: {@RequestName}", name);
 
             return Task.CompletedTask;
         }

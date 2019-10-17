@@ -45,9 +45,8 @@ namespace Pokegraf.Application.Implementation.Core.Context
             {
                 if (conversationResult.Error.Type != ErrorType.NotFound)
                 {
-                    var id = Guid.NewGuid();
-                    Logger.LogError("Could not populate context with message. ( @Id ). @Error", id, conversationResult.Error.Message);
-                    throw new Exception($"Error populating context {id}");
+                    Logger.LogError("Could not populate context with message. Error: {@Error}", conversationResult.Error.Message);
+                    throw new Exception($"Error populating context. {conversationResult.Error.Message}");
                 }
 
                 await Mediator.Send(message.MapToAddConversationCommand());
@@ -61,7 +60,7 @@ namespace Pokegraf.Application.Implementation.Core.Context
 
             BotName = bot.Username;
             
-            Logger.LogTrace("Populated BotContext with Message.", message);
+            Logger.LogTrace("Populated BotContext with Message: {@Message}.", message);
         }
 
         public async Task Populate(CallbackQuery callbackQuery)
@@ -75,9 +74,8 @@ namespace Pokegraf.Application.Implementation.Core.Context
             {
                 if (conversationResult.Error.Type != ErrorType.NotFound)
                 {
-                    var id = Guid.NewGuid();
-                    Logger.LogError("Could not populate context with message. ( @Id ). @Error", id, conversationResult.Error.Message);
-                    throw new Exception($"Error populating context {id}");
+                    Logger.LogError("Could not populate context with message. Error: {@Error}", conversationResult.Error.Message);
+                    throw new Exception($"Error populating context. {conversationResult.Error.Message}");
                 }
 
                 await Mediator.Send(callbackQuery.MapToAddConversationCommand());
@@ -92,7 +90,7 @@ namespace Pokegraf.Application.Implementation.Core.Context
             BotName = bot.Username;
             
 
-            Logger.LogTrace("Populated BotContext with CallbackQuery.", callbackQuery);
+            Logger.LogTrace("Populated BotContext with CallbackQuery: {@CallbackQuery}.", callbackQuery);
         }
 
         public async Task Populate(InlineQuery inlineQuery)
@@ -105,9 +103,8 @@ namespace Pokegraf.Application.Implementation.Core.Context
             {
                 if (userResult.Error.Type != ErrorType.NotFound)
                 {
-                    var id = Guid.NewGuid();
-                    Logger.LogError("Could not populate context with message. ( @Id ). @Error", id, userResult.Error.Message);
-                    throw new Exception($"Error populating context {id}");
+                    Logger.LogError("Could not populate context with message. Error: {@Error}", userResult.Error.Message);
+                    throw new Exception($"Error populating context. {userResult.Error.Message}");
                 }
 
                 await Mediator.Send(inlineQuery.MapToAddUserCommand());
@@ -120,7 +117,7 @@ namespace Pokegraf.Application.Implementation.Core.Context
 
             BotName = bot.Username;
             
-            Logger.LogTrace("Populated BotContext with InlineQuery.", inlineQuery);
+            Logger.LogTrace("Populated BotContext with InlineQuery: {@InlineQuery}.", inlineQuery);
         }
         
         public async Task Populate(Update update)
@@ -140,7 +137,7 @@ namespace Pokegraf.Application.Implementation.Core.Context
                 await Populate(update.InlineQuery);
             }
             
-            Logger.LogTrace("Populated BotContext with Update.", update);
+            Logger.LogTrace("Populated BotContext with Update: {@Update}.", update);
         }
     }
 }

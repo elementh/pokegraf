@@ -21,7 +21,7 @@ namespace Pokegraf.Application.Implementation.Service.Background
 
         public virtual Task StartAsync(CancellationToken cancellationToken)
         {
-            Logger.LogDebug($"Starting background task: {this.GetType().Name}");
+            Logger.LogDebug("Starting background task: {@TaskName}", this.GetType().Name);
             // Store the task we're executing
             _executingTask = ExecuteAsync(_stoppingCts.Token);
 
@@ -37,7 +37,7 @@ namespace Pokegraf.Application.Implementation.Service.Background
 
         public virtual async Task StopAsync(CancellationToken cancellationToken)
         {
-            Logger.LogDebug($"Stoping background task: {this.GetType().Name}");
+            Logger.LogDebug("Stopping background task: {@TaskName}", this.GetType().Name);
 
             // Stop called without start
             if (_executingTask == null)
@@ -60,7 +60,7 @@ namespace Pokegraf.Application.Implementation.Service.Background
         
         public virtual void Dispose()
         {
-            Logger.LogDebug($"Disposing background task: {this.GetType().Name}");
+            Logger.LogDebug("Disposing background task: {@TaskName}", this.GetType().Name);
             _stoppingCts.Cancel();
         }
     }

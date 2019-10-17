@@ -30,7 +30,7 @@ namespace Pokegraf.Domain.User.Command.UpdateUserTrainerName
             }
             catch (Exception e)
             {
-                Logger.LogError(e, "Unhandled error updating user trainer name. UserId: {UserId}", user.Id);
+                Logger.LogError(e, "Unhandled error updating user trainer name. UserId: {@UserId}", user.Id);
             }
             
             return Unit.Value;

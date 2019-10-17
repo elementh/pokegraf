@@ -30,7 +30,7 @@ namespace Pokegraf.Domain.Stats.Command.AddOneToPokemonRequests
             }
             catch (Exception e)
             {
-                Logger.LogError(e, "Unhandled error adding 1 to fusion requests stats for user: @UserId", request.UserId);
+                Logger.LogError(e, "Unhandled error adding 1 to fusion requests stats for user: {@UserId}", request.UserId);
             }
 
             return Unit.Value;

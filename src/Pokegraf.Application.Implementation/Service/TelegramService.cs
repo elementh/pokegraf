@@ -62,7 +62,7 @@ namespace Pokegraf.Application.Implementation.Service
 
                     if (actionResult.IsError)
                     {
-                        Logger.LogError("{UpdateAction} was not processed correctly: {@Error}",
+                        Logger.LogError("{@UpdateAction} was not processed correctly: {@Error}",
                             actionMatch.Value.GetType().Name, actionResult.Error);
                     }
                 }
@@ -99,7 +99,7 @@ namespace Pokegraf.Application.Implementation.Service
 
                     if (actionResult.IsError)
                     {
-                        Logger.LogError("{BotAction} was not processed correctly: {@Error}",
+                        Logger.LogError("{@BotAction} was not processed correctly: {@Error}",
                             actionMatch.Value.GetType().Name, actionResult.Error);
                     }
                 }
@@ -134,7 +134,7 @@ namespace Pokegraf.Application.Implementation.Service
 
                     if (actionResult.IsError)
                     {
-                        Logger.LogError("{CallbackQueryAction} was not processed correctly: {@Error}",
+                        Logger.LogError("{@CallbackQueryAction} was not processed correctly: {@Error}",
                             actionMatch.Value.GetType().Name, actionResult.Error);
                     }
                 }
@@ -174,7 +174,7 @@ namespace Pokegraf.Application.Implementation.Service
 
                     if (actionResult.IsError)
                     {
-                        Logger.LogError("{InlineQuery} was not processed correctly: {@Error}",
+                        Logger.LogError("{@InlineQuery} was not processed correctly: {@Error}",
                             actionMatch.Value.GetType().Name, actionResult.Error);
                     }
                 }

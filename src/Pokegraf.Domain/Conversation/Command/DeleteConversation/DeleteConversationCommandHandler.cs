@@ -35,7 +35,7 @@ namespace Pokegraf.Domain.Conversation.Command.DeleteConversation
             }
             catch (Exception e)
             {
-                Logger.LogError(e, "Unhandled error deleting a conversation. ChatId: {ChatId} UserId: {UserId}", request.ChatId, request.UserId);
+                Logger.LogError(e, "Unhandled error deleting a conversation. ChatId: {@ChatId} UserId: {@UserId}", request.ChatId, request.UserId);
             }
 
             return Unit.Value;
