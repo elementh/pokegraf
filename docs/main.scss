@@ -2,33 +2,33 @@
 # Front matter comment to ensure Jekyll properly reads file.
 ---
 
-$body-color: "#ffffff";
+$body-color: #ffffff;
 
 $header-image: "assets/headerimage.jpg";
 $device-color: "black.png";
 
-$accent-color: "#1d63ea";
+$accent-color: #1d63ea;
 
-$header-title-color: "#000000";
-$app-title-color: "#ffffff";
-$app-price-color: "#ffffff";
-$app-description-color: "#ffffff";
+$header-title-color: #000000;
+$app-title-color: #ffffff;
+$app-price-color: #ffffff;
+$app-description-color: #ffffff;
 
-$feature-title-color: "#000000";
-$feature-text-color: "#666666";
-$footer-text-color: "#666666";
+$feature-title-color: #000000;
+$feature-text-color: #666666;
+$footer-text-color: #666666;
 
-$header_color: "#000000";
+$header_color: #000000;
 $header_transparency: 0.1;
 
-$image-overlay-color: "#363b3d";
+$image-overlay-color: #363b3d;
 $image-overlay-transparency: 0.8;
 
-$feature-icons-foreground-color: "#1d63ea";
-$feature-icons-background-color: "#e6e6e6";
+$feature-icons-foreground-color: #1d63ea;
+$feature-icons-background-color: #e6e6e6;
 
-$social-icons-foreground-color: "#666666";
-$social-icons-background-color: "#e6e6e6";
+$social-icons-foreground-color: #666666;
+$social-icons-background-color: #e6e6e6;
 
 @import 
     "base",
