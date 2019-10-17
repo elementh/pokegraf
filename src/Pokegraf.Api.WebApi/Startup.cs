@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Pokegraf.Common.IoC.Configuration;
+using Pokegraf.Api.WebApi.Configuration;
 
 namespace Pokegraf.Api.WebApi
 {
@@ -37,6 +37,7 @@ namespace Pokegraf.Api.WebApi
                 app.UseHsts();
             }
 
+            app.InitializeDatabases(Configuration);
             app.UseHttpsRedirection();
             app.UseMvc();
         }

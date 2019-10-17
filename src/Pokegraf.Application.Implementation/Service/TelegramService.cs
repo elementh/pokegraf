@@ -4,17 +4,16 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Pokegraf.Application.Contract.Common.Client;
-using Pokegraf.Application.Contract.Common.Context;
-using Pokegraf.Application.Contract.Common.Strategy;
+using Pokegraf.Application.Contract.Client;
+using Pokegraf.Application.Contract.Core.Context;
 using Pokegraf.Application.Contract.Service;
+using Pokegraf.Common.ErrorHandling;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types.Enums;
-using Telegram.Bot.Types.InlineQueryResults;
 
 namespace Pokegraf.Application.Implementation.Service
 {
-    public class TelegramService : ITelegramService
+    public class TelegramService : ITelegramService, IDisposable
     {
         protected readonly ILogger<TelegramService> Logger;
         protected readonly IBotClient Bot;
@@ -27,42 +26,81 @@ namespace Pokegraf.Application.Implementation.Service
             ServiceScopeFactory = serviceScopeFactory;
         }
 
-        public void StartPokegrafBot()
+        public async Task StartPokegrafBot(CancellationToken stoppingToken = default)
         {
+            Logger.LogDebug("Starting TelegramService");
+            
+            Bot.Client.OnUpdate += HandleOnUpdate;
             Bot.Client.OnMessage += HandleOnMessage;
             Bot.Client.OnCallbackQuery += HandleOnCallbackQuery;
             Bot.Client.OnInlineQuery += HandleOnInlineQuery;
 
-            Bot.Start();
+            await Bot.Start(stoppingToken);
+        }
+        
+        private async void HandleOnUpdate(object sender, UpdateEventArgs e)
+        {
+            Logger.LogDebug("HandleOnUpdate was triggered");
+            try
+            {
+                using var scope = ServiceScopeFactory.CreateScope();
+                var botContext = scope.ServiceProvider.GetRequiredService<IBotContext>();
+                await botContext.Populate(e.Update);
 
-            Thread.Sleep(int.MaxValue);
+                var mediatR = scope.ServiceProvider.GetRequiredService<IMediator>();
+                var actionClient = scope.ServiceProvider.GetRequiredService<IActionClient>();
+
+                var actionMatch = actionClient.GetUpdateAction();
+
+                if (actionMatch.IsError && actionMatch.Error?.Type != ErrorType.NotFound)
+                {
+                    Logger.LogError("Unknown error getting update action ({@Error}).", actionMatch.Error);
+                }
+                else if (actionMatch.IsSuccess)
+                {
+                    var actionResult = await mediatR.Send(actionMatch.Value);
+
+                    if (actionResult.IsError)
+                    {
+                        Logger.LogError("{@UpdateAction} was not processed correctly: {@Error}",
+                            actionMatch.Value.GetType().Name, actionResult.Error);
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                Logger.LogError(exception, "Unhandled error processing update ({@Update}).", e.Update);
+            }
         }
 
         private async void HandleOnMessage(object sender, MessageEventArgs e)
         {
+            Logger.LogDebug("HandleOnMessage was triggered");
             try
             {
-                using (var scope = ServiceScopeFactory.CreateScope())
+                using var scope = ServiceScopeFactory.CreateScope();
+                var botContext = scope.ServiceProvider.GetRequiredService<IBotContext>();
+                await botContext.Populate(e.Message);
+
+                var mediatR = scope.ServiceProvider.GetRequiredService<IMediator>();
+                var actionClient = scope.ServiceProvider.GetRequiredService<IActionClient>();
+
+                var actionMatch = actionClient.GetCommandAction();
+
+                if (actionMatch.IsError && actionMatch.Error?.Type != ErrorType.NotFound)
                 {
-                    var botContext = scope.ServiceProvider.GetRequiredService<IBotContext>();
-                    botContext.Populate(e.Message);
-
-                    var mediatR = scope.ServiceProvider.GetRequiredService<IMediator>();
-                    var actionSelector = scope.ServiceProvider.GetRequiredService<IBotActionSelector>();
-
-
-                    var botActionResult = actionSelector.GetCommandAction();
-
-                    if (!botActionResult.Succeeded) return;
-
+                    Logger.LogError("Unknown error getting command action ({@Error}).", actionMatch.Error);
+                }
+                else if (actionMatch.IsSuccess)
+                {
                     await botContext.BotClient.Client.SendChatActionAsync(e.Message.Chat.Id, ChatAction.Typing);
 
-                    var requestResult = await mediatR.Send(botActionResult.Value);
+                    var actionResult = await mediatR.Send(actionMatch.Value);
 
-                    if (!requestResult.Succeeded && !requestResult.Errors.ContainsKey("not_found"))
+                    if (actionResult.IsError)
                     {
-                        Logger.LogError("{BotAction} was not processed correctly: {@Errors}",
-                            botActionResult.Value.GetType().Name, requestResult.Errors);
+                        Logger.LogError("{@BotAction} was not processed correctly: {@Error}",
+                            actionMatch.Value.GetType().Name, actionResult.Error);
                     }
                 }
             }
@@ -74,26 +112,30 @@ namespace Pokegraf.Application.Implementation.Service
 
         private async void HandleOnCallbackQuery(object sender, CallbackQueryEventArgs e)
         {
+            Logger.LogDebug("HandleOnCallbackQuery was triggered");
             try
             {
-                using (var scope = ServiceScopeFactory.CreateScope())
+                using var scope = ServiceScopeFactory.CreateScope();
+                var botContext = scope.ServiceProvider.GetRequiredService<IBotContext>();
+                await botContext.Populate(e.CallbackQuery);
+
+                var mediatR = scope.ServiceProvider.GetRequiredService<IMediator>();
+                var actionClient = scope.ServiceProvider.GetRequiredService<IActionClient>();
+
+                var actionMatch = actionClient.GetCallbackAction();
+
+                if (actionMatch.IsError && actionMatch.Error?.Type != ErrorType.NotFound)
                 {
-                    var botContext = scope.ServiceProvider.GetRequiredService<IBotContext>();
-                    botContext.Populate(e.CallbackQuery);
+                    Logger.LogError("Unknown error getting callback query action ({@Error}).", actionMatch.Error);
+                }
+                else if (actionMatch.IsSuccess)
+                {
+                    var actionResult = await mediatR.Send(actionMatch.Value);
 
-                    var mediatR = scope.ServiceProvider.GetRequiredService<IMediator>();
-                    var actionSelector = scope.ServiceProvider.GetRequiredService<IBotActionSelector>();
-
-                    var callbackActionResult = actionSelector.GetCallbackAction();
-
-                    if (!callbackActionResult.Succeeded) return;
-
-                    var requestResult = await mediatR.Send(callbackActionResult.Value);
-
-                    if (!requestResult.Succeeded && !requestResult.Errors.ContainsKey("not_found"))
+                    if (actionResult.IsError)
                     {
-                        Logger.LogError("{CallbackQueryAction} was not processed correctly: {@Errors}",
-                            callbackActionResult.Value.GetType().Name, requestResult.Errors);
+                        Logger.LogError("{@CallbackQueryAction} was not processed correctly: {@Error}",
+                            actionMatch.Value.GetType().Name, actionResult.Error);
                     }
                 }
             }
@@ -113,25 +155,27 @@ namespace Pokegraf.Application.Implementation.Service
         {
             try
             {
-                using (var scope = ServiceScopeFactory.CreateScope())
+                using var scope = ServiceScopeFactory.CreateScope();
+                var botContext = scope.ServiceProvider.GetRequiredService<IBotContext>();
+                await botContext.Populate(e.InlineQuery);
+
+                var mediatR = scope.ServiceProvider.GetRequiredService<IMediator>();
+                var actionClient = scope.ServiceProvider.GetRequiredService<IActionClient>();
+                
+                var actionMatch = actionClient.GetInlineAction();
+
+                if (actionMatch.IsError && actionMatch.Error?.Type != ErrorType.NotFound)
                 {
-                    var botContext = scope.ServiceProvider.GetRequiredService<IBotContext>();
-                    botContext.Populate(e.InlineQuery);
+                    Logger.LogError("Unknown error getting inline query action ({@Error}).", actionMatch.Error);
+                }
+                else if (actionMatch.IsSuccess)
+                {
+                    var actionResult = await mediatR.Send(actionMatch.Value);
 
-                    var mediatR = scope.ServiceProvider.GetRequiredService<IMediator>();
-                    var actionSelector = scope.ServiceProvider.GetRequiredService<IBotActionSelector>();
-
-
-                    var inlineActionResult = actionSelector.GetInlineAction();
-
-                    if (!inlineActionResult.Succeeded) return;
-
-                    var requestResult = await mediatR.Send(inlineActionResult.Value);
-
-                    if (!requestResult.Succeeded && !requestResult.Errors.ContainsKey("not_found"))
+                    if (actionResult.IsError)
                     {
-                        Logger.LogError("{InlineQueryAction} request was not processed correctly: {@Errors}",
-                            inlineActionResult.Value.GetType().Name, requestResult.Errors);
+                        Logger.LogError("{@InlineQuery} was not processed correctly: {@Error}",
+                            actionMatch.Value.GetType().Name, actionResult.Error);
                     }
                 }
             }
@@ -140,5 +184,11 @@ namespace Pokegraf.Application.Implementation.Service
                 Logger.LogError(exception, "Unhandled error processing inline query ({@InlineQuery}).", e.InlineQuery);
             }
         }
+        
+        public void Dispose()
+        {
+            Logger.LogDebug("Disposing TelegramService");
+        }
+
     }
 }
