@@ -41,7 +41,13 @@ namespace Pokegraf.Application.Implementation.Client
             {
                 var me = await Client.GetMeAsync(cancellationToken);
 
-                Client.StartReceiving(Array.Empty<UpdateType>(), cancellationToken);
+                Client.StartReceiving(new []
+                {
+                    UpdateType.Message,
+                    UpdateType.CallbackQuery,
+                    UpdateType.InlineQuery,
+                    UpdateType.ChosenInlineResult
+                }, cancellationToken);
                 
                 Logger.LogInformation($"Telegram Bot Client is receiving updates for bot: @{me.Username}");
 
