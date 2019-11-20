@@ -13,9 +13,12 @@ COPY Pokegraf.Api.WebApi/*.csproj Pokegraf.Api.WebApi/
 COPY Pokegraf.Application.Contract/*.csproj Pokegraf.Application.Contract/
 COPY Pokegraf.Application.Implementation/*.csproj Pokegraf.Application.Implementation/
 COPY Pokegraf.Common/*.csproj Pokegraf.Common/
-COPY Pokegraf.Common.IoC/*.csproj Pokegraf.Common.IoC/
+COPY Pokegraf.Domain/*.csproj Pokegraf.Domain/
+COPY Pokegraf.Domain.Entity/*.csproj Pokegraf.Domain.Entity/
 COPY Pokegraf.Infrastructure.Contract/*.csproj Pokegraf.Infrastructure.Contract/
 COPY Pokegraf.Infrastructure.Implementation/*.csproj Pokegraf.Infrastructure.Implementation/
+COPY Pokegraf.Persistence.Contract/*.csproj Pokegraf.Persistence.Contract/
+COPY Pokegraf.Persistence.Implementation/*.csproj Pokegraf.Persistence.Implementation/
 
 RUN dotnet restore
 COPY . .
