@@ -2,12 +2,27 @@ using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
 using Pokegraf.Infrastructure.Contract.Dto.Pokemon;
+using Telegram.Bot.Types.InlineQueryResults;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace Pokegraf.Core.Domain.Extensions
 {
     public static class PokemonDtoExtension
     {
+        public static InlineQueryResultPhoto ToInlineQueryResultPhoto(this PokemonDto pokemonDto)
+        {
+            return new InlineQueryResultPhoto(
+                $"pokemon:{pokemonDto.Name.ToLower()}",
+                pokemonDto.Image,
+                pokemonDto.Sprite ?? pokemonDto.Image)
+            {
+                Caption = pokemonDto.Name,
+                Title = pokemonDto.Name,
+                Description = pokemonDto.Description,
+                ReplyMarkup = pokemonDto.ToDescriptionKeyboard()
+            };
+        }
+        
         public static InlineKeyboardMarkup ToDescriptionKeyboard(this PokemonDto pokemonDto)
         {
             var pokemonBeforeCallback = new Dictionary<string, string>

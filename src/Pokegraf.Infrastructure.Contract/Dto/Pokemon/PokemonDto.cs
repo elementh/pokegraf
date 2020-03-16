@@ -9,7 +9,7 @@ namespace Pokegraf.Infrastructure.Contract.Dto.Pokemon
         public string Description { get; set; }
         public StatsDto Stats { get; set; }
         public string Image { get; set; }
-        public string Sprite { get; set; }
+        public string? Sprite { get; set; }
         public Tuple<int, string> Before { get; set; }
         public Tuple<int, string> Next { get; set; }
 
