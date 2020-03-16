@@ -19,4 +19,8 @@
       <ProjectReference Include="..\Pokegraf.Persistence\Pokegraf.Persistence.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Stats" />
+    </ItemGroup>
+
 </Project>

@@ -8,6 +8,8 @@ namespace Pokegraf.Persistence.Context
 {
     public class PokegrafDbContext : NavigatorDbContext<Trainer, Chat>
     {
+        public DbSet<Stats> Stats { get; set; }
+        
         public PokegrafDbContext(DbContextOptions options) : base(options)
         {
         }
