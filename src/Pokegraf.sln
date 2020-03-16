@@ -32,6 +32,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{CDEC8DCC-6
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokegraf.Core.Entity", "Pokegraf.Core.Entity\Pokegraf.Core.Entity.csproj", "{5370EFDB-4AD3-4556-9360-245111AC33F5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokegraf.Persistence.Migration", "Pokegraf.Persistence.Migration\Pokegraf.Persistence.Migration.csproj", "{705E922C-D897-4FF2-8372-8DE95BBEBB56}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,7 @@ Global
 		{6ECE5B68-0336-499C-BF8C-C6FC870BB826} = {2E41481E-208F-4381-9C17-3E3C9C3F2814}
 		{CDBAFAB6-407E-435F-8EFD-5DB58064B720} = {923EA4E4-4549-45A4-9B51-7E21E53EE13F}
 		{5370EFDB-4AD3-4556-9360-245111AC33F5} = {CDEC8DCC-6E88-48C3-A0FB-B87E229A6AE3}
+		{705E922C-D897-4FF2-8372-8DE95BBEBB56} = {AA0ACE47-7556-44E7-814D-4EB00518B6DB}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{3260DA7C-7C76-4FFE-8156-B2C8BF16487C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -85,5 +88,9 @@ Global
 		{5370EFDB-4AD3-4556-9360-245111AC33F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5370EFDB-4AD3-4556-9360-245111AC33F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5370EFDB-4AD3-4556-9360-245111AC33F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{705E922C-D897-4FF2-8372-8DE95BBEBB56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{705E922C-D897-4FF2-8372-8DE95BBEBB56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{705E922C-D897-4FF2-8372-8DE95BBEBB56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{705E922C-D897-4FF2-8372-8DE95BBEBB56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
