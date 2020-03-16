@@ -4,8 +4,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{A72734
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{C4CEA3A2-C79C-475D-B009-B0E95290604E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokegraf.Application.Contract", "Pokegraf.Application.Contract\Pokegraf.Application.Contract.csproj", "{3260DA7C-7C76-4FFE-8156-B2C8BF16487C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokegraf.Application.Implementation", "Pokegraf.Application.Implementation\Pokegraf.Application.Implementation.csproj", "{4D9A34B9-EDBE-4FBC-8838-829C694C1E02}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokegraf.Common", "Pokegraf.Common\Pokegraf.Common.csproj", "{E85CA71D-BEB0-4918-966C-06B168612983}"
@@ -38,7 +36,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{3260DA7C-7C76-4FFE-8156-B2C8BF16487C} = {C4CEA3A2-C79C-475D-B009-B0E95290604E}
 		{4D9A34B9-EDBE-4FBC-8838-829C694C1E02} = {C4CEA3A2-C79C-475D-B009-B0E95290604E}
 		{E85CA71D-BEB0-4918-966C-06B168612983} = {A72734B1-0E20-4254-89F1-84067729F989}
 		{901CD909-1A2D-45FF-BD61-DF3F69A997C2} = {81DEBEDF-B83B-458E-B949-4587FCD42F5A}
@@ -50,10 +47,6 @@ Global
 		{DE605AC4-CC4D-4C04-8E3B-7F12788947F4} = {CDEC8DCC-6E88-48C3-A0FB-B87E229A6AE3}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3260DA7C-7C76-4FFE-8156-B2C8BF16487C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3260DA7C-7C76-4FFE-8156-B2C8BF16487C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3260DA7C-7C76-4FFE-8156-B2C8BF16487C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3260DA7C-7C76-4FFE-8156-B2C8BF16487C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4D9A34B9-EDBE-4FBC-8838-829C694C1E02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4D9A34B9-EDBE-4FBC-8838-829C694C1E02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D9A34B9-EDBE-4FBC-8838-829C694C1E02}.Release|Any CPU.ActiveCfg = Release|Any CPU
