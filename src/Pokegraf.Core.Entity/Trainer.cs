@@ -1,4 +1,5 @@
-﻿using Navigator.Extensions.Store.Entity;
+﻿using Navigator.Extensions.Store.Abstraction;
+using Navigator.Extensions.Store.Entity;
 
 namespace Pokegraf.Core.Entity
 {
@@ -7,10 +8,25 @@ namespace Pokegraf.Core.Entity
         /// <summary>
         /// Custom name for the user.
         /// </summary>
-        public string TrainerName { get; set; }
+        public string? TrainerName { get; set; }
         /// <summary>
         /// Trainer stats.
         /// </summary>
-        public Stats Stats;
+        public Stats Stats { get; set; }
+    }
+    
+    public class TrainerMapper : IUserMapper<Trainer>
+    {
+        public Trainer Parse(Telegram.Bot.Types.User user)
+        {
+            return new Trainer
+            {
+                Id = user.Id,
+                IsBot = user.IsBot,
+                LanguageCode = user.LanguageCode,
+                Username = user.Username,
+                Stats = new Stats()
+            };
+        }
     }
 }
