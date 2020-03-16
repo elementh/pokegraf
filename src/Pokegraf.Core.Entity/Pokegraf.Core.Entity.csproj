@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Navigator.Extensions.Store" Version="0.9.5-beta" />
+      <PackageReference Include="Navigator.Extensions.Store" Version="0.9.6-beta" />
     </ItemGroup>
 
 </Project>

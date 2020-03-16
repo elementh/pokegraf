@@ -8,7 +8,7 @@
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.2" />
         <PackageReference Include="Navigator" Version="0.9.6-beta" />
-        <PackageReference Include="Navigator.Extensions.Store" Version="0.9.5-beta" />
+        <PackageReference Include="Navigator.Extensions.Store" Version="0.9.6-beta" />
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.2" />
         <PackageReference Include="Serilog.AspNetCore" Version="3.2.0" />
         <PackageReference Include="Serilog.Exceptions" Version="5.4.0" />

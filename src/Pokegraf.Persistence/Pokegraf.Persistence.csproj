@@ -14,7 +14,7 @@
         <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.2" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.2" />
         <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.2" />
-        <PackageReference Include="Navigator.Extensions.Store" Version="0.9.5-beta" />
+        <PackageReference Include="Navigator.Extensions.Store" Version="0.9.6-beta" />
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.2" />
         <PackageReference Include="Scrutor" Version="3.2.0" />
     </ItemGroup>
