@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Pokegraf.Domain.Entity;
 
-namespace Pokegraf.Persistence.Implementation.Context.Configuration
+namespace Pokegraf.Persistence.Context.Configuration
 {
     public class ChatEntityTypeConfiguration : IEntityTypeConfiguration<Chat>
     {

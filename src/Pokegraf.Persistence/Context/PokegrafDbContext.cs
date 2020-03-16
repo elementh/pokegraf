@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Pokegraf.Domain.Entity;
 using Pokegraf.Persistence.Contract.Context;
 
-namespace Pokegraf.Persistence.Implementation.Context
+namespace Pokegraf.Persistence.Context
 {
     public class PokegrafDbContext : DbContext
     {

@@ -20,7 +20,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{2E4148
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Persistence", "Persistence", "{AA0ACE47-7556-44E7-814D-4EB00518B6DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokegraf.Persistence.Implementation", "Pokegraf.Persistence.Implementation\Pokegraf.Persistence.Implementation.csproj", "{A6BCB8B7-DD4D-49AF-8850-F6542FD2B490}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokegraf.Persistence", "Pokegraf.Persistence\Pokegraf.Persistence.csproj", "{A6BCB8B7-DD4D-49AF-8850-F6542FD2B490}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokegraf.Domain", "Pokegraf.Domain\Pokegraf.Domain.csproj", "{6ECE5B68-0336-499C-BF8C-C6FC870BB826}"
 EndProject

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Pokegraf.Persistence.Implementation.Migrations
+namespace Pokegraf.Persistence.Migrations
 {
     public partial class AddedUserStats : Migration
     {
