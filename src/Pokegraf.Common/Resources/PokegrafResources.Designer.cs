@@ -69,5 +69,11 @@ namespace Pokegraf.Common.Resources {
                 return ResourceManager.GetString("SetNameErrorMessage", resourceCulture);
             }
         }
+        
+        public static string StatsErrorMessage {
+            get {
+                return ResourceManager.GetString("StatsErrorMessage", resourceCulture);
+            }
+        }
     }
 }

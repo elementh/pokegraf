@@ -29,4 +29,7 @@ Pokémon ©1995 [pokémon](https://www.pokemon.com/), [nintendo](https://www.nin
   <data name="SetNameErrorMessage" xml:space="preserve">
     <value>Sorry but that name is too weird! Try again *Trainer*!</value>
   </data>
+  <data name="StatsErrorMessage" xml:space="preserve">
+    <value>Sorry *Trainer*, seems like I can't get you this data right now! Try again later!</value>
+  </data>
 </root>
