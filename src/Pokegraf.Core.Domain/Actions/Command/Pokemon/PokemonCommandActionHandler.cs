@@ -4,10 +4,9 @@ using MediatR;
 using Navigator;
 using Navigator.Abstraction;
 using Navigator.Actions;
-using Pokegraf.Common.ErrorHandling;
 using Pokegraf.Common.Helper;
 using Pokegraf.Core.Domain.Extensions;
-using Pokegraf.Core.Domain.Resources;
+using Pokegraf.Common.Resources;
 using Pokegraf.Infrastructure.Contract.Service;
 using Telegram.Bot.Types.Enums;
 
@@ -36,7 +35,7 @@ namespace Pokegraf.Core.Domain.Actions.Command.Pokemon
 
             if (pokemon == null)
             {
-                await Ctx.Client.SendTextMessageAsync(Ctx.GetTelegramChat(), PokegrafCoreDomainResources.ErrorMessage, ParseMode.Markdown,
+                await Ctx.Client.SendTextMessageAsync(Ctx.GetTelegramChat(), PokegrafResources.DefaultErrorMessage, ParseMode.Markdown,
                     cancellationToken: cancellationToken);
 
                 return default;

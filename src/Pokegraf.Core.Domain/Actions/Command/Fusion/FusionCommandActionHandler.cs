@@ -6,7 +6,7 @@ using Navigator;
 using Navigator.Abstraction;
 using Navigator.Actions;
 using Newtonsoft.Json;
-using Pokegraf.Core.Domain.Resources;
+using Pokegraf.Common.Resources;
 using Pokegraf.Infrastructure.Contract.Service;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
@@ -33,7 +33,7 @@ namespace Pokegraf.Core.Domain.Actions.Command.Fusion
         }
         
         private static InlineKeyboardMarkup FusionKeyboard => new InlineKeyboardMarkup(InlineKeyboardButton.WithCallbackData(
-            PokegrafCoreDomainResources.MoreFusion, 
+            PokegrafResources.MoreFusion, 
             JsonConvert.SerializeObject(new Dictionary<string, string> {{"action", "fusion"}})));
     }
 }

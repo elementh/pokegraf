@@ -8,25 +8,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Pokegraf.Core.Domain.Resources {
+namespace Pokegraf.Common.Resources {
+    using System;
+    
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class PokegrafCoreDomainResources {
+    public class PokegrafResources {
         
         private static System.Resources.ResourceManager resourceMan;
         
         private static System.Globalization.CultureInfo resourceCulture;
         
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal PokegrafCoreDomainResources() {
+        internal PokegrafResources() {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public static System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.Equals(null, resourceMan)) {
-                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("Pokegraf.Core.Domain.PokegrafCoreDomainResources", typeof(PokegrafCoreDomainResources).Assembly);
+                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("Pokegraf.Common.Resources.PokegrafResources", typeof(PokegrafResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -55,9 +58,15 @@ namespace Pokegraf.Core.Domain.Resources {
             }
         }
         
-        public static string ErrorMessage {
+        public static string DefaultErrorMessage {
             get {
-                return ResourceManager.GetString("ErrorMessage", resourceCulture);
+                return ResourceManager.GetString("DefaultErrorMessage", resourceCulture);
+            }
+        }
+        
+        public static string SetNameErrorMessage {
+            get {
+                return ResourceManager.GetString("SetNameErrorMessage", resourceCulture);
             }
         }
     }

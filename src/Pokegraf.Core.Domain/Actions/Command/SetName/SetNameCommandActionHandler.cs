@@ -7,6 +7,7 @@ using Navigator;
 using Navigator.Abstraction;
 using Navigator.Actions;
 using Navigator.Extensions.Store;
+using Pokegraf.Common.Resources;
 using Pokegraf.Core.Entity;
 using Pokegraf.Persistence.Context;
 using Telegram.Bot.Types.Enums;
@@ -53,7 +54,7 @@ namespace Pokegraf.Core.Domain.Actions.Command.SetName
             }
 
             await Ctx.Client.SendTextMessageAsync(Ctx.GetTelegramChat(),
-                "Sorry but that name is too weird! Try again *Trainer*!",
+                PokegrafResources.SetNameErrorMessage,
                 ParseMode.Markdown,
                 cancellationToken: cancellationToken);
 
