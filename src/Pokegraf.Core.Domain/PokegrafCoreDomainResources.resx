@@ -19,5 +19,8 @@
     <value>[pokegraf](https://github.com/elementh/pokegraf) is a bot made with ❤️ by [Lucas Maximiliano Marino](https://lucasmarino.me/) with the help of [contributors](https://github.com/elementh/pokegraf/blob/master/CONTRIBUTORS.md)!.  
 It uses the [PokeAPI](https://github.com/PokeAPI/pokeapi) and [Pokemon Fusion](https://pokemon.alexonsager.net/).  
 Pokémon ©1995 [pokémon](https://www.pokemon.com/), [nintendo](https://www.nintendo.com/), [game freak](https://www.gamefreak.co.jp/), [creatures](https://www.creatures.co.jp/html/en/).</value>
+  </data>  
+  <data name="MoreFusion" xml:space="preserve">
+    <value>More fusion!</value>
   </data>
 </root>
