@@ -22,14 +22,14 @@ namespace Pokegraf.Core.Domain {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class PokegrafDomainResources {
+    public class PokegrafCoreDomainResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal PokegrafDomainResources() {
+        internal PokegrafCoreDomainResources() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Pokegraf.Core.Domain {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Pokegraf.Core.Domain.PokegrafDomainResources", typeof(PokegrafDomainResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Pokegraf.Core.Domain.PokegrafCoreDomainResources", typeof(PokegrafCoreDomainResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
