@@ -27,7 +27,7 @@ namespace Pokegraf.Core.Domain.Actions.Command.Pokemon
 
             var requestedPokemon = commandArgs != null && commandArgs.Length > 1
                 ? commandArgs[1]
-                : RandomProvider.GetThreadRandom().Next(1, 721).ToString();
+                : RandomProvider.GetThreadRandom()?.Next(1, 721).ToString();
 
             var pokemon = int.TryParse(requestedPokemon, out var pokeNumber)
                 ? await PokemonService.GetPokemon(pokeNumber)
