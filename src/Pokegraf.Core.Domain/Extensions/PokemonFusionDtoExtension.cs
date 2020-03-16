@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Pokegraf.Common.Resources;
+using Pokegraf.Core.Domain.Resources;
 using Pokegraf.Infrastructure.Contract.Dto.Pokemon;
 using Telegram.Bot.Types.InlineQueryResults;
 using Telegram.Bot.Types.ReplyMarkups;
@@ -24,7 +25,6 @@ namespace Pokegraf.Core.Domain.Extensions
         }
 
         public static InlineKeyboardMarkup FusionKeyboard => new InlineKeyboardMarkup(InlineKeyboardButton.WithCallbackData(
-            PokegrafResources.MoreFusion,
-            JsonConvert.SerializeObject(new Dictionary<string, string> {{"action", "fusion"}})));
+            PokegrafResources.MoreFusion, CallbackActions.FusionAction));
     }
 }

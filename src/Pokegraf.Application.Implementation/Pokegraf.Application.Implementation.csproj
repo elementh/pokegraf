@@ -16,4 +16,8 @@
         <PackageReference Include="TelegramBotClients" Version="2.0.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Mapping\Extension" />
+    </ItemGroup>
+
 </Project>
