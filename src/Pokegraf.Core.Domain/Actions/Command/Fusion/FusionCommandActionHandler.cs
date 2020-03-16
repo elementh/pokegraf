@@ -2,9 +2,13 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Navigator;
 using Navigator.Abstraction;
 using Navigator.Actions;
+using Newtonsoft.Json;
 using Pokegraf.Infrastructure.Contract.Service;
+using Telegram.Bot.Types.Enums;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace Pokegraf.Core.Domain.Actions.Command.Fusion
 {
@@ -17,16 +21,18 @@ namespace Pokegraf.Core.Domain.Actions.Command.Fusion
             PokemonService = pokemonService;
         }
 
-        public override Task<Unit> Handle(FusionCommandAction request, CancellationToken cancellationToken)
+        public override async Task<Unit> Handle(FusionCommandAction request, CancellationToken cancellationToken)
         {
             var fusionResult = PokemonService.GetFusion();
 
-            if (fusionResult.IsError) return Error(fusionResult.Error);
-
-            var fusionCallback = new Dictionary<string, string>
-            {
-                {"action", "fusion"}
-            };
+            await Ctx.Client.SendPhotoAsync(Ctx.GetTelegramChat(), fusionResult.Image.ToString(), fusionResult.Name, ParseMode.Markdown,
+                replyMarkup: FusionKeyboard, cancellationToken: cancellationToken);
+            
+            return default;
         }
+        
+        private static InlineKeyboardMarkup FusionKeyboard => new InlineKeyboardMarkup(InlineKeyboardButton.WithCallbackData(
+            PokegrafCoreDomainResources.MoreFusion, 
+            JsonConvert.SerializeObject(new Dictionary<string, string> {{"action", "fusion"}})));
     }
 }
