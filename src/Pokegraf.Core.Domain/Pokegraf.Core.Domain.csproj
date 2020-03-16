@@ -6,4 +6,9 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Navigator" Version="0.9.6-beta" />
+      <PackageReference Include="Navigator.Extensions.Actions" Version="0.9.5-beta" />
+    </ItemGroup>
+
 </Project>
