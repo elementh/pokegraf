@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using OperationResult;
 using PokeAPI;
-using Pokegraf.Common.ErrorHandling;
 using Pokegraf.Common.Helper;
 using Pokegraf.Infrastructure.Contract.Dto.Pokemon;
-using static OperationResult.Helpers;
 
 namespace Pokegraf.Infrastructure.Implementation.Helper
 {
@@ -90,7 +87,7 @@ namespace Pokegraf.Infrastructure.Implementation.Helper
             return new Tuple<int, string>(pokeNumber, pokemon.Name.FirstLetterToUpperCase());
         }
         
-        public static Result<PokemonFusionDto, Error> GetFusion()
+        public static PokemonFusionDto GetFusion()
         {
             string[] firstHalf = {"Bulb", "Ivy", "Venu", "Char", "Char", "Char", "Squirt", "War", "Blast", "Cater", "Meta", "Butter", 
                 "Wee", "Kak", "Bee", "Pid", "Pidg", "Pidg", "Rat", "Rat", "Spear", "Fear", "Ek", "Arb", "Pika", "Rai", "Sand", "Sand", "Nido", 
@@ -124,9 +121,7 @@ namespace Pokegraf.Infrastructure.Implementation.Helper
             var image = new Uri($"http://images.alexonsager.net/pokemon/fused/{firstPokemon}/{firstPokemon}.{secondPokemon}.png");
             var name = $"{firstHalf[secondPokemon - 1]}{secondHalf[firstPokemon - 1]}";
             
-            var pokemonFusionDto = new PokemonFusionDto(name, image);
-            
-            return Ok(pokemonFusionDto);
+            return new PokemonFusionDto(name, image);
         }
     }
 }

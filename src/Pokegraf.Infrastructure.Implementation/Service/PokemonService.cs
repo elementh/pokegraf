@@ -1,29 +1,39 @@
-﻿using System;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging;
-using OperationResult;
+using Newtonsoft.Json;
 using PokeAPI;
-using Pokegraf.Common.ErrorHandling;
 using Pokegraf.Infrastructure.Contract.Dto.Pokemon;
 using Pokegraf.Infrastructure.Contract.Service;
+using System;
+using System.Threading.Tasks;
 using Pokegraf.Infrastructure.Implementation.Helper;
-using Pokegraf.Infrastructure.Implementation.Mapping.Extension;
-using static OperationResult.Helpers;
-using static Pokegraf.Common.ErrorHandling.Helpers;
 
 namespace Pokegraf.Infrastructure.Implementation.Service
 {
     public class PokemonService : IPokemonService
     {
         protected readonly ILogger<PokemonSpecies> Logger;
+        protected readonly IDistributedCache Cache;
 
-        public PokemonService(ILogger<PokemonSpecies> logger)
+        public PokemonService(ILogger<PokemonSpecies> logger, IDistributedCache cache)
         {
             Logger = logger;
+            Cache = cache;
         }
 
-        public async Task<Result<PokemonDto, Error>> GetPokemon(int pokeNumber)
+        public async Task<PokemonDto?> GetPokemon(int pokeNumber)
         {
+            var rawCachedPokemon = await Cache.GetStringAsync($"pokemon:{pokeNumber}");
+
+            if (rawCachedPokemon != null)
+            {
+                Logger.LogTrace("Found pokemon {@PokemonId} in cache.", pokeNumber);
+                
+                var cachedPokemon = JsonConvert.DeserializeObject<PokemonDto>(rawCachedPokemon);
+                
+                return cachedPokemon;
+            }
+            
             Pokemon pokemon;
             PokemonSpecies species;
             try
@@ -35,12 +45,12 @@ namespace Pokegraf.Infrastructure.Implementation.Service
             {
                 if (e.Message == "Response status code does not indicate success: 404 (Not Found).")
                 {
-                    return Error(NotFound($"The requested pokemon ({pokeNumber}) does not exist."));
+                    return default;
                 }
                 
                 Logger.LogError(e, "Unhandled error getting pokemon number {@PokeNumber}", pokeNumber);
-                
-                return Error(UnknownError($"Unhandled error getting pokemon number {pokeNumber}"));
+
+                return default;
             }
             
             var dto = new PokemonDto
@@ -55,10 +65,12 @@ namespace Pokegraf.Infrastructure.Implementation.Service
                 Next = await PokeHelper.GetPokemonNext(pokeNumber)
             };
 
-            return Ok(dto);
+            await Cache.SetStringAsync($"pokemon:{dto.Id}", JsonConvert.SerializeObject(dto));
+            
+            return dto;
         }
 
-        public async Task<Result<PokemonDto, Error>> GetPokemon(string pokeName)
+        public async Task<PokemonDto?> GetPokemon(string pokeName)
         {
             Pokemon pokemon;
             
@@ -68,50 +80,17 @@ namespace Pokegraf.Infrastructure.Implementation.Service
             }
             catch (Exception e)
             {
-                if (e.Message == "Response status code does not indicate success: 404 (Not Found).")
-                {
-                    return Error(NotFound($"The requested pokemon ({pokeName}) does not exist."));
-                }
-                
                 Logger.LogError(e, "Unhandled error getting pokemon named {@PokeName}", pokeName);
-                
-                return Error(UnknownError($"Unhandled error getting pokemon number {pokeName}"));
+
+                return default;
             }
 
             return await GetPokemon(pokemon.ID);
         }
 
-        public Result<PokemonFusionDto, Error> GetFusion()
+        public PokemonFusionDto GetFusion()
         {
             return PokeHelper.GetFusion();
-        }
-
-        public async Task<Result<BerryDto, Error>> GetBerry(string berryName)
-        {
-            Berry berry;
-            PokemonType type;
-            
-            try
-            {
-                berry = await DataFetcher.GetNamedApiObject<Berry>(berryName);
-                //TODO: move type to another method, cache it.
-                type = await DataFetcher.GetNamedApiObject<PokemonType>(berry.NaturalGiftType.Name);
-            }
-            catch (Exception e)
-            {
-                if (e.Message == "Response status code does not indicate success: 404 (Not Found).")
-                {
-                    return Error(NotFound($"The requested berry ({berryName}) does not exist."));
-                }
-                
-                Logger.LogError(e, "Unhandled error getting berry {@BerryName}", berryName);
-                
-                return Error(UnknownError($"Unhandled error getting berry {berryName}"));
-            }
-
-            var dto = berry.ToBerryDto(type);
-
-            return Ok(dto);
         }
     }
 }
