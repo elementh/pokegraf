@@ -13,13 +13,13 @@ namespace Pokegraf.Core.Entity
         /// </summary>
         public int TrainerId { get; set; }
         /// <summary>
-        /// Request related stats.
-        /// </summary>
-        public RequestStats Requests { get; set; }
-        /// <summary>
         /// Trainer
         /// </summary>
         public Trainer Trainer { get; set; }
+        /// <summary>
+        /// Request related stats.
+        /// </summary>
+        public RequestStats Requests { get; set; }
 
         public class RequestStats
         {

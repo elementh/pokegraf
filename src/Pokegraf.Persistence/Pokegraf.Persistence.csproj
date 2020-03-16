@@ -20,6 +20,7 @@
     </ItemGroup>
     
     <ItemGroup>
+      <ProjectReference Include="..\Pokegraf.Core.Entity\Pokegraf.Core.Entity.csproj" />
       <ProjectReference Include="..\Pokegraf.Domain.Entity\Pokegraf.Domain.Entity.csproj" />
     </ItemGroup>
     

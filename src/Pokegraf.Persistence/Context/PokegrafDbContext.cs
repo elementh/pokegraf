@@ -1,11 +1,23 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Pokegraf.Domain.Entity;
-using Pokegraf.Persistence.Contract.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using Navigator.Extensions.Store.Context;
+using Navigator.Extensions.Store.Entity;
+using Pokegraf.Core.Entity;
+using Pokegraf.Persistence.Configuration;
 
 namespace Pokegraf.Persistence.Context
 {
-    public class PokegrafDbContext : DbContext
+    public class PokegrafDbContext : NavigatorDbContext<Trainer, Chat>
     {
+        public PokegrafDbContext(DbContextOptions options) : base(options)
+        {
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            
+            modelBuilder.ApplyConfiguration(new TrainerEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new StatsEntityTypeConfiguration());
+        }
     }
 }

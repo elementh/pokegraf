@@ -8,5 +8,9 @@ namespace Pokegraf.Core.Entity
         /// Custom name for the user.
         /// </summary>
         public string TrainerName { get; set; }
+        /// <summary>
+        /// Trainer stats.
+        /// </summary>
+        public Stats Stats;
     }
 }

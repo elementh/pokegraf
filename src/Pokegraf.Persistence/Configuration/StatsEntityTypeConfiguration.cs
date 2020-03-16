@@ -1,15 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Pokegraf.Domain.Entity;
+using Pokegraf.Core.Entity;
 
-namespace Pokegraf.Persistence.Context.Configuration
+namespace Pokegraf.Persistence.Configuration
 {
     public class StatsEntityTypeConfiguration : IEntityTypeConfiguration<Stats>
     {
         public void Configure(EntityTypeBuilder<Stats> builder)
         {
-            builder.Property(e => e.Id).ValueGeneratedNever();
-
             builder.OwnsOne(e => e.Requests, od =>
             {
                 od.ToTable("StatsRequests");
