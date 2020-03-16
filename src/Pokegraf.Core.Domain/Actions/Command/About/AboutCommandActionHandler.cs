@@ -4,6 +4,7 @@ using MediatR;
 using Navigator;
 using Navigator.Abstraction;
 using Navigator.Actions;
+using Pokegraf.Core.Domain.Resources;
 using Telegram.Bot.Types.Enums;
 
 namespace Pokegraf.Core.Domain.Actions.Command.About

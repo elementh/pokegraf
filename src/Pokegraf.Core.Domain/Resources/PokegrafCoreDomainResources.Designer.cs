@@ -8,10 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Pokegraf.Core.Domain {
-    using System;
-    
-    
+namespace Pokegraf.Core.Domain.Resources {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -55,6 +52,12 @@ namespace Pokegraf.Core.Domain {
         public static string MoreFusion {
             get {
                 return ResourceManager.GetString("MoreFusion", resourceCulture);
+            }
+        }
+        
+        public static string ErrorMessage {
+            get {
+                return ResourceManager.GetString("ErrorMessage", resourceCulture);
             }
         }
     }

@@ -1,12 +1,10 @@
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Text;
 using Newtonsoft.Json;
-using Pokegraf.Infrastructure.Contract.Dto;
 using Pokegraf.Infrastructure.Contract.Dto.Pokemon;
 using Telegram.Bot.Types.ReplyMarkups;
 
-namespace Pokegraf.Application.Implementation.Mapping.Extension
+namespace Pokegraf.Core.Domain.Extensions
 {
     public static class PokemonDtoExtension
     {

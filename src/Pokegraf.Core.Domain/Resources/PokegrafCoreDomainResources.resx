@@ -22,5 +22,8 @@ Pokémon ©1995 [pokémon](https://www.pokemon.com/), [nintendo](https://www.nin
   </data>  
   <data name="MoreFusion" xml:space="preserve">
     <value>More fusion!</value>
+  </data> 
+  <data name="ErrorMessage" xml:space="preserve">
+    <value>"Ups, there was an error! Try again later!"</value>
   </data>
 </root>
