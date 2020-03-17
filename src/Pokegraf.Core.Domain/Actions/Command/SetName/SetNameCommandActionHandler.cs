@@ -19,8 +19,9 @@ namespace Pokegraf.Core.Domain.Actions.Command.SetName
         protected readonly ILogger<SetNameCommandActionHandler> Logger;
         protected readonly PokegrafDbContext DbContext;
 
-        public SetNameCommandActionHandler(INavigatorContext ctx, PokegrafDbContext dbContext) : base(ctx)
+        public SetNameCommandActionHandler(INavigatorContext ctx, ILogger<SetNameCommandActionHandler> logger, PokegrafDbContext dbContext) : base(ctx)
         {
+            Logger = logger;
             DbContext = dbContext;
         }
 

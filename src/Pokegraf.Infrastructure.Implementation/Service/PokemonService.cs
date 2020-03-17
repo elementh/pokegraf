@@ -1,4 +1,4 @@
-using Microsoft.Extensions.Caching.Distributed;
+﻿using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using PokeAPI;
@@ -6,6 +6,7 @@ using Pokegraf.Infrastructure.Contract.Dto.Pokemon;
 using Pokegraf.Infrastructure.Contract.Service;
 using System;
 using System.Threading.Tasks;
+using Pokegraf.Common.Helper;
 using Pokegraf.Infrastructure.Implementation.Helper;
 
 namespace Pokegraf.Infrastructure.Implementation.Service
@@ -23,7 +24,7 @@ namespace Pokegraf.Infrastructure.Implementation.Service
 
         public async Task<PokemonDto?> GetPokemon(int pokeNumber)
         {
-            var rawCachedPokemon = await Cache.GetStringAsync($"pokemon:{pokeNumber}");
+            var rawCachedPokemon = await Cache.GetStringAsync(CacheKeys.Pokemon(pokeNumber));
 
             if (rawCachedPokemon != null)
             {
@@ -65,7 +66,7 @@ namespace Pokegraf.Infrastructure.Implementation.Service
                 Next = await PokeHelper.GetPokemonNext(pokeNumber)
             };
 
-            await Cache.SetStringAsync($"pokemon:{dto.Id}", JsonConvert.SerializeObject(dto));
+            await Cache.SetStringAsync(CacheKeys.Pokemon(dto.Id), JsonConvert.SerializeObject(dto));
             
             return dto;
         }

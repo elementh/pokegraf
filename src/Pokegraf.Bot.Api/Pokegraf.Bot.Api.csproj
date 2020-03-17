@@ -16,6 +16,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Pokegraf.Core.Domain\Pokegraf.Core.Domain.csproj" />
       <ProjectReference Include="..\Pokegraf.Core.Entity\Pokegraf.Core.Entity.csproj" />
       <ProjectReference Include="..\Pokegraf.Persistence.Migration\Pokegraf.Persistence.Migration.csproj" />
       <ProjectReference Include="..\Pokegraf.Persistence\Pokegraf.Persistence.csproj" />

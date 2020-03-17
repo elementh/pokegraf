@@ -13,7 +13,7 @@ namespace Pokegraf.Common.Helper
         private static readonly ThreadLocal<Random> RandomWrapper = new ThreadLocal<Random>
             (() => new Random(Interlocked.Increment(ref _seed)));
 
-        public static Random? GetThreadRandom()
+        public static Random GetThreadRandom()
         {
             return RandomWrapper.Value;
         }

@@ -27,7 +27,7 @@ namespace Pokegraf.Core.Domain.Extensions
         {
             var pokemonBeforeCallback = new Dictionary<string, string>
             {
-                {"action", "pokemon_before"}, 
+                {"action", "pokemon_previous"}, 
                 {"requested_pokemon", pokemonDto.Before.Item1.ToString()}
             };
             
@@ -62,7 +62,7 @@ namespace Pokegraf.Core.Domain.Extensions
         {
             var pokemonBeforeCallback = new Dictionary<string, string>
             {
-                {"action", "pokemon_before"}, 
+                {"action", "pokemon_previous"}, 
                 {"requested_pokemon", pokemonDto.Before.Item1.ToString()}
             };
             
