@@ -7,7 +7,6 @@ using Navigator.Actions;
 using Pokegraf.Core.Domain.Extensions;
 using Pokegraf.Infrastructure.Contract.Service;
 using Telegram.Bot.Types;
-using Telegram.Bot.Types.Enums;
 
 namespace Pokegraf.Core.Domain.Actions.Callback.PokemonStats
 {

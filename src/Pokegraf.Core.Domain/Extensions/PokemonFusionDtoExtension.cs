@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using Newtonsoft.Json;
 using Pokegraf.Common.Resources;
 using Pokegraf.Core.Domain.Resources;
 using Pokegraf.Infrastructure.Contract.Dto.Pokemon;

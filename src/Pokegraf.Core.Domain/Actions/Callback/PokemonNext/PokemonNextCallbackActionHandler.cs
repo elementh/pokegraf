@@ -6,7 +6,6 @@ using Navigator.Abstraction;
 using Navigator.Actions;
 using Pokegraf.Core.Domain.Extensions;
 using Pokegraf.Infrastructure.Contract.Service;
-using Pokegraf.Infrastructure.Implementation.Service;
 using Telegram.Bot.Types;
 
 namespace Pokegraf.Core.Domain.Actions.Callback.PokemonNext

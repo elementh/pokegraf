@@ -9,7 +9,6 @@ using Microsoft.Extensions.Hosting;
 using Navigator;
 using Navigator.Extensions.Store;
 using Navigator.Extensions.Store.Configuration;
-using Pokegraf.Core.Domain.Actions.Command.About;
 using Pokegraf.Core.Domain.Actions.Command.Start;
 using Pokegraf.Core.Domain.Stats.Service;
 using Pokegraf.Core.Entity;
