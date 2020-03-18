@@ -99,6 +99,16 @@ namespace Pokegraf.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hello Trainer! Welcome to [@pokegraf_bot](https://t.me/pokegraf_bot) !
+        ///To start just type /pokemon or use me *inline*. Have fun and catch &apos;em all!.
+        /// </summary>
+        public static string StartText {
+            get {
+                return ResourceManager.GetString("StartText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sorry *Trainer*, seems like I can&apos;t get you this data right now! Try again later!.
         /// </summary>
         public static string StatsErrorMessage {

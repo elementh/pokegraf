@@ -15,6 +15,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="StartText" xml:space="preserve">
+    <value>Hello Trainer! Welcome to [@pokegraf_bot](https://t.me/pokegraf_bot) !
+To start just type /pokemon or use me *inline*. Have fun and catch 'em all!</value>
+  </data>
   <data name="AboutText" xml:space="preserve">
     <value>[pokegraf](https://github.com/elementh/pokegraf) is a bot made with ❤️ and gratitude by [Lucas Maximiliano Marino](https://lucasmarino.me/) with the help of [contributors](https://github.com/elementh/pokegraf/blob/master/CONTRIBUTORS.md)! 
 It uses the [PokeAPI](https://github.com/PokeAPI/pokeapi) and [Pokemon Fusion](https://pokemon.alexonsager.net/). 
