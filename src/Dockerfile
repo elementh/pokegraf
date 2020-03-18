@@ -1,32 +1,29 @@
-FROM microsoft/dotnet:sdk AS build-env
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
+WORKDIR /src
+
+COPY *.sln ./
+
+COPY Pokegraf.Bot.Api/*.csproj Pokegraf.Bot.Api/
+COPY Pokegraf.Common/*.csproj Pokegraf.Common/
+COPY Pokegraf.Core.Domain/*.csproj Pokegraf.Core.Domain/
+COPY Pokegraf.Core.Entity/*.csproj Pokegraf.Core.Entity/
+COPY Pokegraf.Infrastructure.Contract/*.csproj Pokegraf.Infrastructure.Contract/
+COPY Pokegraf.Infrastructure.Implementation/*.csproj Pokegraf.Infrastructure.Implementation/
+COPY Pokegraf.Persistence/*.csproj Pokegraf.Persistence/
+COPY Pokegraf.Persistence.Migration/*.csproj Pokegraf.Persistence.Migration/
+
+RUN dotnet restore -r linux-musl-x64
+
+COPY . .
+WORKDIR /src/Pokegraf
+RUN dotnet publish -c Release -o /app -r linux-musl-x64 --self-contained false --no-restore ../Pokegraf.sln 
+
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-alpine
 WORKDIR /app
+COPY --from=build /app ./
+
 ENV ASPNETCORE_ENVIRONMENT=Production
 ENV ASPNETCORE_URLS http://*:5100
 EXPOSE 5100
 
-FROM microsoft/dotnet:sdk as builder
-ARG Configuration=Release
-WORKDIR /src
-COPY *.sln ./
-
-COPY Pokegraf.Api.WebApi/*.csproj Pokegraf.Api.WebApi/
-COPY Pokegraf.Application.Contract/*.csproj Pokegraf.Application.Contract/
-COPY Pokegraf.Application.Implementation/*.csproj Pokegraf.Application.Implementation/
-COPY Pokegraf.Common/*.csproj Pokegraf.Common/
-COPY Pokegraf.Common.IoC/*.csproj Pokegraf.Common.IoC/
-COPY Pokegraf.Infrastructure.Contract/*.csproj Pokegraf.Infrastructure.Contract/
-COPY Pokegraf.Infrastructure.Implementation/*.csproj Pokegraf.Infrastructure.Implementation/
-
-RUN dotnet restore
-COPY . .
-WORKDIR /src/Pokegraf
-RUN dotnet build -c $Configuration -o /app ../Pokegraf.sln 
-
-FROM builder as publish
-ARG Configuration=Release
-RUN dotnet publish -c $Configuration -o /app ../Pokegraf.sln
-
-FROM microsoft/dotnet:aspnetcore-runtime
-WORKDIR /app
-COPY --from=publish /app .
-ENTRYPOINT ["dotnet", "Pokegraf.Api.WebApi.dll"]
+ENTRYPOINT ["dotnet", "Pokegraf.Bot.Api.dll"]
