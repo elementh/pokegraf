@@ -17,8 +17,11 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Pokegraf.Common\Pokegraf.Common.csproj" />
       <ProjectReference Include="..\Pokegraf.Core.Domain\Pokegraf.Core.Domain.csproj" />
       <ProjectReference Include="..\Pokegraf.Core.Entity\Pokegraf.Core.Entity.csproj" />
+      <ProjectReference Include="..\Pokegraf.Infrastructure.Contract\Pokegraf.Infrastructure.Contract.csproj" />
+      <ProjectReference Include="..\Pokegraf.Infrastructure.Implementation\Pokegraf.Infrastructure.Implementation.csproj" />
       <ProjectReference Include="..\Pokegraf.Persistence.Migration\Pokegraf.Persistence.Migration.csproj" />
       <ProjectReference Include="..\Pokegraf.Persistence\Pokegraf.Persistence.csproj" />
     </ItemGroup>
