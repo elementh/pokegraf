@@ -35,10 +35,27 @@ namespace Pokegraf.Bot.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddNewtonsoftJson();
-            
+
             services.AddMediatR(typeof(Startup).Assembly);
 
             services.AddScoped<IGlobalStatsService, GlobalStatsService>();
+
+            #region Cache
+
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+            {
+                services.AddDistributedMemoryCache();
+            }
+            else
+            {
+                services.AddStackExchangeRedisCache(options =>
+                {
+                    options.Configuration = Configuration["POKEGRAF_REDIS_CACHE_URL"];
+                    options.InstanceName = "pokegraf_cache:";
+                });
+            }
+
+            #endregion
 
             #region Navigator
 
@@ -48,14 +65,9 @@ namespace Pokegraf.Bot.Api
                 options.BaseWebHookUrl = Configuration["BASE_WEBHOOK_URL"];
             }, typeof(AboutCommandAction).Assembly);
 
-            services.AddNavigatorStore<PokegrafDbContext, Trainer>(builder =>
-                {
-                    builder.UseNpgsql(Configuration["CONNECTION_STRING"], b => b.MigrationsAssembly("Pokegraf.Persistence.Migration"));                    
-                },
-                options =>
-                {
-                    options.SeUserMapper<TrainerMapper>();
-                });
+            services.AddNavigatorStore<PokegrafDbContext, Trainer>(
+                builder => { builder.UseNpgsql(Configuration["CONNECTION_STRING"], b => b.MigrationsAssembly("Pokegraf.Persistence.Migration")); },
+                options => { options.SeUserMapper<TrainerMapper>(); });
 
             #endregion
         }
