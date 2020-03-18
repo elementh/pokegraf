@@ -18,6 +18,8 @@ using Navigator.Extensions.Store.Configuration;
 using Pokegraf.Core.Domain.Actions.Command.About;
 using Pokegraf.Core.Domain.Stats.Service;
 using Pokegraf.Core.Entity;
+using Pokegraf.Infrastructure.Contract.Service;
+using Pokegraf.Infrastructure.Implementation.Service;
 using Pokegraf.Persistence.Context;
 
 namespace Pokegraf.Bot.Api
@@ -36,10 +38,16 @@ namespace Pokegraf.Bot.Api
         {
             services.AddControllers().AddNewtonsoftJson();
 
-            services.AddMediatR(typeof(Startup).Assembly);
+            services.AddMediatR(typeof(AboutCommandAction).Assembly);
 
             services.AddScoped<IGlobalStatsService, GlobalStatsService>();
 
+            #region Infrastructure
+
+            services.AddScoped<IPokemonService, PokemonService>();
+
+            #endregion
+            
             #region Cache
 
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
@@ -79,14 +87,23 @@ namespace Pokegraf.Bot.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseHttpsRedirection();
-
+            else
+            {
+                app.UseHttpsRedirection();
+            }
+            
+            using var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope();
+            serviceScope.ServiceProvider.GetRequiredService<PokegrafDbContext>().Database.Migrate();
+            
             app.UseRouting();
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+                endpoints.MapNavigator();
+            });
         }
     }
 }

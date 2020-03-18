@@ -16,8 +16,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutText" xml:space="preserve">
-    <value>[pokegraf](https://github.com/elementh/pokegraf) is a bot made with ❤️ by [Lucas Maximiliano Marino](https://lucasmarino.me/) with the help of [contributors](https://github.com/elementh/pokegraf/blob/master/CONTRIBUTORS.md)!.  
-It uses the [PokeAPI](https://github.com/PokeAPI/pokeapi) and [Pokemon Fusion](https://pokemon.alexonsager.net/).  
+    <value>[pokegraf](https://github.com/elementh/pokegraf) is a bot made with ❤️ and gratitude by [Lucas Maximiliano Marino](https://lucasmarino.me/) with the help of [contributors](https://github.com/elementh/pokegraf/blob/master/CONTRIBUTORS.md)! 
+It uses the [PokeAPI](https://github.com/PokeAPI/pokeapi) and [Pokemon Fusion](https://pokemon.alexonsager.net/). 
 Pokémon ©1995 [pokémon](https://www.pokemon.com/), [nintendo](https://www.nintendo.com/), [game freak](https://www.gamefreak.co.jp/), [creatures](https://www.creatures.co.jp/html/en/).</value>
   </data>  
   <data name="MoreFusion" xml:space="preserve">

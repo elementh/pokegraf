@@ -31,7 +31,7 @@ namespace Pokegraf.Core.Domain.Actions.Callback.MoreFusion
                     fusionResult.ToInlineQueryResultPhoto().ReplyMarkup, cancellationToken);
 
                 await Ctx.Client.EditMessageCaptionAsync(Ctx.GetTelegramChat(), Ctx.GetCallbackQuery().Message.MessageId, fusionResult.Name,
-                    cancellationToken: cancellationToken);
+                    fusionResult.ToInlineQueryResultPhoto().ReplyMarkup, cancellationToken);
             }
             else
             {
@@ -39,7 +39,7 @@ namespace Pokegraf.Core.Domain.Actions.Callback.MoreFusion
                     fusionResult.ToInlineQueryResultPhoto().ReplyMarkup, cancellationToken);
 
                 await Ctx.Client.EditMessageCaptionAsync(Ctx.GetCallbackQuery().InlineMessageId, fusionResult.Name,
-                    cancellationToken: cancellationToken);
+                    fusionResult.ToInlineQueryResultPhoto().ReplyMarkup, cancellationToken);
             }
 
             return default;

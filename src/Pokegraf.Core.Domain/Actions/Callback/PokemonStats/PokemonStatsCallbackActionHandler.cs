@@ -35,16 +35,16 @@ namespace Pokegraf.Core.Domain.Actions.Callback.PokemonStats
                 await Ctx.Client.EditMessageMediaAsync(Ctx.GetTelegramChat(), Ctx.GetCallbackQuery().Message.MessageId, photo,
                     pokemonDto.ToStatsKeyboard(), cancellationToken);
 
-                await Ctx.Client.EditMessageCaptionAsync(Ctx.GetTelegramChat(), Ctx.GetCallbackQuery().Message.MessageId, pokemonDto.Description,
-                    cancellationToken: cancellationToken);
+                await Ctx.Client.EditMessageCaptionAsync(Ctx.GetTelegramChat(), Ctx.GetCallbackQuery().Message.MessageId, pokemonDto.ToStatsCaption(),
+                    pokemonDto.ToStatsKeyboard(), cancellationToken);
             }
             else
             {
                 await Ctx.Client.EditMessageMediaAsync(Ctx.GetCallbackQuery().InlineMessageId, photo,
                     pokemonDto.ToStatsKeyboard(), cancellationToken);
 
-                await Ctx.Client.EditMessageCaptionAsync(Ctx.GetCallbackQuery().InlineMessageId, pokemonDto.Description,
-                    cancellationToken: cancellationToken);
+                await Ctx.Client.EditMessageCaptionAsync(Ctx.GetCallbackQuery().InlineMessageId, pokemonDto.ToStatsCaption(),
+                    pokemonDto.ToStatsKeyboard(), cancellationToken);
             }
 
             return default;

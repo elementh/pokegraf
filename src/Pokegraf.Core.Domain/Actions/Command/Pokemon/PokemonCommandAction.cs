@@ -7,7 +7,7 @@ namespace Pokegraf.Core.Domain.Actions.Command.Pokemon
     {
         public override bool CanHandle(INavigatorContext ctx)
         {
-            return Command.ToLower() == "/pokemon" || Command.ToLower() == "/pkm" || Command.ToLower() == "/pokémon";
+            return Command.ToLower() == "/pokemon" || Command.ToLower() == "/pkm" || Command.ToLower() == "/pok";
         }
     }
 }

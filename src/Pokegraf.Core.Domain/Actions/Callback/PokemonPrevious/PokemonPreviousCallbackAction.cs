@@ -16,6 +16,8 @@ namespace Pokegraf.Core.Domain.Actions.Callback.PokemonPrevious
 
         public override IAction Init(INavigatorContext ctx)
         {
+            base.Init(ctx);
+
             Dictionary<string, string> callbackData;
             try
             {

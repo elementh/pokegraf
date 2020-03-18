@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
 using Pokegraf.Infrastructure.Contract.Dto.Pokemon;
@@ -16,7 +17,7 @@ namespace Pokegraf.Core.Domain.Extensions
                 pokemonDto.Image,
                 pokemonDto.Sprite ?? pokemonDto.Image)
             {
-                Caption = pokemonDto.Name,
+                Caption = pokemonDto.Description,
                 Title = pokemonDto.Name,
                 Description = pokemonDto.Description,
                 ReplyMarkup = pokemonDto.ToDescriptionKeyboard()
@@ -42,6 +43,13 @@ namespace Pokegraf.Core.Domain.Extensions
                 {"action", "pokemon_stats"},
                 {"requested_pokemon", pokemonDto.Id.ToString()}
             };
+            
+            var pokemonNext = pokemonDto.Next.Item2;
+
+            if (pokemonNext.Length > 8)
+            {
+                pokemonNext = $"{new string(pokemonDto.Next.Item2.Take(5).ToArray())}...";
+            }
 
             return new InlineKeyboardMarkup(new[]
             {
@@ -53,7 +61,7 @@ namespace Pokegraf.Core.Domain.Extensions
                 {
                     InlineKeyboardButton.WithCallbackData($"⬅ {pokemonDto.Before.Item2}", JsonConvert.SerializeObject(pokemonBeforeCallback)),
                     InlineKeyboardButton.WithCallbackData($"{pokemonDto.Name}", "no_callback"),
-                    InlineKeyboardButton.WithCallbackData($"{pokemonDto.Next.Item2} ➡", JsonConvert.SerializeObject(pokemonNextCallback))
+                    InlineKeyboardButton.WithCallbackData($"{pokemonNext} ➡", JsonConvert.SerializeObject(pokemonNextCallback))
                 }
             });
         }
@@ -78,6 +86,13 @@ namespace Pokegraf.Core.Domain.Extensions
                 {"requested_pokemon", pokemonDto.Id.ToString()}
             };
 
+            var pokemonNext = pokemonDto.Next.Item2;
+            
+            if (pokemonNext.Length > 8)
+            {
+                pokemonNext = $"{new string(pokemonDto.Next.Item2.Take(5).ToArray())}...";
+            }
+            
             return new InlineKeyboardMarkup(new[]
             {
                 new[]
@@ -88,7 +103,7 @@ namespace Pokegraf.Core.Domain.Extensions
                 {
                     InlineKeyboardButton.WithCallbackData($"⬅ {pokemonDto.Before.Item2}", JsonConvert.SerializeObject(pokemonBeforeCallback)),
                     InlineKeyboardButton.WithCallbackData($"{pokemonDto.Name}", "no_callback"),
-                    InlineKeyboardButton.WithCallbackData($"{pokemonDto.Next.Item2} ➡", JsonConvert.SerializeObject(pokemonNextCallback))
+                    InlineKeyboardButton.WithCallbackData($"{pokemonNext} ➡", JsonConvert.SerializeObject(pokemonNextCallback))
                 }
             });
         }

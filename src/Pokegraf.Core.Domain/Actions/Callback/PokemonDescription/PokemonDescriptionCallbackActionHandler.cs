@@ -35,7 +35,7 @@ namespace Pokegraf.Core.Domain.Actions.Callback.PokemonDescription
                     pokemonDto.ToDescriptionKeyboard(), cancellationToken);
 
                 await Ctx.Client.EditMessageCaptionAsync(Ctx.GetTelegramChat(), Ctx.GetCallbackQuery().Message.MessageId, pokemonDto.Description,
-                    cancellationToken: cancellationToken);
+                    pokemonDto.ToDescriptionKeyboard(), cancellationToken);
             }
             else
             {
@@ -43,7 +43,7 @@ namespace Pokegraf.Core.Domain.Actions.Callback.PokemonDescription
                     pokemonDto.ToDescriptionKeyboard(), cancellationToken);
 
                 await Ctx.Client.EditMessageCaptionAsync(Ctx.GetCallbackQuery().InlineMessageId, pokemonDto.Description,
-                    cancellationToken: cancellationToken);
+                    pokemonDto.ToDescriptionKeyboard(), cancellationToken);
             }
 
             return default;
